@@ -20,7 +20,23 @@ namespace PTT3
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            MessageBox.Show("Test");
+        }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int row = -1;
+            int column = -1;
+
+            row = dataGridView1.CurrentCell.RowIndex;
+            column = dataGridView1.CurrentCell.ColumnIndex;
+
+            MessageBox.Show("Row and column: " + row + "," + column);
         }
     }
 }
