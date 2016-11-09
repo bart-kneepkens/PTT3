@@ -1,1 +1,9 @@
 Z:\Repo\gui\PTT3\PTT3\bin\Debug\PTT3.exe.config
+Z:\Repo\gui\PTT3\PTT3\bin\Debug\PTT3.exe
+Z:\Repo\gui\PTT3\PTT3\bin\Debug\PTT3.pdb
+Z:\Repo\gui\PTT3\PTT3\obj\Debug\PTT3.csprojResolveAssemblyReference.cache
+Z:\Repo\gui\PTT3\PTT3\obj\Debug\PTT3.Form1.resources
+Z:\Repo\gui\PTT3\PTT3\obj\Debug\PTT3.Properties.Resources.resources
+Z:\Repo\gui\PTT3\PTT3\obj\Debug\PTT3.csproj.GenerateResource.Cache
+Z:\Repo\gui\PTT3\PTT3\obj\Debug\PTT3.exe
+Z:\Repo\gui\PTT3\PTT3\obj\Debug\PTT3.pdb

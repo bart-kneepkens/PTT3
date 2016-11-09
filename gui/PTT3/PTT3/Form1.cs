@@ -15,6 +15,12 @@ namespace PTT3
         public Form1()
         {
             InitializeComponent();
+            dataGridView1.RowCount = 10;
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
