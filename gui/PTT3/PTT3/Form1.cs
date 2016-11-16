@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,9 +20,6 @@ namespace PTT3
             InitializeComponent();
             dataGridView1.RowCount = 10;
             maze = new int[10, 10];
-
-            maze[1, 2] = 1;
-            maze[8, 3] = 1;
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -34,7 +33,6 @@ namespace PTT3
             maze[row, column] = 1;
 
             System.Diagnostics.Debug.WriteLine((column + "," + row + " selected."));
-            //dataGridView1.Refresh();
 
             dataGridView1.CurrentCell.Style.BackColor = Color.Black;
             dataGridView1.CurrentCell = null;
@@ -48,7 +46,30 @@ namespace PTT3
             {
                 String path = openFileDialog1.FileName;
 
+                using (StreamReader r = new StreamReader(path))
+                {
+                    string json = r.ReadToEnd();
 
+                    MessageBox.Show(json);
+
+                    int[,] deserialized = JsonConvert.DeserializeObject<Maze>(json).maze;
+
+                    maze = deserialized;
+
+                    dataGridView1.Refresh();
+                    dataGridView1.Update();
+
+                    dataGridView1.CurrentCell = null;
+                }
+
+            }
+        }
+
+        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (maze[e.RowIndex, e.ColumnIndex] == 1)
+            {
+                e.CellStyle.BackColor = Color.Black;
             }
         }
     }

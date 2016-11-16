@@ -7,3 +7,5 @@ Z:\Repo\gui\PTT3\PTT3\obj\Debug\PTT3.Properties.Resources.resources
 Z:\Repo\gui\PTT3\PTT3\obj\Debug\PTT3.csproj.GenerateResource.Cache
 Z:\Repo\gui\PTT3\PTT3\obj\Debug\PTT3.exe
 Z:\Repo\gui\PTT3\PTT3\obj\Debug\PTT3.pdb
+Z:\Repo\gui\PTT3\PTT3\bin\Debug\Newtonsoft.Json.dll
+Z:\Repo\gui\PTT3\PTT3\bin\Debug\Newtonsoft.Json.xml
