@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace PTT3
 {
+    // The point of this class is to encapsulate the maze, so it becomes easier to (de)serialize from and to JSON.
     class Maze
     {
         public int[,] maze;

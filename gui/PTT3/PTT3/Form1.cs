@@ -14,36 +14,47 @@ namespace PTT3
 {
     public partial class Form1 : Form
     {
-        int[,] maze;
+        Maze CurrentMaze;
+
         public Form1()
         {
             InitializeComponent();
-            dataGridView1.RowCount = 10;
-            maze = new int[10, 10];
+            dataGridViewMaze.RowCount = 10;
+
+            CurrentMaze = new Maze();
+            CurrentMaze.maze = new int[10, 10];
+
+            saveFileDialog1.DefaultExt = "json";
+            saveFileDialog1.FileName = "maze";
         }
 
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridViewMaze_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            int row = -1;
-            int column = -1;
-
-            row = dataGridView1.CurrentCell.RowIndex;
-            column = dataGridView1.CurrentCell.ColumnIndex;
-
-            if (maze[row, column] == 0)
+            if (CurrentMaze.maze[e.RowIndex, e.ColumnIndex] == 1)
             {
-                maze[row, column] = 1;
-            } else
+                e.CellStyle.BackColor = Color.Black;
+            }
+        }
+
+        private void dataGridViewMaze_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int row = dataGridViewMaze.CurrentCell.RowIndex;
+            int column = dataGridViewMaze.CurrentCell.ColumnIndex;
+
+            if (CurrentMaze.maze[row, column] == 0)
             {
-                maze[row, column] = 0;
+                CurrentMaze.maze[row, column] = 1;
+            }
+            else
+            {
+                CurrentMaze.maze[row, column] = 0;
             }
 
-            System.Diagnostics.Debug.WriteLine((column + "," + row + " selected."));
-            dataGridView1.CurrentCell = null;
+            // This line makes sure the cell is updated.
+            dataGridViewMaze.CurrentCell = null;
         }
 
-
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonLoad_Click(object sender, EventArgs e)
         {
             DialogResult result = openFileDialog1.ShowDialog();
             if (result == DialogResult.OK)
@@ -54,26 +65,33 @@ namespace PTT3
                 {
                     string json = r.ReadToEnd();
 
-                    MessageBox.Show(json);
-
                     int[,] deserialized = JsonConvert.DeserializeObject<Maze>(json).maze;
 
-                    maze = deserialized;
+                    CurrentMaze.maze = deserialized;
 
-                    dataGridView1.Refresh();
-                    dataGridView1.Update();
+                    // This line makes sure the cell is updated.
+                    dataGridViewMaze.CurrentCell = null;
 
-                    dataGridView1.CurrentCell = null;
+                    dataGridViewMaze.Refresh();
                 }
 
             }
         }
 
-        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private void buttonSave_Click(object sender, EventArgs e)
         {
-            if (maze[e.RowIndex, e.ColumnIndex] == 1)
+            DialogResult result = saveFileDialog1.ShowDialog();
+
+            if(result == DialogResult.OK)
             {
-                e.CellStyle.BackColor = Color.Black;
+                String path = saveFileDialog1.FileName;
+
+                using (StreamWriter wr = new StreamWriter(path))
+                {
+                    string json = JsonConvert.SerializeObject(CurrentMaze);
+
+                    wr.Write(json);
+                }
             }
         }
     }
