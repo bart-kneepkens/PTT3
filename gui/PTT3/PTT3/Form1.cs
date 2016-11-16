@@ -17,12 +17,10 @@ namespace PTT3
         {
             InitializeComponent();
             dataGridView1.RowCount = 10;
-            maze = new int[10,10];
-        }
+            maze = new int[10, 10];
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            MessageBox.Show("Test");
+            maze[1, 2] = 1;
+            maze[8, 3] = 1;
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -33,18 +31,25 @@ namespace PTT3
             row = dataGridView1.CurrentCell.RowIndex;
             column = dataGridView1.CurrentCell.ColumnIndex;
 
-            System.Diagnostics.Debug.WriteLine((column + "," + row + " selected."));
+            maze[row, column] = 1;
 
-            maze[row,column] = 1;
-            dataGridView1.Refresh();
+            System.Diagnostics.Debug.WriteLine((column + "," + row + " selected."));
+            //dataGridView1.Refresh();
+
+            dataGridView1.CurrentCell.Style.BackColor = Color.Black;
+            dataGridView1.CurrentCell = null;
         }
 
-        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+
+        private void button1_Click(object sender, EventArgs e)
         {
-                    if (maze[e.RowIndex,e.ColumnIndex] == 1)
-                    {
-                        e.CellStyle.BackColor = Color.Black;
-                    }
+            DialogResult result = openFileDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                String path = openFileDialog1.FileName;
+
+
+            }
         }
     }
 }
