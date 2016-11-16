@@ -30,11 +30,15 @@ namespace PTT3
             row = dataGridView1.CurrentCell.RowIndex;
             column = dataGridView1.CurrentCell.ColumnIndex;
 
-            maze[row, column] = 1;
+            if (maze[row, column] == 0)
+            {
+                maze[row, column] = 1;
+            } else
+            {
+                maze[row, column] = 0;
+            }
 
             System.Diagnostics.Debug.WriteLine((column + "," + row + " selected."));
-
-            dataGridView1.CurrentCell.Style.BackColor = Color.Black;
             dataGridView1.CurrentCell = null;
         }
 
