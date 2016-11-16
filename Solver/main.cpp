@@ -11,11 +11,11 @@ int main() {
             {1, 1, 1, 0, 1, 1}};
 
     const nlohmann::json j = {"maze", maze};
-    nlohmann::json::array
+    //nlohmann::json::array
     //std::string str = j.dump(4);
     //std::cout << str << std::endl;
 
-    maze_parser::validateMaze(maze);
+    std::cout << maze_parser::allToJson(maze, maze, true).dump(2) << std::endl;
 
     return 0;
 }
