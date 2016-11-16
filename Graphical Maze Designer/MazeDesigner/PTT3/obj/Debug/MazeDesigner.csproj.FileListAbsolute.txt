@@ -2,3 +2,14 @@ Z:\Repo\gui\MazeDesigner\PTT3\bin\Debug\PTT3.exe.config
 Z:\Repo\gui\MazeDesigner\PTT3\obj\Debug\PTT3.exe
 Z:\Repo\gui\MazeDesigner\PTT3\obj\Debug\PTT3.pdb
 Z:\Repo\gui\MazeDesigner\PTT3\bin\Debug\MazeDesigner.exe.config
+Z:\Repo\Graphical Maze Designer\MazeDesigner\PTT3\bin\Debug\MazeDesigner.exe.config
+Z:\Repo\Graphical Maze Designer\MazeDesigner\PTT3\bin\Debug\MazeDesigner.exe
+Z:\Repo\Graphical Maze Designer\MazeDesigner\PTT3\bin\Debug\MazeDesigner.pdb
+Z:\Repo\Graphical Maze Designer\MazeDesigner\PTT3\bin\Debug\Newtonsoft.Json.dll
+Z:\Repo\Graphical Maze Designer\MazeDesigner\PTT3\bin\Debug\Newtonsoft.Json.xml
+Z:\Repo\Graphical Maze Designer\MazeDesigner\PTT3\obj\Debug\MazeDesigner.csprojResolveAssemblyReference.cache
+Z:\Repo\Graphical Maze Designer\MazeDesigner\PTT3\obj\Debug\PTT3.Form1.resources
+Z:\Repo\Graphical Maze Designer\MazeDesigner\PTT3\obj\Debug\MazeDesigner.Properties.Resources.resources
+Z:\Repo\Graphical Maze Designer\MazeDesigner\PTT3\obj\Debug\MazeDesigner.csproj.GenerateResource.Cache
+Z:\Repo\Graphical Maze Designer\MazeDesigner\PTT3\obj\Debug\MazeDesigner.exe
+Z:\Repo\Graphical Maze Designer\MazeDesigner\PTT3\obj\Debug\MazeDesigner.pdb

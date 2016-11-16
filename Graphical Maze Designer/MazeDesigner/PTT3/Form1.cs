@@ -33,25 +33,15 @@ namespace PTT3
             if (CurrentMaze.maze[e.RowIndex, e.ColumnIndex] == 1)
             {
                 e.CellStyle.BackColor = Color.Black;
+            } else if (CurrentMaze.maze[e.RowIndex, e.ColumnIndex] == 9)
+            {
+                e.CellStyle.BackColor = Color.DarkKhaki;
             }
         }
 
         private void dataGridViewMaze_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            int row = dataGridViewMaze.CurrentCell.RowIndex;
-            int column = dataGridViewMaze.CurrentCell.ColumnIndex;
-
-            if (CurrentMaze.maze[row, column] == 0)
-            {
-                CurrentMaze.maze[row, column] = 1;
-            }
-            else
-            {
-                CurrentMaze.maze[row, column] = 0;
-            }
-
-            // This line makes sure the cell is updated.
-            dataGridViewMaze.CurrentCell = null;
+        
         }
 
         private void buttonLoad_Click(object sender, EventArgs e)
@@ -93,6 +83,30 @@ namespace PTT3
                     wr.Write(json);
                 }
             }
+        }
+
+        private void dataGridViewMaze_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            int row = e.RowIndex;
+            int column = e.ColumnIndex;
+
+            if (e.Button == MouseButtons.Left)
+            {
+                if (CurrentMaze.maze[row, column] == 0)
+                {
+                    CurrentMaze.maze[row, column] = 1;
+                }
+                else
+                {
+                    CurrentMaze.maze[row, column] = 0;
+                }
+            } else
+            {
+                CurrentMaze.maze[row, column] = 9;
+            }
+
+            // This line makes sure the cell is updated.
+            dataGridViewMaze.CurrentCell = null;
         }
     }
 }
