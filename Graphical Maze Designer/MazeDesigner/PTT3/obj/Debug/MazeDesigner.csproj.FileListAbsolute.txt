@@ -1,0 +1,4 @@
+Z:\Repo\gui\MazeDesigner\PTT3\bin\Debug\PTT3.exe.config
+Z:\Repo\gui\MazeDesigner\PTT3\obj\Debug\PTT3.exe
+Z:\Repo\gui\MazeDesigner\PTT3\obj\Debug\PTT3.pdb
+Z:\Repo\gui\MazeDesigner\PTT3\bin\Debug\MazeDesigner.exe.config

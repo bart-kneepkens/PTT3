@@ -7,8 +7,8 @@
     <ProjectGuid>{9D2E45CF-5D74-429C-81BB-CED1503819DE}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PTT3</RootNamespace>
-    <AssemblyName>PTT3</AssemblyName>
+    <RootNamespace>MazeDesigner</RootNamespace>
+    <AssemblyName>MazeDesigner</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -70,6 +70,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
