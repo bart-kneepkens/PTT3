@@ -1,6 +1,5 @@
-#include "../../Documents/VPProjects/Solver.h"
-
-void Solver::StartSolving(int grid[][]) {
-	// TODO - implement Solver::StartSolving
-	throw "Not yet implemented";
-}
+#ifndef SOLVER_H
+#define SOLVER_H
+private:
+	
+#endif
