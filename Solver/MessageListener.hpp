@@ -1,6 +1,10 @@
-#include "../../Documents/VPProjects/MessageListener.h"
+#ifndef SOLVER_MESSAGELISTENER_HPP
+#define SOLVER_MESSAGELISTENER_HPP
 
-void MessageListener::OnMessageReceived(Message message) {
-	// TODO - implement MessageListener::OnMessageReceived
-	throw "Not yet implemented";
+#include "MazeMessage.hpp"
+
+namespace maze_solver {
+    void onMessageReceived(MazeMessage message);
 }
+
+#endif  // SOLVER_MESSAGELISTENER_HPP

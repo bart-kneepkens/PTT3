@@ -1,6 +1,10 @@
-#include "../../Documents/VPProjects/MessageSender.h"
+#ifndef SOLVER_MESSAGESENDER_HPP
+#define SOLVER_MESSAGESENDER_HPP
 
-void MessageSender::Send(int grid[][]) {
-	// TODO - implement MessageSender::Send
-	throw "Not yet implemented";
+#include "MazeMessage.hpp"
+
+namespace maze_solver {
+    void send(MazeMessage mazeMessage);
 }
+
+#endif  // SOLVER_MESSAGESENDER_HPP

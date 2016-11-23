@@ -1,6 +1,5 @@
-#include "../../Documents/VPProjects/MessageListener.h"
+#include "MessageListener.hpp"
 
-void MessageListener::OnMessageReceived(Message message) {
-	// TODO - implement MessageListener::OnMessageReceived
+void maze_solver::onMessageReceived(MazeMessage message) {
 	throw "Not yet implemented";
 }

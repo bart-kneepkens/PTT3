@@ -11,7 +11,7 @@ namespace {
 
 maze_solver::InvalidMazeException::InvalidMazeException(std::string errorMsg) : errorMsg(errorMsg) {}
 
-const char *maze_solver::InvalidMazeException::what() const {
+const char *maze_solver::InvalidMazeException::what() const throw() {
     return errorMsg.c_str();
 }
 
@@ -19,7 +19,7 @@ const char *maze_solver::InvalidMazeException::what() const {
 
 maze_solver::InvalidSolutionException::InvalidSolutionException(std::string errorMsg) : errorMsg(errorMsg) {}
 
-const char *maze_solver::InvalidSolutionException::what() const {
+const char *maze_solver::InvalidSolutionException::what() const throw() {
     return errorMsg.c_str();
 }
 
@@ -92,5 +92,18 @@ void maze_solver::validateSolution(vector<vector<char>> *solution) {
     }
 }
 
+std::string maze_solver::mazeMessageToJson(MazeMessage &mazeMessage, bool validate) {
 
+    // Validate the MazeMessage's fields.
+    if (validate) {
+        validateMaze(mazeMessage.Maze);
+        validateSolution(mazeMessage.Solution);
+    }
+
+    // Create JSON and return its string dump.
+    json asJson;
+    asJson[MAZE_JSON_KEY] = *mazeMessage.Maze;
+    asJson[SOLUTION_JSON_KEY] = *mazeMessage.Solution;
+    return asJson.dump(0);
+}
 
