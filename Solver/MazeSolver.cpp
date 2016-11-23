@@ -1,5 +1,5 @@
-#include "MazeSolver.hpp"
 #include "MazeMessage.hpp"
+#include "MazeSolver.hpp"
 #include <unistd.h>
 #include <iostream>
 
@@ -87,7 +87,7 @@ int main(){
     return 0;
 }
 
-MazeSolver::solve(MazeMessage maze){
+void maze_solver::MazeSolver::solve(maze_solver::MazeMessage maze){
     // Solve maze
     // Place the solution in the MazeMessage
 }

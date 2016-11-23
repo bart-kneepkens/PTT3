@@ -1,13 +1,16 @@
-#ifndef MAZESOLVER_H
-#define MAZESOLVER_H
+#ifndef SOLVER_MAZESOLVER_H
+#define SOLVER_MAZESOLVER_H
 
 #include "MazeMessage.hpp"
 
-class MazeSolver {
-private:
-    MazeMessage maze;
+namespace maze_solver {
     
-public:
-    void solve(MazeMessage maze);
-};
+    class MazeSolver {
+    private:
+        MazeMessage maze;
+        
+    public:
+        void solve(MazeMessage maze);
+    };
+}
 #endif
