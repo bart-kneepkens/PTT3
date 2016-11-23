@@ -7,10 +7,12 @@ namespace maze_solver {
     
     class MazeSolver {
     private:
-        MazeMessage maze;
-        
+        std::vector<std::vector<char>> maze;
+        bool solveForCoordinates(int X, int Y);
+        void printMaze();
     public:
-        void solve(MazeMessage maze);
+        MazeSolver();
+        void solve(MazeMessage maze_);
     };
 }
 #endif

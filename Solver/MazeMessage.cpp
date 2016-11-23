@@ -6,6 +6,6 @@ maze_solver::MazeMessage::MazeMessage(vector<vector<char> > *maze, vector<vector
 }
 
 maze_solver::MazeMessage::~MazeMessage() {
-    delete Maze;
+    //delete Maze;
     delete Solution;
 }
