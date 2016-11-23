@@ -22,7 +22,7 @@ namespace PTT3
             dataGridViewMaze.RowCount = 10;
 
             CurrentMaze = new Maze();
-            CurrentMaze.maze = new int[10, 10];
+            CurrentMaze.maze = new char[10, 10];
 
             saveFileDialog1.DefaultExt = "json";
             saveFileDialog1.FileName = "maze";
@@ -30,10 +30,10 @@ namespace PTT3
 
         private void dataGridViewMaze_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (CurrentMaze.maze[e.RowIndex, e.ColumnIndex] == 1)
+            if (CurrentMaze.maze[e.RowIndex, e.ColumnIndex] == '#')
             {
                 e.CellStyle.BackColor = Color.Black;
-            } else if (CurrentMaze.maze[e.RowIndex, e.ColumnIndex] == 9)
+            } else if (CurrentMaze.maze[e.RowIndex, e.ColumnIndex] == '$')
             {
                 e.CellStyle.BackColor = Color.DarkKhaki;
             }
@@ -55,7 +55,7 @@ namespace PTT3
                 {
                     string json = r.ReadToEnd();
 
-                    int[,] deserialized = JsonConvert.DeserializeObject<Maze>(json).maze;
+                    char[,] deserialized = JsonConvert.DeserializeObject<Maze>(json).maze;
 
                     CurrentMaze.maze = deserialized;
 
@@ -92,17 +92,17 @@ namespace PTT3
 
             if (e.Button == MouseButtons.Left)
             {
-                if (CurrentMaze.maze[row, column] == 0)
+                if (CurrentMaze.maze[row, column] == ' ' || CurrentMaze.maze[row,column] == '\0')
                 {
-                    CurrentMaze.maze[row, column] = 1;
+                    CurrentMaze.maze[row, column] = '#';
                 }
                 else
                 {
-                    CurrentMaze.maze[row, column] = 0;
+                    CurrentMaze.maze[row, column] = ' ';
                 }
             } else
             {
-                CurrentMaze.maze[row, column] = 9;
+                CurrentMaze.maze[row, column] = '$';
             }
 
             // This line makes sure the cell is updated.
