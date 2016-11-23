@@ -89,7 +89,6 @@ void maze_solver::MazeSolver::extractSolution(vector<std::vector<char> >* vector
     for(int i = 0; i < 10; i++){
         for(int j = 0; j < 10; j++){
             if((*vector)[i][j] != PERSON){
-                //std::cout << "REPLACED AT: " << i << "," << j << std::endl;
                 (*vector)[i][j] = FREE;
             }
         }
