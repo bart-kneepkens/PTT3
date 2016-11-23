@@ -1,14 +1,18 @@
-#ifndef MAZESOLVER_H
-#define MAZESOLVER_H
+#ifndef SOLVER_MAZESOLVER_H
+#define SOLVER_MAZESOLVER_H
 
 #include "MazeMessage.hpp"
-#include <iostream>
 
-class MazeSolver {
-private:
-    maze_solver::MazeMessage maze;
+namespace maze_solver {
     
-public:
-    void solve(maze_solver::MazeMessage maze);
-};
+    class MazeSolver {
+    private:
+        std::vector<std::vector<char>> maze;
+        bool solveForCoordinates(int X, int Y);
+        void printMaze();
+    public:
+        MazeSolver();
+        void solve(MazeMessage* message);
+    };
+}
 #endif
