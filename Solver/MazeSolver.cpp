@@ -22,7 +22,6 @@ COORD endingPoint;
 // For debugging
 void maze_solver::MazeSolver::printMaze(){
     for(int Y = 0; Y < 10; Y++){
-        
         for(int i=0; i<10; i++)
         {
             std::cout << maze[Y][i];
@@ -34,9 +33,6 @@ void maze_solver::MazeSolver::printMaze(){
 
 bool maze_solver::MazeSolver::solveForCoordinates(int X, int Y){
     maze[Y][X] = PERSON;
-    
-    //printMaze();
-    //usleep(500000);
     
     // check if reached goal
     if(X == endingPoint.X && Y == endingPoint.Y){
@@ -62,16 +58,13 @@ bool maze_solver::MazeSolver::solveForCoordinates(int X, int Y){
     
     // Otherwise we need to backtrack and find another solution.
     maze[Y][X] = FREE;
-    
-    //printMaze();
-    //usleep(500000);
+
     return false;
 }
 
 maze_solver::MazeSolver::MazeSolver(){}
 
 void maze_solver::MazeSolver::solve(maze_solver::MazeMessage* message){
-    
     this->maze = *(message->Maze);
     
     // Find starting and ending point
@@ -79,13 +72,27 @@ void maze_solver::MazeSolver::solve(maze_solver::MazeMessage* message){
     endingPoint = COORD(1,0);
     
     // Solve maze
-    
     if(solveForCoordinates(startingPoint.X, startingPoint.Y)){
+        vector<std::vector<char>>* solution = &(this->maze);
+        printMaze();
+        extractSolution(solution);
+        this->maze = *solution;
         printMaze();
         
-        message->Solution = &(this->maze);
-    }else {
+        message->Solution = solution;
+    } else {
         std::cout << "Not solved :(" << std::endl;
+    }
+}
+
+void maze_solver::MazeSolver::extractSolution(vector<std::vector<char> >* vector){
+    for(int i = 0; i < 10; i++){
+        for(int j = 0; j < 10; j++){
+            if((*vector)[i][j] != PERSON){
+                //std::cout << "REPLACED AT: " << i << "," << j << std::endl;
+                (*vector)[i][j] = FREE;
+            }
+        }
     }
 }
 

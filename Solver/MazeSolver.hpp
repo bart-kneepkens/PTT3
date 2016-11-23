@@ -10,6 +10,7 @@ namespace maze_solver {
         std::vector<std::vector<char>> maze;
         bool solveForCoordinates(int X, int Y);
         void printMaze();
+        void extractSolution(vector<std::vector<char> >* vector);
     public:
         MazeSolver();
         void solve(MazeMessage* message);
