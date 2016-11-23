@@ -107,3 +107,21 @@ std::string maze_solver::mazeMessageToJson(MazeMessage &mazeMessage, bool valida
     return asJson.dump(0);
 }
 
+maze_solver::MazeMessage* maze_solver::jsonToMazeMessage(std::string json, bool validate) {
+    auto fromJson = json::parse(json);
+    //std::cout << fromJson.dump(4);
+    MazeMessage* msg = new MazeMessage();
+
+    vector<char[]> dicks;
+
+    unsigned dataArraySize = sizeof(fromJson[MAZE_JSON_KEY]) / sizeof(char);
+
+
+    dicks.insert(dicks.end(), &fromJson[MAZE_JSON_KEY][0], &fromJson[MAZE_JSON_KEY][dataArraySize]);
+
+    std::cout << dicks[0] << std::endl;
+
+    throw "Not yet implemented!";
+    return msg;
+}
+

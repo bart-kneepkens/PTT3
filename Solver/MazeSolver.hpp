@@ -2,12 +2,13 @@
 #define MAZESOLVER_H
 
 #include "MazeMessage.hpp"
+#include <iostream>
 
 class MazeSolver {
 private:
-    MazeMessage maze;
+    maze_solver::MazeMessage maze;
     
 public:
-    void solve(MazeMessage maze);
+    void solve(maze_solver::MazeMessage maze);
 };
 #endif

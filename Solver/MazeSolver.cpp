@@ -12,7 +12,7 @@ const char mock_maze[10][11] =
     "#      # #",
     "#      # #",
     "######## #",
-}
+};
 
 const char WALL = '#';
 const char FREE = ' ';
@@ -29,14 +29,3 @@ public:
 COORD startingPoint = (1,0);
 COORD endingPoint = (7,8);
 
-void printMaze(MazeMessage maze){
-    for(int Y = 0; Y < 10, Y++){
-        std::cout << maze[Y] << std::endl;
-    }
-    std::cout << std::endl;
-}
-
-MazeSolver::solve(MazeMessage maze){
-    // Solve maze
-    // Place the solution in the MazeMessage
-}

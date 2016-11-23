@@ -19,8 +19,8 @@ namespace maze_solver {
      */
     namespace MazeBlockType {
         enum MazeBlockType {
-            EMPTY = '0',
-            WALL = '1'
+            EMPTY = 0,
+            WALL = 1
         };
     }
 
@@ -30,8 +30,8 @@ namespace maze_solver {
      */
     namespace SolutionBlockType {
         enum SolutionBlockType {
-            EMPTY = '0',
-            PATH = '1'
+            EMPTY = 0,
+            PATH = 1
         };
     }
 
@@ -100,6 +100,16 @@ namespace maze_solver {
      * @throws InvalidMazeException or InvalidSolutionException if validation is done and failed
      */
     std::string mazeMessageToJson(MazeMessage &mazeMessage, bool validate);
+
+    /**
+     * Parses the supplied JSON-string to a MazeMessage instance.
+     *
+     * @param json the JSON to parse
+     * @param validate whether to validate the MazeMessage
+     * @return a new MazeMessage
+     * @throws InvalidMazeException or InvalidSolutionException if validation is done and failed
+     */
+    MazeMessage* jsonToMazeMessage(std::string json, bool validate);
 }
 
 #endif // SOLVER_MAZEPARSER_HPP
