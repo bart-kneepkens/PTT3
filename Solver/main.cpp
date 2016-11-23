@@ -1,21 +1,39 @@
 #include <iostream>
 #include "MazeParser.hpp"
 
-int main() {
-    std::vector<std::vector<int>> maze = {
-            {1, 1, 0, 1, 1, 1},
-            {1, 0, 0, 0, 0, 1},
-            {1, 1, 0, 1, 0, 1},
-            {1, 0, 0, 0, 1, 1},
-            {1, 0, 1, 0, 0, 1},
-            {1, 1, 1, 0, 1, 1}};
+using std::vector;
 
-    const nlohmann::json j = {"maze", maze};
+int main() {
+    vector<vector<char>> *maze = new vector<vector<char>> ({
+            {'1', '1', '0', '1', '1', '1'},
+            {'1', '0', '0', '0', '0', '1'},
+            {'1', '1', '0', '1', '0', '1'},
+            {'1', '0', '0', '0', '1', '1'},
+            {'1', '0', '1', '0', '0', '1'},
+            {'1', '1', '1', '0', '1', '1'}});
+
+    vector<vector<char>> *solution = new vector<vector<char>> ({
+           {'0', '0', '1', '0', '0', '0'},
+           {'0', '0', '1', '0', '0', '0'},
+           {'0', '0', '1', '0', '0', '0'},
+           {'0', '0', '1', '1', '0', '0'},
+           {'0', '0', '0', '1', '0', '0'},
+           {'0', '0', '0', '1', '0', '0'}});
+
+    //vector<vector<int>> *fog = new vector<vector<int>>({{1, 1, 1}, {1, 1, 1}});
+
+    //std::cout << *solution->at(0).at(0) << std::endl;
+
+    maze_solver::MazeMessage message = maze_solver::MazeMessage(maze, solution);
+    std::string asJson = maze_solver::mazeMessageToJson(message, true);
+    std::cout << asJson << std::endl;
+
+    //const nlohmann::json j = {"maze", maze};
     //nlohmann::json::array
     //std::string str = j.dump(4);
     //std::cout << str << std::endl;
 
-    std::cout << maze_parser::allToJson(maze, maze, true).dump(2) << std::endl;
+    //std::cout << maze_solver::allToJson(maze, maze, true).dump(2) << std::endl;
 
     return 0;
 }

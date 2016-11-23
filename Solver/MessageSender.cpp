@@ -1,6 +1,5 @@
-#include "../../Documents/VPProjects/MessageSender.h"
+#include "MessageSender.hpp"
 
-void MessageSender::Send(int grid[][]) {
-	// TODO - implement MessageSender::Send
-	throw "Not yet implemented";
+void maze_solver::send(MazeMessage mazeMessage) {
+    throw "Not yet implemented";
 }
