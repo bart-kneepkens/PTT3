@@ -57,7 +57,7 @@ int main() {
     
     maze_solver::MazeSolver solv = maze_solver::MazeSolver();
     
-    solv.solve(mes);
+    solv.solve(&mes);
     
     return 0;
 }

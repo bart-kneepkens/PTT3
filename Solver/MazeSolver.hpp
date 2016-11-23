@@ -12,7 +12,7 @@ namespace maze_solver {
         void printMaze();
     public:
         MazeSolver();
-        void solve(MazeMessage maze_);
+        void solve(MazeMessage* message);
     };
 }
 #endif

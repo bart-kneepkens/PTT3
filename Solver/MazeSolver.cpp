@@ -16,8 +16,8 @@ public:
     COORD(const COORD &coord) { X = coord.X; Y  = coord.Y; }
 };
 
-COORD startingPoint = COORD(8,9);
-COORD endingPoint = COORD(1,0);
+COORD startingPoint;
+COORD endingPoint;
 
 // For debugging
 void maze_solver::MazeSolver::printMaze(){
@@ -70,25 +70,22 @@ bool maze_solver::MazeSolver::solveForCoordinates(int X, int Y){
 
 maze_solver::MazeSolver::MazeSolver(){}
 
-void maze_solver::MazeSolver::solve(maze_solver::MazeMessage maze_){
-    std::vector<std::vector<char>> mazeVector = *(maze_.Maze);
+void maze_solver::MazeSolver::solve(maze_solver::MazeMessage* message){
     
-    this->maze = mazeVector;
+    this->maze = *(message->Maze);
     
     // Find starting and ending point
-    // same for now
-    
-
-    
+    startingPoint = COORD(8,9);
+    endingPoint = COORD(1,0);
     
     // Solve maze
     
     if(solveForCoordinates(startingPoint.X, startingPoint.Y)){
         printMaze();
+        
+        message->Solution = &(this->maze);
     }else {
         std::cout << "Not solved :(" << std::endl;
     }
-    
-    // Place the solution in the MazeMessage
 }
 
