@@ -1,11 +1,11 @@
 #include <iostream>
-#include "MazeMessage.hpp"
 #include "MazeSolver.hpp"
+#include "MazeParser.hpp"
 
+using namespace maze_solver;    // Forgive me Father for I have sinned.
 using std::vector;
 
-
-std::vector<std::vector<char> > mock_maze {
+/*vector<vector<char> > * mock_maze = new vector<vector<char> >({
     {'#', ' ', '#', '#', '#', '#', '#', '#', '#', '#'},
     {'#', ' ', '#', '#', '#', '#', '#', '#', '#', '#'},
     {'#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', '#'},
@@ -16,9 +16,37 @@ std::vector<std::vector<char> > mock_maze {
     {'#', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', '#'},
     {'#', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', '#'},
     {'#', '#', '#', '#', '#', '#', '#', '#', ' ', '#'}
-};
+});*/
+
+vector<vector<std::string>> * mock_maze = new vector<vector<std::string> >({
+    {"#", " ", "#", "#", "#", "#", "#", "#", "#", "#"},
+    {"#", " ", "#", "#", "#", "#", "#", "#", "#", "#"},
+    {"#", " ", " ", " ", " ", " ", " ", " ", "#", "#"},
+    {"#", "#" ,"#" ,"#" ,"#" ,"#" ,"#" ," ", " ", "#"},
+    {"#", " ", " ", " ", " ", " ", " ", "#", " ", "#"},
+    {"#", " ", " ", " ", " ", " ", " ", "#", " ", "#"},
+    {"#", " ", " ", " ", " ", " ", " ", "#", " ", "#"},
+    {"#", " ", " ", " ", " ", " ", " ", "#", " ", "#"},
+    {"#", " ", " ", " ", " ", " ", " ", "#", " ", "#"},
+    {"#", "#", "#", "#", "#", "#", "#", "#", " ", "#"}});
+
+MazeMessage * msg = new MazeMessage(mock_maze, mock_maze);
 
 int main() {
+
+    std::string json = maze_solver::mazeMessageToJson(*msg, false, false);
+    MazeMessage *newMsg = maze_solver::jsonToMazeMessage(json, false, false);
+    //std::cout << *(newMsg->Maze) << std::endl;
+    //std::cout << newMsg->Solution << std::endl;
+
+    //std::cout << newMsg->Maze->at(0) << std::endl;
+    std::cout << maze_solver::mazeMessageToJson(*newMsg, false, false) << std::endl;
+
+    //json dick;
+    //dick["maze"] = *mock_maze;
+    //std::cout << dick.dump() << std::endl;
+
+
     /*
      vector<vector<char>> *maze = new vector<vector<char>> ({
      {'1', '1', '0', '1', '1', '1'},
@@ -54,11 +82,11 @@ int main() {
      return 0;
      */
     
-    maze_solver::MazeMessage mes = maze_solver::MazeMessage(&mock_maze, NULL);
+    //maze_solver::MazeMessage mes = maze_solver::MazeMessage(&mock_maze, NULL);
     
-    maze_solver::MazeSolver solv = maze_solver::MazeSolver();
+    //maze_solver::MazeSolver solv = maze_solver::MazeSolver();
     
-    solv.solve(&mes);
+    //solv.solve(&mes);
     
     return 0;
 }

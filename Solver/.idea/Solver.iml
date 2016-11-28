@@ -2,34 +2,18 @@
 <module type="CPP_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/main_BASE_19229.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/main_LOCAL_19385.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/MazeMessage.hpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/main_BASE_19385.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/main_BASE_19459.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/main_REMOTE_19146.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/main_BACKUP_19146.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/MessageSender.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/MessageListener.hpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/MazeSolver.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/main_LOCAL_19229.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/MessageListener.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/MessageSender.hpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/json.hpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/main_LOCAL_19459.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/main_REMOTE_19385.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/main_BACKUP_19385.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/MazeSolver.hpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/MazeMessage.hpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/MessageListener.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/MazeMessage.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/MessageSender.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/main.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/main_BASE_19146.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/main_BACKUP_19229.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/MessageListener.hpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/json.hpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/MazeParser.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/main_LOCAL_19146.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/main_REMOTE_19229.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/main_REMOTE_19459.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/main_BACKUP_19459.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/MessageSender.hpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/MazeSolver.hpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/MazeParser.hpp" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />

@@ -1,6 +1,7 @@
 #ifndef SOLVER_MAZEMESSAGE_HPP
 #define SOLVER_MAZEMESSAGE_HPP
 
+#include <string>
 #include <vector>
 
 /**
@@ -10,14 +11,15 @@ namespace maze_solver {
 
     // Using statements within the namespace to hide them from outside.
     using std::vector;
+    using std::string;
 
     class MazeMessage {
     public:
-        MazeMessage(vector<vector<char> > *maze, vector<vector<char> > *solution);
+        MazeMessage(vector<vector<string>> *maze, vector<vector<string>> *solution);
         ~MazeMessage();
 
-        vector<vector<char> > *Maze;
-        vector<vector<char> > *Solution;
+        vector<vector<string> > *Maze;
+        vector<vector<string> > *Solution;
     };
 }
 

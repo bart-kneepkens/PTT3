@@ -65,7 +65,7 @@ bool maze_solver::MazeSolver::solveForCoordinates(int X, int Y){
 maze_solver::MazeSolver::MazeSolver(){}
 
 void maze_solver::MazeSolver::solve(maze_solver::MazeMessage* message){
-    this->maze = *(message->Maze);
+    //this->maze = *(message->Maze);
     
     // Find starting and ending point
     startingPoint = COORD(8,9);
@@ -79,7 +79,7 @@ void maze_solver::MazeSolver::solve(maze_solver::MazeMessage* message){
         this->maze = *solution;
         printMaze();
         
-        message->Solution = solution;
+        //message->Solution = solution;
     } else {
         std::cout << "Not solved :(" << std::endl;
     }
