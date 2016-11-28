@@ -18,17 +18,17 @@ using std::vector;
     {'#', '#', '#', '#', '#', '#', '#', '#', ' ', '#'}
 });*/
 
-vector<vector<std::string>> * mock_maze = new vector<vector<std::string> >({
-    {"#", " ", "#", "#", "#", "#", "#", "#", "#", "#"},
-    {"#", " ", "#", "#", "#", "#", "#", "#", "#", "#"},
-    {"#", " ", " ", " ", " ", " ", " ", " ", "#", "#"},
-    {"#", "#" ,"#" ,"#" ,"#" ,"#" ,"#" ," ", " ", "#"},
-    {"#", " ", " ", " ", " ", " ", " ", "#", " ", "#"},
-    {"#", " ", " ", " ", " ", " ", " ", "#", " ", "#"},
-    {"#", " ", " ", " ", " ", " ", " ", "#", " ", "#"},
-    {"#", " ", " ", " ", " ", " ", " ", "#", " ", "#"},
-    {"#", " ", " ", " ", " ", " ", " ", "#", " ", "#"},
-    {"#", "#", "#", "#", "#", "#", "#", "#", " ", "#"}});
+vector<vector<std::string>*> * mock_maze = new vector<vector<std::string>* >({
+    new vector<std::string>{"#", " ", "#", "#", "#", "#", "#", "#", "#", "#"},
+    new vector<std::string>{"#", " ", "#", "#", "#", "#", "#", "#", "#", "#"},
+    new vector<std::string>{"#", " ", " ", " ", " ", " ", " ", " ", "#", "#"},
+    new vector<std::string>{"#", "#" ,"#" ,"#" ,"#" ,"#" ,"#" ," ", " ", "#"},
+    new vector<std::string>{"#", " ", " ", " ", " ", " ", " ", "#", " ", "#"},
+    new vector<std::string>{"#", " ", " ", " ", " ", " ", " ", "#", " ", "#"},
+    new vector<std::string>{"#", " ", " ", " ", " ", " ", " ", "#", " ", "#"},
+    new vector<std::string>{"#", " ", " ", " ", " ", " ", " ", "#", " ", "#"},
+    new vector<std::string>{"#", " ", " ", " ", " ", " ", " ", "#", " ", "#"},
+    new vector<std::string>{"#", "#", "#", "#", "#", "#", "#", "#", " ", "#"}});
 
 MazeMessage * msg = new MazeMessage(mock_maze, mock_maze);
 
@@ -40,7 +40,7 @@ int main() {
     //std::cout << newMsg->Solution << std::endl;
 
     //std::cout << newMsg->Maze->at(0) << std::endl;
-    std::cout << maze_solver::mazeMessageToJson(*newMsg, false, false) << std::endl;
+    //std::cout << maze_solver::mazeMessageToJson(*newMsg, false, false) << std::endl;
 
     //json dick;
     //dick["maze"] = *mock_maze;

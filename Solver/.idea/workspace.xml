@@ -12,13 +12,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6d8b5e05-fc37-4598-bcd6-201caa06df88" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Solver.iml" afterPath="$PROJECT_DIR$/.idea/Solver.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MazeMessage.cpp" afterPath="$PROJECT_DIR$/MazeMessage.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MazeMessage.hpp" afterPath="$PROJECT_DIR$/MazeMessage.hpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MazeParser.cpp" afterPath="$PROJECT_DIR$/MazeParser.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MazeParser.hpp" afterPath="$PROJECT_DIR$/MazeParser.hpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MazeSolver.cpp" afterPath="$PROJECT_DIR$/MazeSolver.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.cpp" afterPath="$PROJECT_DIR$/main.cpp" />
     </list>
     <ignored path="Solver.iws" />
@@ -42,19 +39,17 @@
       <file leaf-file-name="MazeParser.hpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MazeParser.hpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-10">
-              <caret line="24" column="43" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="43" />
+            <state relative-caret-position="-66">
+              <caret line="45" column="35" selection-start-line="45" selection-start-column="35" selection-end-line="45" selection-end-column="35" />
               <folding>
                 <element signature="e#61#80#0" expanded="true" />
-                <element signature="e#730#864#0" expanded="false" />
-                <element signature="e#957#1023#0" expanded="false" />
-                <element signature="e#1028#1243#1" expanded="false" />
-                <element signature="e#1250#1320#0" expanded="false" />
-                <element signature="e#1325#1548#1" expanded="false" />
-                <element signature="e#1555#1987#0" expanded="false" />
-                <element signature="e#2046#2506#0" expanded="false" />
-                <element signature="e#2573#2944#0" expanded="false" />
-                <element signature="e#3069#3379#0" expanded="false" />
+                <element signature="e#705#839#0" expanded="false" />
+                <element signature="e#933#999#0" expanded="false" />
+                <element signature="e#1226#1296#0" expanded="false" />
+                <element signature="e#1531#1963#0" expanded="false" />
+                <element signature="e#2023#2483#0" expanded="false" />
+                <element signature="e#2551#2922#0" expanded="false" />
+                <element signature="e#3042#3352#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -63,8 +58,8 @@
       <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="41" column="6" selection-start-line="41" selection-start-column="6" selection-end-line="41" selection-end-column="6" />
+            <state relative-caret-position="198">
+              <caret line="37" column="50" selection-start-line="37" selection-start-column="50" selection-end-line="37" selection-end-column="50" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
                 <element signature="e#165#795#0" expanded="false" />
@@ -76,14 +71,11 @@
       <file leaf-file-name="MazeParser.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MazeParser.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+            <state relative-caret-position="269">
+              <caret line="38" column="18" selection-start-line="38" selection-start-column="18" selection-end-line="38" selection-end-column="18" />
               <folding>
-                <element signature="e#175#275#0" expanded="false" />
-                <element signature="e#438#542#0" expanded="false" />
-                <element signature="e#1579#2664#0" expanded="false" />
-                <element signature="e#2666#3860#0" expanded="false" />
-                <marker date="1480345502486" expanded="false" signature="3973:4525" ph="{...}" />
+                <element signature="e#170#270#0" expanded="false" />
+                <element signature="e#428#532#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -92,8 +84,8 @@
       <file leaf-file-name="MazeMessage.hpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MazeMessage.hpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="21" column="28" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
+            <state relative-caret-position="324">
+              <caret line="18" column="18" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
               <folding>
                 <element signature="e#63#80#0" expanded="true" />
               </folding>
@@ -104,8 +96,8 @@
       <file leaf-file-name="MazeMessage.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MazeMessage.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="2" column="89" selection-start-line="2" selection-start-column="89" selection-end-line="2" selection-end-column="89" />
+            <state relative-caret-position="198">
+              <caret line="11" column="5" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -127,9 +119,9 @@
         <option value="$PROJECT_DIR$/MessageSender.cpp" />
         <option value="$PROJECT_DIR$/MazeParser.cpp.cpp" />
         <option value="$PROJECT_DIR$/MazeSolver.hpp" />
+        <option value="$PROJECT_DIR$/MazeSolver.cpp" />
         <option value="$PROJECT_DIR$/MazeMessage.hpp" />
         <option value="$PROJECT_DIR$/MazeMessage.cpp" />
-        <option value="$PROJECT_DIR$/MazeSolver.cpp" />
         <option value="$PROJECT_DIR$/MazeParser.hpp" />
         <option value="$PROJECT_DIR$/main.cpp" />
         <option value="$PROJECT_DIR$/MazeParser.cpp" />
@@ -390,12 +382,12 @@
       <workItem from="1479321410108" duration="2853000" />
       <workItem from="1479895146414" duration="16656000" />
       <workItem from="1480320204742" duration="24000" />
-      <workItem from="1480327064025" duration="15258000" />
+      <workItem from="1480327064025" duration="19367000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50045000" />
+    <option name="totallyTimeSpent" value="54154000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1368" height="743" extended-state="6" />
@@ -407,7 +399,7 @@
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32867134" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32868218" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32868218" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -434,7 +426,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="14" />
+      <option name="time" value="15" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -445,15 +437,13 @@
           <caret line="111" column="16" selection-start-line="111" selection-start-column="16" selection-end-line="111" selection-end-column="16" />
           <folding>
             <element signature="e#61#80#0" expanded="true" />
-            <element signature="e#730#864#0" expanded="false" />
-            <element signature="e#957#1023#0" expanded="false" />
-            <element signature="e#1028#1243#1" expanded="false" />
-            <element signature="e#1250#1320#0" expanded="false" />
-            <element signature="e#1325#1548#1" expanded="false" />
-            <element signature="e#1555#1987#0" expanded="false" />
-            <element signature="e#2046#2506#0" expanded="false" />
-            <element signature="e#2573#2944#0" expanded="false" />
-            <element signature="e#3069#3379#0" expanded="false" />
+            <element signature="e#705#839#0" expanded="false" />
+            <element signature="e#933#999#0" expanded="false" />
+            <element signature="e#1226#1296#0" expanded="false" />
+            <element signature="e#1531#1963#0" expanded="false" />
+            <element signature="e#2023#2483#0" expanded="false" />
+            <element signature="e#2551#2922#0" expanded="false" />
+            <element signature="e#3042#3352#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -474,11 +464,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#175#275#0" expanded="false" />
-            <element signature="e#438#542#0" expanded="false" />
-            <element signature="e#1579#2664#0" expanded="false" />
-            <element signature="e#2666#3860#0" expanded="false" />
-            <marker date="1480345502486" expanded="false" signature="3973:4525" ph="{...}" />
+            <element signature="e#170#270#0" expanded="false" />
+            <element signature="e#428#532#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -515,15 +502,13 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#61#80#0" expanded="true" />
-            <element signature="e#730#864#0" expanded="false" />
-            <element signature="e#957#1023#0" expanded="false" />
-            <element signature="e#1028#1243#1" expanded="false" />
-            <element signature="e#1250#1320#0" expanded="false" />
-            <element signature="e#1325#1548#1" expanded="false" />
-            <element signature="e#1555#1987#0" expanded="false" />
-            <element signature="e#2046#2506#0" expanded="false" />
-            <element signature="e#2573#2944#0" expanded="false" />
-            <element signature="e#3069#3379#0" expanded="false" />
+            <element signature="e#705#839#0" expanded="false" />
+            <element signature="e#933#999#0" expanded="false" />
+            <element signature="e#1226#1296#0" expanded="false" />
+            <element signature="e#1531#1963#0" expanded="false" />
+            <element signature="e#2023#2483#0" expanded="false" />
+            <element signature="e#2551#2922#0" expanded="false" />
+            <element signature="e#3042#3352#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -563,15 +548,13 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#61#80#0" expanded="true" />
-            <element signature="e#730#864#0" expanded="false" />
-            <element signature="e#957#1023#0" expanded="false" />
-            <element signature="e#1028#1243#1" expanded="false" />
-            <element signature="e#1250#1320#0" expanded="false" />
-            <element signature="e#1325#1548#1" expanded="false" />
-            <element signature="e#1555#1987#0" expanded="false" />
-            <element signature="e#2046#2506#0" expanded="false" />
-            <element signature="e#2573#2944#0" expanded="false" />
-            <element signature="e#3069#3379#0" expanded="false" />
+            <element signature="e#705#839#0" expanded="false" />
+            <element signature="e#933#999#0" expanded="false" />
+            <element signature="e#1226#1296#0" expanded="false" />
+            <element signature="e#1531#1963#0" expanded="false" />
+            <element signature="e#2023#2483#0" expanded="false" />
+            <element signature="e#2551#2922#0" expanded="false" />
+            <element signature="e#3042#3352#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -649,16 +632,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MazeMessage.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="89" selection-start-line="2" selection-start-column="89" selection-end-line="2" selection-end-column="89" />
+        <state relative-caret-position="198">
+          <caret line="11" column="5" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MazeMessage.hpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="21" column="28" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
+        <state relative-caret-position="324">
+          <caret line="18" column="18" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
           <folding>
             <element signature="e#63#80#0" expanded="true" />
           </folding>
@@ -667,27 +650,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MazeParser.hpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10">
-          <caret line="24" column="43" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="43" />
+        <state relative-caret-position="-66">
+          <caret line="45" column="35" selection-start-line="45" selection-start-column="35" selection-end-line="45" selection-end-column="35" />
           <folding>
             <element signature="e#61#80#0" expanded="true" />
-            <element signature="e#730#864#0" expanded="false" />
-            <element signature="e#957#1023#0" expanded="false" />
-            <element signature="e#1028#1243#1" expanded="false" />
-            <element signature="e#1250#1320#0" expanded="false" />
-            <element signature="e#1325#1548#1" expanded="false" />
-            <element signature="e#1555#1987#0" expanded="false" />
-            <element signature="e#2046#2506#0" expanded="false" />
-            <element signature="e#2573#2944#0" expanded="false" />
-            <element signature="e#3069#3379#0" expanded="false" />
+            <element signature="e#705#839#0" expanded="false" />
+            <element signature="e#933#999#0" expanded="false" />
+            <element signature="e#1226#1296#0" expanded="false" />
+            <element signature="e#1531#1963#0" expanded="false" />
+            <element signature="e#2023#2483#0" expanded="false" />
+            <element signature="e#2551#2922#0" expanded="false" />
+            <element signature="e#3042#3352#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="41" column="6" selection-start-line="41" selection-start-column="6" selection-end-line="41" selection-end-column="6" />
+        <state relative-caret-position="198">
+          <caret line="37" column="50" selection-start-line="37" selection-start-column="50" selection-end-line="37" selection-end-column="50" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
             <element signature="e#165#795#0" expanded="false" />
@@ -697,14 +678,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MazeParser.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+        <state relative-caret-position="269">
+          <caret line="38" column="18" selection-start-line="38" selection-start-column="18" selection-end-line="38" selection-end-column="18" />
           <folding>
-            <element signature="e#175#275#0" expanded="false" />
-            <element signature="e#438#542#0" expanded="false" />
-            <element signature="e#1579#2664#0" expanded="false" />
-            <element signature="e#2666#3860#0" expanded="false" />
-            <marker date="1480345502486" expanded="false" signature="3973:4525" ph="{...}" />
+            <element signature="e#170#270#0" expanded="false" />
+            <element signature="e#428#532#0" expanded="false" />
           </folding>
         </state>
       </provider>

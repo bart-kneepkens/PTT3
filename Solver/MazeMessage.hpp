@@ -15,11 +15,11 @@ namespace maze_solver {
 
     class MazeMessage {
     public:
-        MazeMessage(vector<vector<string>> *maze, vector<vector<string>> *solution);
+        MazeMessage(vector<vector<string>*> *maze, vector<vector<string>*> *solution);
         ~MazeMessage();
 
-        vector<vector<string> > *Maze;
-        vector<vector<string> > *Solution;
+        vector<vector<string>* > *Maze;
+        vector<vector<string>* > *Solution;
     };
 }
 
