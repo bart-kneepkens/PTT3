@@ -24,6 +24,14 @@ namespace PTT3
             CurrentMaze = new Maze();
             CurrentMaze.maze = new char[10, 10];
 
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    CurrentMaze.maze[i, j] = ' ';
+                }
+            }
+
             saveFileDialog1.DefaultExt = "json";
             saveFileDialog1.FileName = "maze";
         }
@@ -36,6 +44,9 @@ namespace PTT3
             } else if (CurrentMaze.maze[e.RowIndex, e.ColumnIndex] == '$')
             {
                 e.CellStyle.BackColor = Color.DarkKhaki;
+            } else if(CurrentMaze.maze[e.RowIndex, e.ColumnIndex] == '*')
+            {
+                e.CellStyle.BackColor = Color.CornflowerBlue;
             }
         }
 
