@@ -33,7 +33,9 @@ void maze_solver::MazeSolver::printMaze() {
 }
 
 bool maze_solver::MazeSolver::solveForCoordinates(int X, int Y) {
-    Maze.at(Y)->at(X) = PERSON;
+
+    //printf("X: %d, Y: %d\n", X, Y);
+    Solution->at(Y)->at(X) = PERSON;
 
     // check if reached goal
     if (X == endingPoint.X && Y == endingPoint.Y) {
@@ -41,24 +43,24 @@ bool maze_solver::MazeSolver::solveForCoordinates(int X, int Y) {
     }
 
     // Recursively search for the goal
-    if (X > 0 && Maze.at(Y)->at(X - 1) == FREE && solveForCoordinates(X - 1, Y)) {
+    if (X > 0 && Maze.at(Y)->at(X - 1) == FREE && Solution->at(Y)->at(X - 1) == FREE && solveForCoordinates(X - 1, Y)) {
         return true;
     }
 
-    if (X < 10 && Maze.at(Y)->at(X + 1) == FREE && solveForCoordinates(X + 1, Y)) {
+    if (X < Maze.at(Y)->size() - 1 && Maze.at(Y)->at(X + 1) == FREE && Solution->at(Y)->at(X + 1) == FREE && solveForCoordinates(X + 1, Y)) {
         return true;
     }
 
-    if (Y > 0 && Maze.at(Y - 1)->at(X) == FREE && solveForCoordinates(X, Y - 1)) {
+    if (Y > 0 && Maze.at(Y - 1)->at(X) == FREE && Solution->at(Y - 1)->at(X) == FREE && solveForCoordinates(X, Y - 1)) {
         return true;
     }
 
-    if (Y < 10 && Maze.at(Y + 1)->at(X) == FREE && solveForCoordinates(X, Y + 1)) {
+    if (Y < Maze.size() - 1 && Maze.at(Y + 1)->at(X) == FREE && Solution->at(Y + 1)->at(X) == FREE && solveForCoordinates(X, Y + 1)) {
         return true;
     }
 
     // Otherwise we need to backtrack and find another solution.
-    Maze.at(Y)->at(X) = FREE;
+    Solution->at(Y)->at(X) = FREE;
 
     return false;
 }
@@ -143,8 +145,8 @@ void maze_solver::MazeSolver::solve(maze_parser::MazeMessage &message) {
         }
     }
 
-    printf("startingPoint.X = %d, startingPoint.Y = %d, endingPoint.X = %d, endingPoint.Y = %d\n",
-           startingPoint.X, startingPoint.Y, endingPoint.X, endingPoint.Y);
+    //printf("startingPoint.X = %d, startingPoint.Y = %d, endingPoint.X = %d, endingPoint.Y = %d\n",
+    //       startingPoint.X, startingPoint.Y, endingPoint.X, endingPoint.Y);
 
     // If we failed to find two openings, throw an exception.
     if (startingPoint.X < 0 || endingPoint.X < 0) {
@@ -152,17 +154,22 @@ void maze_solver::MazeSolver::solve(maze_parser::MazeMessage &message) {
         return;
     }
 
-    // Use the two openings to calculate the solution.
-    if (solveForCoordinates(startingPoint.X, startingPoint.Y)) {
-        //std::vector<std::vector<char>*> *solution = maze;
-        //printMaze();
-        //extractSolution(maze);
-        //this->maze = solution;
-        //printMaze();
+    // Create empty solution field.
+    Solution = new std::vector<std::vector<char>*>();
+    for (unsigned int y = 0; y < columnLength; y++) {
+        vector<char> *row = new vector<char>();
+        Solution->push_back(row);
 
-        //message->Solution = solution;
+        for (unsigned int x = 0; x < rowLength; x++) {
+            row->push_back(' ');
+        }
+    }
+
+    // Fill solution field with actual solution.
+    if (solveForCoordinates(startingPoint.X, startingPoint.Y)) {
+        message.Solution = Solution;
     } else {
-        std::cout << "Not solved :(" << std::endl;
+        std::cout << "Failed to find a solution." << std::endl;
     }
 }
 

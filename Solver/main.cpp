@@ -59,7 +59,7 @@ int main(int argc, char **argv) {
     maze_parser::MazeMessage *msgFromJson = maze_parser::jsonToMazeMessage(jsonStringValue, true, false);
     maze_solver::MazeSolver solver;
     solver.solve(*msgFromJson);
-    //std::cout << msgFromJson->toString() << std::endl;
+    std::cout << msgFromJson->toString() << std::endl;
     const std::string jsonFromMsg = maze_parser::mazeMessageToJson(*msgFromJson, false, false);
 
     // Print the output to a new file.

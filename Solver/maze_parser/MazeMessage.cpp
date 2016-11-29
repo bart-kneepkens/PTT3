@@ -22,7 +22,7 @@ std::string maze_parser::MazeMessage::toString() const {
     std::string toString;
 
     if (Maze != 0) {
-        toString += "Maze: \n";
+        toString += "Maze: \n\n";
 
         for (vector<char> * row : *Maze) {
             if (row != 0) {
@@ -33,12 +33,11 @@ std::string maze_parser::MazeMessage::toString() const {
                 toString += "\n";
             }
         }
-
         toString += "\n";
     }
 
     if (Solution != 0) {
-        toString += "Solution: \n";
+        toString += "Solution: \n\n";
 
         for (vector<char> * row : *Solution) {
             if (row != 0) {
@@ -49,7 +48,6 @@ std::string maze_parser::MazeMessage::toString() const {
                 toString += "\n";
             }
         }
-
         toString += "\n";
     }
 
