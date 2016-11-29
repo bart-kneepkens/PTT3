@@ -1,4 +1,7 @@
 #include <iostream>
+#include <unistd.h>
+#include <fstream>
+
 #include "MazeSolver.hpp"
 #include "MazeParser.hpp"
 
@@ -18,104 +21,211 @@ using std::vector;
     {'#', '#', '#', '#', '#', '#', '#', '#', ' ', '#'}
 });*/
 
-vector<vector<std::string>*> * mock_maze = new vector<vector<std::string>* >({
-    new vector<std::string>{"#", " ", "#", "#", "#", "#", "#", "#", "#", "#"},
-    new vector<std::string>{"#", " ", "#", "#", "#", "#", "#", "#", "#", "#"},
-    new vector<std::string>{"#", " ", " ", " ", " ", " ", " ", " ", "#", "#"},
-    new vector<std::string>{"#", "#" ,"#" ,"#" ,"#" ,"#" ,"#" ," ", " ", "#"},
-    new vector<std::string>{"#", " ", " ", " ", " ", " ", " ", "#", " ", "#"},
-    new vector<std::string>{"#", " ", " ", " ", " ", " ", " ", "#", " ", "#"},
-    new vector<std::string>{"#", " ", " ", " ", " ", " ", " ", "#", " ", "#"},
-    new vector<std::string>{"#", " ", " ", " ", " ", " ", " ", "#", " ", "#"},
-    new vector<std::string>{"#", " ", " ", " ", " ", " ", " ", "#", " ", "#"},
-    new vector<std::string>{"#", "#", "#", "#", "#", "#", "#", "#", " ", "#"}});
+vector<vector<std::string> *> *mock_maze = new vector<vector<std::string> *>({
+                                                                                     new vector<std::string>{"#", " ",
+                                                                                                             "#", "#",
+                                                                                                             "#", "#",
+                                                                                                             "#", "#",
+                                                                                                             "#", "#"},
+                                                                                     new vector<std::string>{"#", " ",
+                                                                                                             "#", "#",
+                                                                                                             "#", "#",
+                                                                                                             "#", "#",
+                                                                                                             "#", "#"},
+                                                                                     new vector<std::string>{"#", " ",
+                                                                                                             " ", " ",
+                                                                                                             " ", " ",
+                                                                                                             " ", " ",
+                                                                                                             "#", "#"},
+                                                                                     new vector<std::string>{"#", "#",
+                                                                                                             "#", "#",
+                                                                                                             "#", "#",
+                                                                                                             "#", " ",
+                                                                                                             " ", "#"},
+                                                                                     new vector<std::string>{"#", " ",
+                                                                                                             " ", " ",
+                                                                                                             " ", " ",
+                                                                                                             " ", "#",
+                                                                                                             " ", "#"},
+                                                                                     new vector<std::string>{"#", " ",
+                                                                                                             " ", " ",
+                                                                                                             " ", " ",
+                                                                                                             " ", "#",
+                                                                                                             " ", "#"},
+                                                                                     new vector<std::string>{"#", " ",
+                                                                                                             " ", " ",
+                                                                                                             " ", " ",
+                                                                                                             " ", "#",
+                                                                                                             " ", "#"},
+                                                                                     new vector<std::string>{"#", " ",
+                                                                                                             " ", " ",
+                                                                                                             " ", " ",
+                                                                                                             " ", "#",
+                                                                                                             " ", "#"},
+                                                                                     new vector<std::string>{"#", " ",
+                                                                                                             " ", " ",
+                                                                                                             " ", " ",
+                                                                                                             " ", "#",
+                                                                                                             " ", "#"},
+                                                                                     new vector<std::string>{"#", "#",
+                                                                                                             "#", "#",
+                                                                                                             "#", "#",
+                                                                                                             "#", "#",
+                                                                                                             " ",
+                                                                                                             "#"}});
 
-vector<vector<std::string>*> * mock_solution = new vector<vector<std::string>* >({
-    new vector<std::string>{"*", " ", "*", "*", "*", "*", "*", "*", "*", "*"},
-    new vector<std::string>{"*", " ", "*", "*", "*", "*", "*", "*", "*", "*"},
-    new vector<std::string>{"*", " ", " ", " ", " ", " ", " ", " ", "*", "*"},
-    new vector<std::string>{"*", "*" ,"*" ,"*" ,"*" ,"*" ,"*" ," ", " ", "*"},
-    new vector<std::string>{"*", " ", " ", " ", " ", " ", " ", "*", " ", "*"},
-    new vector<std::string>{"*", " ", " ", " ", " ", " ", " ", "*", " ", "*"},
-    new vector<std::string>{"*", " ", " ", " ", " ", " ", " ", "*", " ", "*"},
-    new vector<std::string>{"*", " ", " ", " ", " ", " ", " ", "*", " ", "*"},
-    new vector<std::string>{"*", " ", " ", " ", " ", " ", " ", "*", " ", "*"},
-    new vector<std::string>{"*", "*", "*", "*", "*", "*", "*", "*", " ", "*"}});
+vector<vector<std::string> *> *mock_solution = new vector<vector<std::string> *>({
+                                                                                         new vector<std::string>{"*",
+                                                                                                                 " ",
+                                                                                                                 "*",
+                                                                                                                 "*",
+                                                                                                                 "*",
+                                                                                                                 "*",
+                                                                                                                 "*",
+                                                                                                                 "*",
+                                                                                                                 "*",
+                                                                                                                 "*"},
+                                                                                         new vector<std::string>{"*",
+                                                                                                                 " ",
+                                                                                                                 "*",
+                                                                                                                 "*",
+                                                                                                                 "*",
+                                                                                                                 "*",
+                                                                                                                 "*",
+                                                                                                                 "*",
+                                                                                                                 "*",
+                                                                                                                 "*"},
+                                                                                         new vector<std::string>{"*",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 "*",
+                                                                                                                 "*"},
+                                                                                         new vector<std::string>{"*",
+                                                                                                                 "*",
+                                                                                                                 "*",
+                                                                                                                 "*",
+                                                                                                                 "*",
+                                                                                                                 "*",
+                                                                                                                 "*",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 "*"},
+                                                                                         new vector<std::string>{"*",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 "*",
+                                                                                                                 " ",
+                                                                                                                 "*"},
+                                                                                         new vector<std::string>{"*",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 "*",
+                                                                                                                 " ",
+                                                                                                                 "*"},
+                                                                                         new vector<std::string>{"*",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 "*",
+                                                                                                                 " ",
+                                                                                                                 "*"},
+                                                                                         new vector<std::string>{"*",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 "*",
+                                                                                                                 " ",
+                                                                                                                 "*"},
+                                                                                         new vector<std::string>{"*",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 " ",
+                                                                                                                 "*",
+                                                                                                                 " ",
+                                                                                                                 "*"},
+                                                                                         new vector<std::string>{"*",
+                                                                                                                 "*",
+                                                                                                                 "*",
+                                                                                                                 "*",
+                                                                                                                 "*",
+                                                                                                                 "*",
+                                                                                                                 "*",
+                                                                                                                 "*",
+                                                                                                                 " ",
+                                                                                                                 "*"}});
 
-MazeMessage * msg = new MazeMessage(mock_maze, mock_solution);
+MazeMessage *msg = new MazeMessage(mock_maze, mock_solution);
 
-void print(string text) {
-    std::cout << text << std::endl;
-}
+int main(int argc, char **argv) {
 
-int main() {
+    char *fileValue = NULL;         // The supplied file location.
+    char *jsonStringValue = NULL;   // The supplied json-string.
+    int c;                          // Index into the arguments.
 
+    // Parse program arguments.
+    while ((c = getopt(argc, argv, "f:j:")) != -1) {
+        switch (c) {
+            case 'f':
+                fileValue = optarg;
+                break;
+            case 'j':
+                jsonStringValue = optarg;
+                break;
+            default:
+                return 1;
+        }
+    }
 
-    //print(msg->Maze->at(0)->at(0));
+    // Print warnings for all non-option arguments.
+    if (optind < argc) {
+        int index;
+        for (index = optind; index < argc; index++) {
+            fprintf(stderr, "Ignoring non-option argument '%s'...\n", argv[index]);
+        }
+    }
 
-    std::string json = maze_solver::mazeMessageToJson(*msg, true, true);
+    // If a file was given, load its contents into jsonStringValue.
+    if (fileValue != 0) {
+        std::string line, text;
+        std::ifstream aFile(fileValue);
 
-    //print(json);
+        while (std::getline(aFile, line)) {
+            text += line;
+        }
+        aFile.close();
+        jsonStringValue = strdup(text.c_str());
+    }
 
-    MazeMessage * newMsg = maze_solver::jsonToMazeMessage(json, true, true);
+    // Otherwise, we go with jsonStringValue's supplied contents. If no contents were supplied, throw an error.
+    if (jsonStringValue == 0) {
+        fprintf(stderr, "Supply either a json file location ('-f') or a json string ('-j')\n");
+        return 1;
+    }
 
-    print(newMsg->toString());
-
-
-
-    //MazeMessage *newMsg = maze_solver::jsonToMazeMessage(json, false, false);
-    //std::cout << *(newMsg->Maze) << std::endl;
-    //std::cout << newMsg->Solution << std::endl;
-
-    //std::cout << newMsg->Maze->at(0) << std::endl;
-    //std::cout << maze_solver::mazeMessageToJson(*newMsg, false, false) << std::endl;
-
-    //json dick;
-    //dick["maze"] = *mock_maze;
-    //std::cout << dick.dump() << std::endl;
-
-
-    /*
-     vector<vector<char>> *maze = new vector<vector<char>> ({
-     {'1', '1', '0', '1', '1', '1'},
-     {'1', '0', '0', '0', '0', '1'},
-     {'1', '1', '0', '1', '0', '1'},
-     {'1', '0', '0', '0', '1', '1'},
-     {'1', '0', '1', '0', '0', '1'},
-     {'1', '1', '1', '0', '1', '1'}});
-     
-     vector<vector<char>> *solution = new vector<vector<char>> ({
-     {'0', '0', '1', '0', '0', '0'},
-     {'0', '0', '1', '0', '0', '0'},
-     {'0', '0', '1', '0', '0', '0'},
-     {'0', '0', '1', '1', '0', '0'},
-     {'0', '0', '0', '1', '0', '0'},
-     {'0', '0', '0', '1', '0', '0'}});
-     
-     //vector<vector<int>> *fog = new vector<vector<int>>({{1, 1, 1}, {1, 1, 1}});
-     
-     //std::cout << *solution->at(0).at(0) << std::endl;
-     
-     maze_solver::MazeMessage message = maze_solver::MazeMessage(maze, solution);
-     std::string asJson = maze_solver::mazeMessageToJson(message, true);
-     std::cout << asJson << std::endl;
-     
-     //const nlohmann::json j = {"maze", maze};
-     //nlohmann::json::array
-     //std::string str = j.dump(4);
-     //std::cout << str << std::endl;
-     
-     //std::cout << maze_solver::allToJson(maze, maze, true).dump(2) << std::endl;
-     
-     return 0;
-     */
-    
-    //maze_solver::MazeMessage mes = maze_solver::MazeMessage(&mock_maze, NULL);
-    
-    //maze_solver::MazeSolver solv = maze_solver::MazeSolver();
-    
-    //solv.solve(&mes);
-    
+    MazeMessage *msgFromJson = maze_solver::jsonToMazeMessage(jsonStringValue, true, false);
+    std::cout << msgFromJson->toString() << std::endl;
     return 0;
 }
 

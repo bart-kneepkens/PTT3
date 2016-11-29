@@ -18,7 +18,7 @@ maze_solver::MazeMessage::~MazeMessage() {
     delete Solution;
 }
 
-std::string maze_solver::MazeMessage::toString() {
+std::string maze_solver::MazeMessage::toString() const {
     string toString;
 
     if (Maze != 0) {
