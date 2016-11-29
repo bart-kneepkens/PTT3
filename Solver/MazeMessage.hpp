@@ -17,6 +17,7 @@ namespace maze_solver {
     public:
         MazeMessage(vector<vector<string>*> *maze, vector<vector<string>*> *solution);
         ~MazeMessage();
+        string toString();
 
         vector<vector<string>* > *Maze;
         vector<vector<string>* > *Solution;

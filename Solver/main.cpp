@@ -30,12 +30,40 @@ vector<vector<std::string>*> * mock_maze = new vector<vector<std::string>* >({
     new vector<std::string>{"#", " ", " ", " ", " ", " ", " ", "#", " ", "#"},
     new vector<std::string>{"#", "#", "#", "#", "#", "#", "#", "#", " ", "#"}});
 
-MazeMessage * msg = new MazeMessage(mock_maze, mock_maze);
+vector<vector<std::string>*> * mock_solution = new vector<vector<std::string>* >({
+    new vector<std::string>{"*", " ", "*", "*", "*", "*", "*", "*", "*", "*"},
+    new vector<std::string>{"*", " ", "*", "*", "*", "*", "*", "*", "*", "*"},
+    new vector<std::string>{"*", " ", " ", " ", " ", " ", " ", " ", "*", "*"},
+    new vector<std::string>{"*", "*" ,"*" ,"*" ,"*" ,"*" ,"*" ," ", " ", "*"},
+    new vector<std::string>{"*", " ", " ", " ", " ", " ", " ", "*", " ", "*"},
+    new vector<std::string>{"*", " ", " ", " ", " ", " ", " ", "*", " ", "*"},
+    new vector<std::string>{"*", " ", " ", " ", " ", " ", " ", "*", " ", "*"},
+    new vector<std::string>{"*", " ", " ", " ", " ", " ", " ", "*", " ", "*"},
+    new vector<std::string>{"*", " ", " ", " ", " ", " ", " ", "*", " ", "*"},
+    new vector<std::string>{"*", "*", "*", "*", "*", "*", "*", "*", " ", "*"}});
+
+MazeMessage * msg = new MazeMessage(mock_maze, mock_solution);
+
+void print(string text) {
+    std::cout << text << std::endl;
+}
 
 int main() {
 
-    std::string json = maze_solver::mazeMessageToJson(*msg, false, false);
-    MazeMessage *newMsg = maze_solver::jsonToMazeMessage(json, false, false);
+
+    //print(msg->Maze->at(0)->at(0));
+
+    std::string json = maze_solver::mazeMessageToJson(*msg, true, true);
+
+    //print(json);
+
+    MazeMessage * newMsg = maze_solver::jsonToMazeMessage(json, true, true);
+
+    print(newMsg->toString());
+
+
+
+    //MazeMessage *newMsg = maze_solver::jsonToMazeMessage(json, false, false);
     //std::cout << *(newMsg->Maze) << std::endl;
     //std::cout << newMsg->Solution << std::endl;
 

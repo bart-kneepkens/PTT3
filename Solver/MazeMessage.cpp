@@ -17,3 +17,39 @@ maze_solver::MazeMessage::~MazeMessage() {
     }
     delete Solution;
 }
+
+std::string maze_solver::MazeMessage::toString() {
+    string toString;
+
+    if (Maze != 0) {
+        toString += "Maze: \n";
+
+        for (vector<string> * row : *Maze) {
+            if (row != 0) {
+                for (string block : *row) {
+                    toString += block + " ";
+                }
+                toString += "\n";
+            }
+        }
+
+        toString += "\n";
+    }
+
+    if (Solution != 0) {
+        toString += "Solution: \n";
+
+        for (vector<string> * row : *Solution) {
+            if (row != 0) {
+                for (string block : *row) {
+                    toString += block + " ";
+                }
+                toString += "\n";
+            }
+        }
+
+        toString += "\n";
+    }
+
+    return toString;
+}

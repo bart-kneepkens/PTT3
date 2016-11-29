@@ -33,17 +33,15 @@ namespace {
             vector<string> * row = new vector<string>();
             field->push_back(row);
 
-            std::cout << itval.dump() << std::endl;
-
             for (json::iterator it2 = itval.begin(); it2 != itval.end(); ++it2) {
-                //std::cout << *it2 << std::endl;
-                //row->push_back(*it2);
+                row->push_back(*it2);
             }
         }
 
         return field;
     }
 }}
+
 
 // Implementations of global functions.
 
@@ -127,17 +125,28 @@ std::string maze_solver::mazeMessageToJson(MazeMessage &mazeMessage, bool valida
     }
 
     // Create JSON and return its string dump.
-    json asJson;
+    json mazeMsgJson;
 
     if (mazeMessage.Maze != 0) {
-        asJson[MAZE_JSON_KEY] = *mazeMessage.Maze;
+
+        json mazeJson;
+
+        for (vector<string> * row : *mazeMessage.Maze) {
+            mazeJson.push_back(*row);
+        }
+        mazeMsgJson[MAZE_JSON_KEY] = mazeJson;
     }
 
     if (mazeMessage.Solution != 0) {
-        asJson[SOLUTION_JSON_KEY] = *mazeMessage.Solution;
+        json solutionJson;
+
+        for (vector<string> * row : *mazeMessage.Solution) {
+            solutionJson.push_back(*row);
+        }
+        mazeMsgJson[SOLUTION_JSON_KEY] = solutionJson;
     }
 
-    return asJson.dump(0);
+    return mazeMsgJson.dump(0);
 }
 
 maze_solver::MazeMessage * maze_solver::jsonToMazeMessage(std::string json, bool validateMaze, bool validateSolution) {
@@ -154,6 +163,16 @@ maze_solver::MazeMessage * maze_solver::jsonToMazeMessage(std::string json, bool
 
     if (solution != 0) {
         solutionVec = json2dArrayTo2dStringVector(solution);
+    }
+
+    // Validate the maze if specified.
+    if (validateMaze) {
+        maze_solver::validateMaze(mazeVec);
+    }
+
+    // Validate the solution if specified.
+    if (validateSolution) {
+        maze_solver::validateSolution(solutionVec);
     }
 
     return new MazeMessage(mazeVec, solutionVec);

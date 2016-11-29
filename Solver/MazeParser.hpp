@@ -19,7 +19,7 @@ namespace maze_solver {
         // Constants.
         const string EMPTY = " ";
         const string WALL = "#";
-        const string PATH = "#";
+        const string PATH = "*";
 
         const string MAZE_JSON_KEY = "maze";
         const string SOLUTION_JSON_KEY = "solution";
