@@ -1,6 +1,6 @@
 #include "MazeMessage.hpp"
 
-maze_parser::MazeMessage::MazeMessage(vector<vector<string>* > *maze, vector<vector<string>* > *solution) {
+maze_parser::MazeMessage::MazeMessage(vector<vector<char>* > *maze, vector<vector<char>* > *solution) {
     Maze = maze;
     Solution = solution;
 }
@@ -19,15 +19,16 @@ maze_parser::MazeMessage::~MazeMessage() {
 }
 
 std::string maze_parser::MazeMessage::toString() const {
-    string toString;
+    std::string toString;
 
     if (Maze != 0) {
         toString += "Maze: \n";
 
-        for (vector<string> * row : *Maze) {
+        for (vector<char> * row : *Maze) {
             if (row != 0) {
-                for (string block : *row) {
-                    toString += block + " ";
+                for (char block : *row) {
+                    toString += block;
+                    toString += " ";
                 }
                 toString += "\n";
             }
@@ -39,10 +40,11 @@ std::string maze_parser::MazeMessage::toString() const {
     if (Solution != 0) {
         toString += "Solution: \n";
 
-        for (vector<string> * row : *Solution) {
+        for (vector<char> * row : *Solution) {
             if (row != 0) {
-                for (string block : *row) {
-                    toString += block + " ";
+                for (char block : *row) {
+                    toString += block;
+                    toString += " ";
                 }
                 toString += "\n";
             }

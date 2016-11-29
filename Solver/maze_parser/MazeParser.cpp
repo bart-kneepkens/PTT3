@@ -2,7 +2,7 @@
 
 // Implementations of InvalidMazeException.
 
-maze_parser::InvalidMazeException::InvalidMazeException(string errorMsg) : errorMsg(errorMsg) {}
+maze_parser::InvalidMazeException::InvalidMazeException(std::string errorMsg) : errorMsg(errorMsg) {}
 
 const char *maze_parser::InvalidMazeException::what() const throw() {
     return errorMsg.c_str();
@@ -11,7 +11,7 @@ const char *maze_parser::InvalidMazeException::what() const throw() {
 
 // Implementations of InvalidSolutionException.
 
-maze_parser::InvalidSolutionException::InvalidSolutionException(string errorMsg) : errorMsg(errorMsg) {}
+maze_parser::InvalidSolutionException::InvalidSolutionException(std::string errorMsg) : errorMsg(errorMsg) {}
 
 const char *maze_parser::InvalidSolutionException::what() const throw() {
     return errorMsg.c_str();
@@ -23,18 +23,19 @@ const char *maze_parser::InvalidSolutionException::what() const throw() {
 namespace maze_parser {
 namespace {
 
-    vector<vector<string>*> * json2dArrayTo2dStringVector(json &json2dArray) {
+    vector<vector<char>*> * json2dArrayTo2dStringVector(json &json2dArray) {
 
-        vector<vector<string>*> * field = new vector<vector<string>*>();
+        vector<vector<char>*> * field = new vector<vector<char>*>();
 
         for (json::iterator it = json2dArray.begin(); it != json2dArray.end(); ++it) {
 
             nlohmann::json itval = it.value();
-            vector<string> * row = new vector<string>();
+            vector<char> * row = new vector<char>();
             field->push_back(row);
 
             for (json::iterator it2 = itval.begin(); it2 != itval.end(); ++it2) {
-                row->push_back(*it2);
+                std::string tmp = *it2;
+                row->push_back(tmp[0]);
             }
         }
 
@@ -45,7 +46,7 @@ namespace {
 
 // Implementations of global functions.
 
-void maze_parser::validateMaze(vector<vector<string>*> *maze) {
+void maze_parser::validateMaze(vector<vector<char>*> *maze) {
 
     // Ensure the maze is not null.
     if (maze == 0)
@@ -78,7 +79,7 @@ void maze_parser::validateMaze(vector<vector<string>*> *maze) {
     }
 }
 
-void maze_parser::validateSolution(vector<vector<string>*> *solution) {
+void maze_parser::validateSolution(vector<vector<char>*> *solution) {
 
     // Ensure the solution is not null.
     if (solution == 0)
@@ -131,8 +132,13 @@ std::string maze_parser::mazeMessageToJson(MazeMessage &mazeMessage, bool valida
 
         json mazeJson;
 
-        for (vector<string> * row : *mazeMessage.Maze) {
-            mazeJson.push_back(*row);
+        for (vector<char> * row : *mazeMessage.Maze) {
+            json rowJson;
+
+            for (char block : *row) {
+                rowJson.push_back(std::string(1, block));
+            }
+            mazeJson.push_back(rowJson);
         }
         mazeMsgJson[MAZE_JSON_KEY] = mazeJson;
     }
@@ -140,8 +146,13 @@ std::string maze_parser::mazeMessageToJson(MazeMessage &mazeMessage, bool valida
     if (mazeMessage.Solution != 0) {
         json solutionJson;
 
-        for (vector<string> * row : *mazeMessage.Solution) {
-            solutionJson.push_back(*row);
+        for (vector<char> * row : *mazeMessage.Solution) {
+            json rowJson;
+
+            for (char block : *row) {
+                rowJson.push_back(std::string(1, block));
+            }
+            solutionJson.push_back(rowJson);
         }
         mazeMsgJson[SOLUTION_JSON_KEY] = solutionJson;
     }
@@ -154,8 +165,8 @@ maze_parser::MazeMessage * maze_parser::jsonToMazeMessage(std::string json, bool
     nlohmann::json fromJson = json::parse(json);
     nlohmann::json maze = fromJson[MAZE_JSON_KEY];
     nlohmann::json solution = fromJson[SOLUTION_JSON_KEY];
-    vector<vector<string>*> *mazeVec = 0;
-    vector<vector<string>*> *solutionVec = 0;
+    vector<vector<char>*> *mazeVec = 0;
+    vector<vector<char>*> *solutionVec = 0;
 
     if (maze != 0) {
         mazeVec = json2dArrayTo2dStringVector(maze);
