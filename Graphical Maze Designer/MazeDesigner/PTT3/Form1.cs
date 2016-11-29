@@ -36,6 +36,9 @@ namespace PTT3
             } else if (CurrentMaze.maze[e.RowIndex, e.ColumnIndex] == '$')
             {
                 e.CellStyle.BackColor = Color.DarkKhaki;
+            } else if(CurrentMaze.maze[e.RowIndex, e.ColumnIndex] == '*')
+            {
+                e.CellStyle.BackColor = Color.CornflowerBlue;
             }
         }
 
