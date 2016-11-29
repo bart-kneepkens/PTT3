@@ -24,6 +24,14 @@ namespace PTT3
             CurrentMaze = new Maze();
             CurrentMaze.maze = new char[10, 10];
 
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    CurrentMaze.maze[i, j] = ' ';
+                }
+            }
+
             saveFileDialog1.DefaultExt = "json";
             saveFileDialog1.FileName = "maze";
         }
