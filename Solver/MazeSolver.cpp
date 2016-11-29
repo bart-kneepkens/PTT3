@@ -1,8 +1,5 @@
 #include "MazeSolver.hpp"
-#include "maze_parser/MazeMessage.hpp"
-#include <unistd.h>
 #include <iostream>
-#include <vector>
 
 const char WALL = '#';
 const char FREE = ' ';
@@ -12,84 +9,168 @@ class COORD {
 public:
     int X;
     int Y;
+
     COORD(int x = 0, int y = 0) { X = x, Y = y; }
-    COORD(const COORD &coord) { X = coord.X; Y  = coord.Y; }
+
+    COORD(const COORD &coord) {
+        X = coord.X;
+        Y = coord.Y;
+    }
 };
 
 COORD startingPoint;
 COORD endingPoint;
 
 // For debugging
-void maze_solver::MazeSolver::printMaze(){
-    for(int Y = 0; Y < 10; Y++){
-        for(int i=0; i<10; i++)
-        {
-            std::cout << maze[Y][i];
+void maze_solver::MazeSolver::printMaze() {
+    for (int Y = 0; Y < Maze.size(); Y++) {
+        for (int i = 0; i < Maze.at(0)->size(); i++) {
+            std::cout << Maze.at(Y)->at(i);
         }
         std::cout << std::endl;
     }
     std::cout << std::endl;
 }
 
-bool maze_solver::MazeSolver::solveForCoordinates(int X, int Y){
-    maze[Y][X] = PERSON;
-    
+bool maze_solver::MazeSolver::solveForCoordinates(int X, int Y) {
+    Maze.at(Y)->at(X) = PERSON;
+
     // check if reached goal
-    if(X == endingPoint.X && Y == endingPoint.Y){
+    if (X == endingPoint.X && Y == endingPoint.Y) {
         return true;
     }
-    
+
     // Recursively search for the goal
-    if(X > 0 && maze[Y][X - 1] == FREE && solveForCoordinates(X - 1, Y)){
+    if (X > 0 && Maze.at(Y)->at(X - 1) == FREE && solveForCoordinates(X - 1, Y)) {
         return true;
     }
-    
-    if(X < 10 && maze[Y][X + 1] == FREE && solveForCoordinates(X + 1, Y)){
+
+    if (X < 10 && Maze.at(Y)->at(X + 1) == FREE && solveForCoordinates(X + 1, Y)) {
         return true;
     }
-    
-    if(Y > 0 && maze[Y - 1][X] == FREE && solveForCoordinates(X, Y - 1)){
+
+    if (Y > 0 && Maze.at(Y - 1)->at(X) == FREE && solveForCoordinates(X, Y - 1)) {
         return true;
     }
-    
-    if(Y < 10 && maze[Y + 1][X] == FREE && solveForCoordinates(X, Y + 1)){
+
+    if (Y < 10 && Maze.at(Y + 1)->at(X) == FREE && solveForCoordinates(X, Y + 1)) {
         return true;
     }
-    
+
     // Otherwise we need to backtrack and find another solution.
-    maze[Y][X] = FREE;
+    Maze.at(Y)->at(X) = FREE;
 
     return false;
 }
 
-maze_solver::MazeSolver::MazeSolver(){}
+maze_solver::MazeSolver::MazeSolver() {}
 
-void maze_solver::MazeSolver::solve(maze_parser::MazeMessage* message){
-    //this->maze = *(message->Maze);
-    
-    // Find starting and ending point
-    startingPoint = COORD(8,9);
-    endingPoint = COORD(1,0);
-    
-    // Solve maze
-    if(solveForCoordinates(startingPoint.X, startingPoint.Y)){
-        std::vector<std::vector<char>>* solution = &(this->maze);
-        printMaze();
-        extractSolution(solution);
-        this->maze = *solution;
-        printMaze();
-        
+maze_solver::MazeSolver::~MazeSolver() {}
+
+void maze_solver::MazeSolver::solve(maze_parser::MazeMessage &message) {
+
+    this->Maze = *message.Maze;
+    startingPoint = COORD(-1, -1);
+    endingPoint = COORD(-1, -1);
+    const vector<char> firstRow = *(Maze.at(0));
+    const unsigned int columnLength = Maze.size();
+    const unsigned int rowLength = firstRow.size();
+    const unsigned int maxYIndex = columnLength - 1;
+    const unsigned int maxXIndex = rowLength - 1;
+
+    // Try find an opening in the top wall.
+    for (unsigned int x = 0; x < rowLength; x++) {
+        const char block = firstRow.at(x);
+
+        if (block == FREE) {
+            if (startingPoint.X < 0) {
+                startingPoint.X = x;
+                startingPoint.Y = 0;
+            } else if (endingPoint.X < 0) {
+                endingPoint.X = x;
+                endingPoint.Y = 0;
+                break;
+            }
+        }
+    }
+
+    // Try find an opening in the left and right walls.
+    if (startingPoint.X < 0 || endingPoint.X < 0) {
+        for (unsigned int y = 1; y < maxYIndex; y++) {
+            char block = Maze.at(y)->at(0);
+
+            if (block == FREE) {
+                if (startingPoint.X < 0) {
+                    startingPoint.X = 0;
+                    startingPoint.Y = y;
+                } else if (endingPoint.X < 0) {
+                    endingPoint.X = 0;
+                    endingPoint.Y = y;
+                    break;
+                }
+            }
+
+            block = Maze.at(y)->at(maxYIndex);
+
+            if (block == FREE) {
+                if (startingPoint.X < 0) {
+                    startingPoint.X = maxXIndex;
+                    startingPoint.Y = y;
+                } else if (endingPoint.X < 0) {
+                    endingPoint.X = maxXIndex;
+                    endingPoint.Y = y;
+                    break;
+                }
+            }
+        }
+    }
+
+    // Try find an opening in the bottom wall.
+    if (startingPoint.X < 0 || endingPoint.X < 0) {
+        const vector<char> lastRow = *(Maze.at(maxYIndex));
+
+        for (unsigned int x = 0; x < rowLength; x++) {
+            if (lastRow.at(x) == FREE) {
+                if (startingPoint.X < 0) {
+                    startingPoint.X = x;
+                    startingPoint.Y = maxYIndex;
+                } else if (endingPoint.X < 0) {
+                    endingPoint.X = x;
+                    endingPoint.Y = maxYIndex;
+                    break;
+                }
+            }
+        }
+    }
+
+    printf("startingPoint.X = %d, startingPoint.Y = %d, endingPoint.X = %d, endingPoint.Y = %d\n",
+           startingPoint.X, startingPoint.Y, endingPoint.X, endingPoint.Y);
+
+    // If we failed to find two openings, throw an exception.
+    if (startingPoint.X < 0 || endingPoint.X < 0) {
+        std::cout << "Invalid maze: it should have at least two openings!" << std::endl;
+        return;
+    }
+
+    // Use the two openings to calculate the solution.
+    if (solveForCoordinates(startingPoint.X, startingPoint.Y)) {
+        //std::vector<std::vector<char>*> *solution = maze;
+        //printMaze();
+        //extractSolution(maze);
+        //this->maze = solution;
+        //printMaze();
+
         //message->Solution = solution;
     } else {
         std::cout << "Not solved :(" << std::endl;
     }
 }
 
-void maze_solver::MazeSolver::extractSolution(std::vector<std::vector<char> >* vector){
-    for(int i = 0; i < 10; i++){
-        for(int j = 0; j < 10; j++){
-            if((*vector)[i][j] != PERSON){
-                (*vector)[i][j] = FREE;
+void maze_solver::MazeSolver::extractSolution(std::vector<std::vector<char> *> *vector) {
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
+            if (vector->at(i)->at(j) != PERSON) {
+                vector->at(i)->at(j) = FREE;
             }
         }
     }

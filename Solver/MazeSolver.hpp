@@ -4,16 +4,21 @@
 #include "maze_parser/MazeMessage.hpp"
 
 namespace maze_solver {
-    
+
+    using std::vector;
+    using std::string;
+
     class MazeSolver {
     private:
-        std::vector<std::vector<char>> maze;
+        std::vector<std::vector<char>*> Maze;
+        std::vector<std::vector<char>*>*Solution;
         bool solveForCoordinates(int X, int Y);
         void printMaze();
-        void extractSolution(std::vector<std::vector<char> >* vector);
+        void extractSolution(std::vector<std::vector<char>* >* vector);
     public:
         MazeSolver();
-        void solve(maze_parser::MazeMessage* message);
+        ~MazeSolver();
+        void solve(maze_parser::MazeMessage& message);
     };
 }
 #endif
