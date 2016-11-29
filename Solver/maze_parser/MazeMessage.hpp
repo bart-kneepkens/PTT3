@@ -7,7 +7,7 @@
 /**
  * Contains the definition of the MazeMessage class send between modules.
  */
-namespace maze_solver {
+namespace maze_parser {
 
     // Using statements within the namespace to hide them from outside.
     using std::vector;

@@ -1,11 +1,11 @@
 #include "MazeMessage.hpp"
 
-maze_solver::MazeMessage::MazeMessage(vector<vector<string>* > *maze, vector<vector<string>* > *solution) {
+maze_parser::MazeMessage::MazeMessage(vector<vector<string>* > *maze, vector<vector<string>* > *solution) {
     Maze = maze;
     Solution = solution;
 }
 
-maze_solver::MazeMessage::~MazeMessage() {
+maze_parser::MazeMessage::~MazeMessage() {
 
     for (unsigned int i = 0; i < Maze->size(); i++) {
         delete Maze->at(i);
@@ -18,7 +18,7 @@ maze_solver::MazeMessage::~MazeMessage() {
     delete Solution;
 }
 
-std::string maze_solver::MazeMessage::toString() const {
+std::string maze_parser::MazeMessage::toString() const {
     string toString;
 
     if (Maze != 0) {

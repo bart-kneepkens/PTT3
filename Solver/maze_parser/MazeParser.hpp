@@ -1,13 +1,13 @@
 #ifndef SOLVER_MAZEPARSER_HPP
 #define SOLVER_MAZEPARSER_HPP
 
-#include "json.hpp"
+#include "../json.hpp"
 #include "MazeMessage.hpp"
 
 /**
  * Contains the code necessary to parse mazes and solutions (both 2-dimensional char vectors) to and from json.
  */
-namespace maze_solver {
+namespace maze_parser {
 
     // Using statements within the namespace to hide them from outside.
     using nlohmann::json;

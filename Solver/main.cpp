@@ -3,9 +3,8 @@
 #include <fstream>
 
 #include "MazeSolver.hpp"
-#include "MazeParser.hpp"
+#include "maze_parser/MazeParser.hpp"
 
-using namespace maze_solver;    // Forgive me Father for I have sinned.
 using std::vector;
 
 const std::string OUTPUT_FILENAME = "output.json";
@@ -57,8 +56,8 @@ int main(int argc, char **argv) {
     }
 
     // Parse the json to a MazeMessage object, solve its containing maze, then parse it back to json.
-    MazeMessage *msgFromJson = maze_solver::jsonToMazeMessage(jsonStringValue, true, false);
-    const std::string jsonFromMsg = maze_solver::mazeMessageToJson(*msgFromJson, false, true);
+    maze_parser::MazeMessage *msgFromJson = maze_parser::jsonToMazeMessage(jsonStringValue, true, false);
+    const std::string jsonFromMsg = maze_parser::mazeMessageToJson(*msgFromJson, false, true);
 
     // Print the output to a new file.
     std::ofstream aFile(OUTPUT_FILENAME);

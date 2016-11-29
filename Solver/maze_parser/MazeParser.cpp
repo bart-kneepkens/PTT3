@@ -2,25 +2,25 @@
 
 // Implementations of InvalidMazeException.
 
-maze_solver::InvalidMazeException::InvalidMazeException(string errorMsg) : errorMsg(errorMsg) {}
+maze_parser::InvalidMazeException::InvalidMazeException(string errorMsg) : errorMsg(errorMsg) {}
 
-const char *maze_solver::InvalidMazeException::what() const throw() {
+const char *maze_parser::InvalidMazeException::what() const throw() {
     return errorMsg.c_str();
 }
 
 
 // Implementations of InvalidSolutionException.
 
-maze_solver::InvalidSolutionException::InvalidSolutionException(string errorMsg) : errorMsg(errorMsg) {}
+maze_parser::InvalidSolutionException::InvalidSolutionException(string errorMsg) : errorMsg(errorMsg) {}
 
-const char *maze_solver::InvalidSolutionException::what() const throw() {
+const char *maze_parser::InvalidSolutionException::what() const throw() {
     return errorMsg.c_str();
 }
 
 
 // Implementations of functions in anonymous namespace.
 
-namespace maze_solver {
+namespace maze_parser {
 namespace {
 
     vector<vector<string>*> * json2dArrayTo2dStringVector(json &json2dArray) {
@@ -45,7 +45,7 @@ namespace {
 
 // Implementations of global functions.
 
-void maze_solver::validateMaze(vector<vector<string>*> *maze) {
+void maze_parser::validateMaze(vector<vector<string>*> *maze) {
 
     // Ensure the maze is not null.
     if (maze == 0)
@@ -78,7 +78,7 @@ void maze_solver::validateMaze(vector<vector<string>*> *maze) {
     }
 }
 
-void maze_solver::validateSolution(vector<vector<string>*> *solution) {
+void maze_parser::validateSolution(vector<vector<string>*> *solution) {
 
     // Ensure the solution is not null.
     if (solution == 0)
@@ -112,16 +112,16 @@ void maze_solver::validateSolution(vector<vector<string>*> *solution) {
     }
 }
 
-std::string maze_solver::mazeMessageToJson(MazeMessage &mazeMessage, bool validateMaze, bool validateSolution) {
+std::string maze_parser::mazeMessageToJson(MazeMessage &mazeMessage, bool validateMaze, bool validateSolution) {
 
     // Validate the maze if specified.
     if (validateMaze) {
-        maze_solver::validateMaze(mazeMessage.Maze);
+        maze_parser::validateMaze(mazeMessage.Maze);
     }
 
     // Validate the solution if specified.
     if (validateSolution) {
-        maze_solver::validateSolution(mazeMessage.Solution);
+        maze_parser::validateSolution(mazeMessage.Solution);
     }
 
     // Create JSON and return its string dump.
@@ -149,7 +149,7 @@ std::string maze_solver::mazeMessageToJson(MazeMessage &mazeMessage, bool valida
     return mazeMsgJson.dump(0);
 }
 
-maze_solver::MazeMessage * maze_solver::jsonToMazeMessage(std::string json, bool validateMaze, bool validateSolution) {
+maze_parser::MazeMessage * maze_parser::jsonToMazeMessage(std::string json, bool validateMaze, bool validateSolution) {
 
     nlohmann::json fromJson = json::parse(json);
     nlohmann::json maze = fromJson[MAZE_JSON_KEY];
@@ -167,12 +167,12 @@ maze_solver::MazeMessage * maze_solver::jsonToMazeMessage(std::string json, bool
 
     // Validate the maze if specified.
     if (validateMaze) {
-        maze_solver::validateMaze(mazeVec);
+        maze_parser::validateMaze(mazeVec);
     }
 
     // Validate the solution if specified.
     if (validateSolution) {
-        maze_solver::validateSolution(solutionVec);
+        maze_parser::validateSolution(solutionVec);
     }
 
     return new MazeMessage(mazeVec, solutionVec);
