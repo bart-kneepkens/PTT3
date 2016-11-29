@@ -1,5 +1,5 @@
 #include "MazeSolver.hpp"
-#include "MazeMessage.hpp"
+#include "maze_parser/MazeMessage.hpp"
 #include <unistd.h>
 #include <iostream>
 #include <vector>
@@ -64,8 +64,8 @@ bool maze_solver::MazeSolver::solveForCoordinates(int X, int Y){
 
 maze_solver::MazeSolver::MazeSolver(){}
 
-void maze_solver::MazeSolver::solve(maze_solver::MazeMessage* message){
-    this->maze = *(message->Maze);
+void maze_solver::MazeSolver::solve(maze_parser::MazeMessage* message){
+    //this->maze = *(message->Maze);
     
     // Find starting and ending point
     startingPoint = COORD(8,9);
@@ -73,19 +73,19 @@ void maze_solver::MazeSolver::solve(maze_solver::MazeMessage* message){
     
     // Solve maze
     if(solveForCoordinates(startingPoint.X, startingPoint.Y)){
-        vector<std::vector<char>>* solution = &(this->maze);
+        std::vector<std::vector<char>>* solution = &(this->maze);
         printMaze();
         extractSolution(solution);
         this->maze = *solution;
         printMaze();
         
-        message->Solution = solution;
+        //message->Solution = solution;
     } else {
         std::cout << "Not solved :(" << std::endl;
     }
 }
 
-void maze_solver::MazeSolver::extractSolution(vector<std::vector<char> >* vector){
+void maze_solver::MazeSolver::extractSolution(std::vector<std::vector<char> >* vector){
     for(int i = 0; i < 10; i++){
         for(int j = 0; j < 10; j++){
             if((*vector)[i][j] != PERSON){

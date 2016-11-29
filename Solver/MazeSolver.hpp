@@ -1,7 +1,7 @@
 #ifndef SOLVER_MAZESOLVER_H
 #define SOLVER_MAZESOLVER_H
 
-#include "MazeMessage.hpp"
+#include "maze_parser/MazeMessage.hpp"
 
 namespace maze_solver {
     
@@ -10,10 +10,10 @@ namespace maze_solver {
         std::vector<std::vector<char>> maze;
         bool solveForCoordinates(int X, int Y);
         void printMaze();
-        void extractSolution(vector<std::vector<char> >* vector);
+        void extractSolution(std::vector<std::vector<char> >* vector);
     public:
         MazeSolver();
-        void solve(MazeMessage* message);
+        void solve(maze_parser::MazeMessage* message);
     };
 }
 #endif

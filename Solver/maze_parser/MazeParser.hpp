@@ -1,38 +1,36 @@
 #ifndef SOLVER_MAZEPARSER_HPP
 #define SOLVER_MAZEPARSER_HPP
 
-#include "json.hpp"
+#include "../json.hpp"
 #include "MazeMessage.hpp"
 
 /**
  * Contains the code necessary to parse mazes and solutions (both 2-dimensional char vectors) to and from json.
  */
-namespace maze_solver {
+namespace maze_parser {
 
     // Using statements within the namespace to hide them from outside.
     using nlohmann::json;
     using std::vector;
 
-    /**
-     * Enum for maze block types with corresponding int values. If a maze contains
-     * int values that are not in this enum, then the maze is invalid.
-     */
-    namespace MazeBlockType {
-        enum MazeBlockType {
-            EMPTY = 0,
-            WALL = 1
-        };
-    }
+    // Anonymous namespace containing stuff that should be hidden from outsiders.
+    namespace {
 
-    /**
-     * Enum for solution block types with corresponding int values. If a solution contains
-     * int values that are not in this enum, then the solution is invalid.
-     */
-    namespace SolutionBlockType {
-        enum SolutionBlockType {
-            EMPTY = 0,
-            PATH = 1
-        };
+        // Constants.
+        const char EMPTY = ' ';
+        const char WALL = '#';
+        const char PATH = '*';
+
+        const std::string MAZE_JSON_KEY = "maze";
+        const std::string SOLUTION_JSON_KEY = "solution";
+
+        /**
+         * Converts a 2d json array to a 2d char vector.
+         *
+         * @param json2dArray
+         * @return
+         */
+        vector<vector<char>*> * json2dArrayTo2dStringVector(json &json2dArray);
     }
 
     /**
@@ -74,7 +72,7 @@ namespace maze_solver {
      * @param maze the maze to validate
      * @throws InvalidMazeException if the maze is invalid
      */
-    void validateMaze(vector<vector<char>> *maze);
+    void validateMaze(vector<vector<char>*> *maze);
 
     /**
      * Checks the validity of a solution.
@@ -89,7 +87,7 @@ namespace maze_solver {
      * @param solution the solution to validate
      * @throws InvalidSolutionException if the solution is invalid
      */
-    void validateSolution(vector<vector<char>> *solution);
+    void validateSolution(vector<vector<char>*> *solution);
 
     /**
      * Parses the supplied MazeMessage to a valid JSON-string, optionally validating it first
@@ -99,7 +97,7 @@ namespace maze_solver {
      * @return the MazeMessage in valid JSON-format
      * @throws InvalidMazeException or InvalidSolutionException if validation is done and failed
      */
-    std::string mazeMessageToJson(MazeMessage &mazeMessage, bool validate);
+    std::string mazeMessageToJson(MazeMessage &mazeMessage, bool validateMaze = false, bool validateSolution = false);
 
     /**
      * Parses the supplied JSON-string to a MazeMessage instance.
@@ -109,7 +107,7 @@ namespace maze_solver {
      * @return a new MazeMessage
      * @throws InvalidMazeException or InvalidSolutionException if validation is done and failed
      */
-    MazeMessage* jsonToMazeMessage(std::string json, bool validate);
+    MazeMessage * jsonToMazeMessage(std::string json, bool validateMaze = false, bool validateSolution = false);
 }
 
 #endif // SOLVER_MAZEPARSER_HPP
