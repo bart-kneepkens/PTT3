@@ -4,6 +4,7 @@
 const char WALL = '#';
 const char FREE = ' ';
 const char PERSON = '*';
+const char DEADEND = '$';
 
 class COORD {
 public:
@@ -34,7 +35,7 @@ void maze_solver::MazeSolver::printMaze() {
 
 bool maze_solver::MazeSolver::solveForCoordinates(int X, int Y) {
 
-    //printf("X: %d, Y: %d\n", X, Y);
+    printf("X: %d, Y: %d\n", X, Y);
     Solution->at(Y)->at(X) = PERSON;
 
     // check if reached goal
@@ -60,7 +61,7 @@ bool maze_solver::MazeSolver::solveForCoordinates(int X, int Y) {
     }
 
     // Otherwise we need to backtrack and find another solution.
-    Solution->at(Y)->at(X) = FREE;
+    Solution->at(Y)->at(X) = DEADEND;
 
     return false;
 }
