@@ -34,3 +34,4 @@ Solver/CMakeCache.txt
 Solver/CMakeFiles/
 Solver/cmake_install.cmake
 Solver/Solver
+Solver/output.json
