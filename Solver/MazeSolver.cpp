@@ -35,7 +35,7 @@ void maze_solver::MazeSolver::printMaze() {
 
 bool maze_solver::MazeSolver::solveForCoordinates(int X, int Y) {
 
-    printf("X: %d, Y: %d\n", X, Y);
+    //printf("X: %d, Y: %d\n", X, Y);
     Solution->at(Y)->at(X) = PERSON;
 
     // check if reached goal
@@ -167,11 +167,11 @@ void maze_solver::MazeSolver::solve(maze_parser::MazeMessage &message) {
     }
 
     // Fill solution field with actual solution.
-    if (solveForCoordinates(startingPoint.X, startingPoint.Y)) {
-        message.Solution = Solution;
-    } else {
+    if (!solveForCoordinates(startingPoint.X, startingPoint.Y)) {
         std::cout << "Failed to find a solution." << std::endl;
     }
+
+    message.Solution = Solution;
 }
 
 void maze_solver::MazeSolver::extractSolution(std::vector<std::vector<char> *> *vector) {
