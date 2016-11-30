@@ -1,17 +1,17 @@
 #include "MotorDriver.h"
 
-MotorDriver::MotorDriver(char* address)
+MotorDriver::MotorDriver(std::string address)
 	: systemAddress(address)
 	{}
 	
-void MotorDriver::SetPolarity(char* value)
+void MotorDriver::SetPolarity(std::string value)
 {
 	MotorDriver::Write("/polarity", value);
 }
 
 int MotorDriver::GetPolarity()
 {
-	char buffer[256];
+	std::string buffer;
 	MotorDriver::Read("/polarity", buffer);
 	std::cout << buffer << std::endl;
 }
@@ -56,63 +56,47 @@ void MotorDriver::Reset()
 	MotorDriver::Write("/command", "reset");
 }
 
-void MotorDriver::Read(const char* parameterFile, char* output)
+void MotorDriver::Read(const std::string parameterFile, std::string output)
 {
-	char buffer[256];
-	strncpy(buffer, systemAddress, sizeof(buffer));
-	strncat(buffer, parameterFile, sizeof(buffer));
-	std::ifstream file;
-
-	file.open(buffer, std::ifstream::binary);
+	std::string buffer;
+	buffer = systemAddress + parameterFile;
+	std::ifstream file(buffer.c_str());
 	if (file.is_open())
 	{
-		file.seekg (0,file.end);
-		long size = file.tellg();
-		file.seekg (0);
-
 		// allocate memory for file content
-		char* buffer = new char[size];
+		std::string buffer2;
 
 		// read content of infile
-		file.read (buffer,size);
+		getline(file, buffer);
 		file.close();
 		output = buffer;
 	}
 }
 
-int MotorDriver::Read(const char* parameterFile)
+int MotorDriver::Read(const std::string parameterFile)
 {
-	char buffer[256];
+	std::string buffer;
 	int output = 0;
-	strncpy(buffer, systemAddress, sizeof(buffer));
-	strncat(buffer, parameterFile, sizeof(buffer));
-	std::ifstream file;
-
-	file.open(buffer, std::ifstream::binary);
+	buffer = systemAddress + parameterFile;
+	std::ifstream file(buffer.c_str());
 	if (file.is_open())
 	{
-		file.seekg (0,file.end);
-		long size = file.tellg();
-		file.seekg (0);
-
 		// allocate memory for file content
-		char* buffer = new char[size];
+		std::string buffer2;
 
 		// read content of infile
-		file.read (buffer,size);
+		getline(file, buffer2);
 		file.close();
-		output = atoi(buffer);
+		output = atoi(buffer2.c_str());
 	}
 	return output;
 }
 
-void MotorDriver::Write(const char* parameterFile, const char* value)
+void MotorDriver::Write(const std::string parameterFile, const std::string value)
 {
-	char buffer[256];
-	strncpy(buffer, systemAddress, sizeof(buffer));
-	strncat(buffer, parameterFile, sizeof(buffer));
-	std::ofstream file;
-	file.open(buffer);
+	std::string buffer;
+	buffer = systemAddress + parameterFile;
+	std::ofstream file(buffer.c_str());
 	if (file.is_open())
 	{
 		file << value;
@@ -120,13 +104,11 @@ void MotorDriver::Write(const char* parameterFile, const char* value)
 	}
 }
 
-void MotorDriver::Write(const char* parameterFile, int value)
+void MotorDriver::Write(const std::string parameterFile, int value)
 {
-	char buffer[256];
-	strncpy(buffer, systemAddress, sizeof(buffer));
-	strncat(buffer, parameterFile, sizeof(buffer));
-	std::ofstream file;
-	file.open(buffer);
+	std::string buffer;
+	buffer = systemAddress + parameterFile;
+	std::ofstream file(buffer.c_str());
 	if (file.is_open())
 	{
 		file << value;
