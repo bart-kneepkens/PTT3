@@ -1,7 +1,7 @@
 #ifndef SOLVER_MAZEPARSER_HPP
 #define SOLVER_MAZEPARSER_HPP
 
-#include "../json.hpp"
+#include "json.hpp"
 #include "MazeMessage.hpp"
 
 /**
@@ -13,14 +13,16 @@ namespace maze_parser {
     using nlohmann::json;
     using std::vector;
 
+    // Constants.
+    const char EMPTY = ' ';
+    const char WALL = '#';
+    const char PATH = '*';
+    const char DEADEND = '$';
+
     // Anonymous namespace containing stuff that should be hidden from outsiders.
     namespace {
 
         // Constants.
-        const char EMPTY = ' ';
-        const char WALL = '#';
-        const char PATH = '*';
-
         const std::string MAZE_JSON_KEY = "maze";
         const std::string SOLUTION_JSON_KEY = "solution";
 
