@@ -18,41 +18,65 @@ namespace maze_solver {
     COORD startingPoint;
     COORD endingPoint;
 
-    bool maze_solver::MazeSolver::solveForCoordinates(int X, int Y) {
+    bool maze_solver::MazeSolver::solveForCoordinates(unsigned int X, unsigned int Y) {
 
         //printf("X: %d, Y: %d\n", X, Y);
+
+        // Set the current block to the right char.
         Solution->at(Y)->at(X) = maze_parser::PATH;
 
-        // check if reached goal
+        // Return true if ending point has been reached.
         if (X == endingPoint.X && Y == endingPoint.Y) {
             return true;
         }
 
-        // Recursively search for the goal
-        if (X > 0 && Maze.at(Y)->at(X - 1) == maze_parser::EMPTY && Solution->at(Y)->at(X - 1) == maze_parser::EMPTY &&
-            solveForCoordinates(X - 1, Y)) {
-            return true;
+        bool foundEndingPoint = false;
+
+        // Travel to all 4 surrounding blocks if possible, starting with the blocks that are closest to the ending point.
+        if (Y > endingPoint.Y) {
+            if (X > endingPoint.X) {
+                // Order: Y-1, X-1, Y+1, X+1
+                foundEndingPoint = (exploreBlock(X, Y - 1) || exploreBlock(X - 1, Y) || exploreBlock(X, Y + 1) || exploreBlock(X + 1, Y));
+            }
+            else if (X < endingPoint.X) {
+                // Order: Y-1, X+1, Y+1, X-1
+                foundEndingPoint = (exploreBlock(X, Y - 1) || exploreBlock(X + 1, Y) || exploreBlock(X, Y + 1) || exploreBlock(X - 1, Y));
+            }
+            else {
+                // Order: Y-1, X+1, X-1, Y+1
+                foundEndingPoint = (exploreBlock(X, Y - 1) || exploreBlock(X + 1, Y) || exploreBlock(X - 1, Y) || exploreBlock(X, Y + 1));
+            }
+        }
+        else if (Y < endingPoint.Y) {
+            if (X > endingPoint.X) {
+                // Order: Y+1, X-1, Y-1, X+1
+                foundEndingPoint = (exploreBlock(X, Y + 1) || exploreBlock(X - 1, Y) || exploreBlock(X, Y - 1) || exploreBlock(X + 1, Y));
+            }
+            else if (X < endingPoint.X) {
+                // Order: Y+1, X+1, Y-1, X-1
+                foundEndingPoint = (exploreBlock(X, Y + 1) || exploreBlock(X + 1, Y) || exploreBlock(X, Y - 1) || exploreBlock(X - 1, Y));
+            }
+            else {
+                // Order: Y+1, X+1, X-1, Y-1
+                foundEndingPoint = (exploreBlock(X, Y + 1) || exploreBlock(X + 1, Y) || exploreBlock(X - 1, Y) || exploreBlock(X, Y - 1));
+            }
+        }
+        else {
+            if (X >= endingPoint.X) {
+                // Order: X-1, Y+1, Y-1, X+1
+                foundEndingPoint = (exploreBlock(X - 1, Y) || exploreBlock(X, Y + 1) || exploreBlock(X, Y - 1) || exploreBlock(X + 1, Y));
+            }
+            else if (X < endingPoint.X) {
+                // Order: X+1, Y+1, Y-1, X-1
+                foundEndingPoint = (exploreBlock(X + 1, Y) || exploreBlock(X, Y + 1) || exploreBlock(X, Y - 1) || exploreBlock(X - 1, Y));
+            }
         }
 
-        if (X < Maze.at(Y)->size() - 1 && Maze.at(Y)->at(X + 1) == maze_parser::EMPTY && Solution->at(Y)->at(X + 1) == maze_parser::EMPTY &&
-            solveForCoordinates(X + 1, Y)) {
-            return true;
+        // If ending point was not found, set current block to be a dead end.
+        if (!foundEndingPoint) {
+            Solution->at(Y)->at(X) = maze_parser::DEADEND;
         }
-
-        if (Y > 0 && Maze.at(Y - 1)->at(X) == maze_parser::EMPTY && Solution->at(Y - 1)->at(X) == maze_parser::EMPTY &&
-            solveForCoordinates(X, Y - 1)) {
-            return true;
-        }
-
-        if (Y < Maze.size() - 1 && Maze.at(Y + 1)->at(X) == maze_parser::EMPTY && Solution->at(Y + 1)->at(X) == maze_parser::EMPTY &&
-            solveForCoordinates(X, Y + 1)) {
-            return true;
-        }
-
-        // Otherwise we need to backtrack and find another solution.
-        Solution->at(Y)->at(X) = maze_parser::DEADEND;
-
-        return false;
+        return foundEndingPoint;
     }
 
     maze_solver::MazeSolver::MazeSolver() {}
@@ -168,6 +192,12 @@ namespace maze_solver {
         }
 
         return field;
+    }
+
+    bool MazeSolver::exploreBlock(unsigned int X, unsigned int Y) {
+        return (Y >= 0 && X >= 0 && Y < Maze.size() && X < Maze.at(Y)->size() &&
+                Maze.at(Y)->at(X) == maze_parser::EMPTY && Solution->at(Y)->at(X) == maze_parser::EMPTY &&
+                solveForCoordinates(X, Y));
     }
 }
 

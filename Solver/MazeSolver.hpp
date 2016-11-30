@@ -12,7 +12,7 @@ namespace maze_solver {
     private:
         vector<vector<char>*> Maze;
         vector<vector<char>*>*Solution;
-        bool solveForCoordinates(int X, int Y);
+        bool solveForCoordinates(unsigned int X, unsigned int Y);
         /**
          * Generates an empty field (a 2d char vector) with the given number of columns and rows.
          *
@@ -21,6 +21,15 @@ namespace maze_solver {
          * @return
          */
         vector<vector<char>*>* emptyField(unsigned int columns, unsigned int rows);
+        /**
+         * Checks whether the specified block can be travelled to, and if so, travels to it
+         * by calling solveForCoordinates with the supplied coordinates.
+         *
+         * @param X
+         * @param Y
+         * @return
+         */
+        bool exploreBlock(unsigned int X, unsigned int Y);
     public:
         MazeSolver();
         ~MazeSolver();
