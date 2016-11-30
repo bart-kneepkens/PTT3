@@ -10,5 +10,6 @@ namespace PTT3
     class Maze
     {
         public char[,] maze;
+        public char[,] solution;
     }
 }

@@ -23,12 +23,14 @@ namespace PTT3
 
             CurrentMaze = new Maze();
             CurrentMaze.maze = new char[10, 10];
+            CurrentMaze.solution = new char[10, 10];
 
             for (int i = 0; i < 10; i++)
             {
                 for (int j = 0; j < 10; j++)
                 {
                     CurrentMaze.maze[i, j] = ' ';
+                    CurrentMaze.solution[i, j] = ' ';
                 }
             }
 
@@ -41,10 +43,10 @@ namespace PTT3
             if (CurrentMaze.maze[e.RowIndex, e.ColumnIndex] == '#')
             {
                 e.CellStyle.BackColor = Color.Black;
-            } else if (CurrentMaze.maze[e.RowIndex, e.ColumnIndex] == '$')
+            } else if (CurrentMaze.solution[e.RowIndex, e.ColumnIndex] == '$')
             {
                 e.CellStyle.BackColor = Color.DarkKhaki;
-            } else if(CurrentMaze.maze[e.RowIndex, e.ColumnIndex] == '*')
+            } else if(CurrentMaze.solution[e.RowIndex, e.ColumnIndex] == '*')
             {
                 e.CellStyle.BackColor = Color.CornflowerBlue;
             }
@@ -67,7 +69,10 @@ namespace PTT3
                     string json = r.ReadToEnd();
 
                     char[,] deserialized = JsonConvert.DeserializeObject<Maze>(json).maze;
+                    char[,] solution = JsonConvert.DeserializeObject<Maze>(json).solution;
 
+                    //CurrentMaze.maze = deserialized;
+                    CurrentMaze.solution = solution;
                     CurrentMaze.maze = deserialized;
 
                     // This line makes sure the cell is updated.
