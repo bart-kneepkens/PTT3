@@ -1,7 +1,7 @@
 #ifndef SOLVER_MAZESOLVER_H
 #define SOLVER_MAZESOLVER_H
 
-#include "maze_parser/MazeMessage.hpp"
+#include "../maze_parser/MazeMessage.hpp"
 
 namespace maze_solver {
 

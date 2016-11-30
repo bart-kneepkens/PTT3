@@ -3,7 +3,7 @@
 #include <fstream>
 
 #include "MazeSolver.hpp"
-#include "maze_parser/MazeParser.hpp"
+#include "../maze_parser/MazeParser.hpp"
 
 using std::vector;
 

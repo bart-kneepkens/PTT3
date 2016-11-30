@@ -1,7 +1,7 @@
 #ifndef SOLVER_MAZEPARSER_HPP
 #define SOLVER_MAZEPARSER_HPP
 
-#include "../json.hpp"
+#include "json.hpp"
 #include "MazeMessage.hpp"
 
 /**
