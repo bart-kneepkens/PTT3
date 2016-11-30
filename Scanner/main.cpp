@@ -1,75 +1,71 @@
 #include "MotorDriver.h"
 #include "Scanner.h"
 
+const int xSpeed = 500;
+const int xPosition = 2500;
+const int xSize = 25;
+
+const int ySpeed = 100;
+const int yStepSize = 100;
+const int ySize = 36; // callibratie 
+
+const int scanSize = 100;
+const int blackThreshold = 25; // callibratie 
+const int whiteThreshold = 35; // callibratie 
+
+void setMotor(MotorDriver* motor, bool forward);
+
 int main(void)
 {
-	MotorDriver* motorX = new MotorDriver("/sys/class/tacho-motor/motor1/");
-	MotorDriver* motorY = new MotorDriver("/sys/class/tacho-motor/motor0/");
-	Scanner* scanner = new Scanner("/sys/class/lego-sensor/sensor0/");
+	MotorDriver* motorX = new MotorDriver("/sys/class/tacho-motor/motor2/"); // callibratie 
+	MotorDriver* motorY = new MotorDriver("/sys/class/tacho-motor/motor0/"); // callibratie 
+	Scanner* scanner = new Scanner("/sys/class/lego-sensor/sensor0/");  // callibratie 
 	int indexX = 0;
 	int indexY = 0;
-	int scanValues[22][25]; // Y = 36
+	int scanValues[ySize][xSize]; // Y = 36
 	int lastValue = 1;
 	int speed = 0;
 	
-	motorX->Reset();
-	motorX->SetSpeed(500);
-	motorX->SetPosition(2500); //X Direction MAX 2700
-	motorX->SetPolarity("normal");
-	
 	motorY->Reset();
-	motorY->SetSpeed(100);
+	motorY->SetSpeed(ySpeed);
 	scanner->SetMode("COL-REFLECT");
 	
-	//motor->SetPosition(3750); Y Direction
-	
-	while(indexY < 22)
+	while(indexY < ySize)
 	{
 		if (indexY % 2 == 0) 
 		{
-			motorX->Reset();
-			motorX->SetSpeed(500);
-			motorX->SetPosition(2500); //X Direction MAX 2700
-			motorX->SetPolarity("normal");
+			setMotor(motorX, true);
 		}
-		else motorX->SetPosition(-2500);
-		
-		std::cout << lastValue << "  -  " << motorY->GetSpeed() << "\n";
+		else 
+		{
+			setMotor(motorX, false);
+		}
 		
 		if (lastValue != 0 && motorY->GetSpeed() == 0)
 		{
 			lastValue = 0;
 			motorX->RunToRelPos();
-			if (indexY % 2 == 0)
+			indexX = 0;
+			
+			while(indexX < xSize)
 			{
-				indexX = 0;
-				while(indexX < 25)
+				if (motorX->GetPosition() >= (indexX * scanSize) || motorX->GetPosition() <= -(indexX * scanSize))
 				{
-					if (motorX->GetPosition() >= (indexX * 100))
+					if (indexY % 2 == 0) 
 					{
 						scanValues[indexY][indexX] = scanner->GetValue();
-						indexX++;
 					}
-				}
-			}
-			else
-			{
-				motorX->Reset();
-				motorX->SetSpeed(500);
-				motorX->SetPosition(-2500); //X Direction MAX 2700
-				motorX->RunToRelPos();
-				indexX = 0;
-				while(indexX < 25)
-				{
-					if (motorX->GetPosition() <= -(indexX * 100))
+					else 
 					{
-						scanValues[indexY][25 - indexX] = scanner->GetValue();
-						indexX++;
+						scanValues[indexY][xSize - indexX] = scanner->GetValue();
 					}
+					indexX++;
 				}
+				std::cout << indexX << std::endl;
 			}
+			
 			motorX->Stop();
-			motorY->SetPosition(100);
+			motorY->SetPosition(yStepSize);
 			indexY++;
 			
 			motorY->RunToRelPos();
@@ -77,18 +73,33 @@ int main(void)
 		speed = motorY->GetSpeed();
 		if (speed == 0 && lastValue != 0) lastValue = 1;
 		else lastValue = speed;
-		std::cout << indexY << "\n\n"; 
+		std::cout << indexY << std::endl; 
 	}
 	
 	std::cout << std::endl << std::endl;
-	for(int y = 0; y < 22; y++)
+	for(int y = 0; y < ySize; y++)
 	{
-		for(int x = 0; x < 25; x++)
+		for(int x = 0; x < xSize; x++)
 		{
-			if (scanValues[y][x] < 25) std::cout << "#";
-			else if (scanValues[y][x] > 35) std::cout << " ";
+			if (scanValues[y][x] < blackThreshold) std::cout << "#";
+			else if (scanValues[y][x] > whiteThreshold) std::cout << " ";
 			else std::cout << "*";
 		}
 		std::cout << std::endl;
 	}
+}
+
+void setMotor(MotorDriver* motor, bool forward)
+{
+	motor->Reset();
+	motor->SetSpeed(xSpeed);
+	if (forward) 
+	{
+		motor->SetPosition(xPosition);
+	}
+	else
+	{
+		motor->SetPosition(-xPosition);
+	}
+	motor->SetPolarity("normal");
 }

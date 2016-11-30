@@ -2,6 +2,7 @@
 #define MOTORDRIVER_H
 
 #include <fstream>
+#include <string>
 #include <string.h>
 #include <iostream>
 #include <cstdlib>
@@ -9,14 +10,14 @@
 class MotorDriver
 {
 	private:
-		char* systemAddress;
-		void Read(const char* parameterFile, char* output);
-		int Read(const char* parameterFile);
-		void Write(const char* parameterFile, const char* value);
-		void Write(const char* parameterFile, int value);
+		std::string systemAddress;
+		void Read(const std::string parameterFile, const std::string output);
+		int Read(const std::string parameterFile);
+		void Write(const std::string parameterFile, const std::string value);
+		void Write(const std::string parameterFile, int value);
 	public:
-		MotorDriver(char* address);
-		void SetPolarity(char* value);
+		MotorDriver(std::string address);
+		void SetPolarity(std::string value);
 		int GetPolarity();
 		void SetPosition(int value);
 		int GetPosition();
