@@ -14,12 +14,18 @@ namespace maze_parser {
 
     class MazeMessage {
     public:
-        MazeMessage(vector<vector<char>*> *maze, vector<vector<char>*> *solution);
+        MazeMessage(vector<vector < char> *
+
+        > *scan, vector<vector < char>*> *solution);
+
         ~MazeMessage();
+
         std::string toString() const;
 
-        vector<vector<char>* > *Maze;
-        vector<vector<char>* > *Solution;
+        vector<vector < char>* > *
+        Scan;
+        vector<vector < char>* > *
+        Solution;
     };
 }
 

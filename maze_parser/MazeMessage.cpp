@@ -1,16 +1,16 @@
 #include "MazeMessage.hpp"
 
-maze_parser::MazeMessage::MazeMessage(vector<vector<char>* > *maze, vector<vector<char>* > *solution) {
-    Maze = maze;
+maze_parser::MazeMessage::MazeMessage(vector < vector < char > * > *scan, vector < vector < char > * > *solution) {
+    Scan = scan;
     Solution = solution;
 }
 
 maze_parser::MazeMessage::~MazeMessage() {
 
-    for (unsigned int i = 0; i < Maze->size(); i++) {
-        delete Maze->at(i);
+    for (unsigned int i = 0; i < Scan->size(); i++) {
+        delete Scan->at(i);
     }
-    delete Maze;
+    delete Scan;
 
     for (unsigned int i = 0; i < Solution->size(); i++) {
         delete Solution->at(i);
@@ -21,10 +21,10 @@ maze_parser::MazeMessage::~MazeMessage() {
 std::string maze_parser::MazeMessage::toString() const {
     std::string toString;
 
-    if (Maze != 0) {
-        toString += "Maze: \n\n";
+    if (Scan != 0) {
+        toString += "Scan: \n\n";
 
-        for (vector<char> * row : *Maze) {
+        for (vector<char> *row : *Scan) {
             if (row != 0) {
                 for (char block : *row) {
                     toString += block;
@@ -39,7 +39,7 @@ std::string maze_parser::MazeMessage::toString() const {
     if (Solution != 0) {
         toString += "Solution: \n\n";
 
-        for (vector<char> * row : *Solution) {
+        for (vector<char> *row : *Solution) {
             if (row != 0) {
                 for (char block : *row) {
                     toString += block;

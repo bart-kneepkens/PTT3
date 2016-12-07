@@ -85,7 +85,7 @@ namespace maze_solver {
 
     void maze_solver::MazeSolver::solve(maze_parser::MazeMessage &message) {
 
-        this->Maze = *message.Maze;
+        this->Maze = *message.Scan;
         startingPoint = COORD(-1, -1);
         endingPoint = COORD(-1, -1);
         const vector<char> firstRow = *(Maze.at(0));
@@ -158,9 +158,6 @@ namespace maze_solver {
                 }
             }
         }
-
-        //printf("startingPoint.X = %d, startingPoint.Y = %d, endingPoint.X = %d, endingPoint.Y = %d\n",
-        //       startingPoint.X, startingPoint.Y, endingPoint.X, endingPoint.Y);
 
         // If we failed to find two openings, throw an exception.
         if (startingPoint.X < 0 || endingPoint.X < 0) {
