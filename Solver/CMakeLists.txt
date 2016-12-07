@@ -19,13 +19,13 @@ add_library(Core_Files
 
 # Executables to be build.
 
-add_executable(Solver.o Solver.cpp ${CORE_FILES})
-add_executable(SolverSocketServer.o SolverSocketServer.cpp ${CORE_FILES})
-add_executable(SolverSocketClient.o SolverSocketClient.cpp ${CORE_FILES})
+add_executable(Solver Solver.cpp ${CORE_FILES})
+add_executable(SolverSocketServer SolverSocketServer.cpp ${CORE_FILES})
+add_executable(SolverSocketClient SolverSocketClient.cpp ${CORE_FILES})
 
 
 # Linking core files to executables.
 
-target_link_libraries(Solver.o Core_Files)
-target_link_libraries(SolverSocketServer.o Core_Files)
-target_link_libraries(SolverSocketClient.o Core_Files)
+target_link_libraries(Solver Core_Files)
+target_link_libraries(SolverSocketServer Core_Files)
+target_link_libraries(SolverSocketClient Core_Files)
