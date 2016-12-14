@@ -18,5 +18,7 @@ int main(){
     send(sock, toSend, 1024, 0);
     std::cout << "\nsent stuff \n";
     
+    sleep(20);
+    
     close(sock);
 }
