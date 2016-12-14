@@ -12,8 +12,8 @@ void MotorDriver::SetPolarity(std::string value)
 int MotorDriver::GetPolarity()
 {
 	std::string buffer;
-	MotorDriver::Read("/polarity", buffer);
-	std::cout << buffer << std::endl;
+	MotorDriver::Read("/polarity", &buffer);
+	return 0;
 }
 
 void MotorDriver::SetPosition(int value)
@@ -54,9 +54,17 @@ void MotorDriver::RunToRelPos()
 void MotorDriver::Reset()
 {
 	MotorDriver::Write("/command", "reset");
+	//MotorDriver::Write("/stop_action", "brake");
 }
 
-void MotorDriver::Read(const std::string parameterFile, std::string output)
+std::string MotorDriver::GetState()
+{
+	std::string buffer;
+	MotorDriver::Read("/state", &buffer);
+	return buffer;
+}
+
+void MotorDriver::Read(const std::string parameterFile, std::string* output)
 {
 	std::string buffer;
 	buffer = systemAddress + parameterFile;
@@ -67,9 +75,9 @@ void MotorDriver::Read(const std::string parameterFile, std::string output)
 		std::string buffer2;
 
 		// read content of infile
-		getline(file, buffer);
+		getline(file, buffer2);
 		file.close();
-		output = buffer;
+		*output = buffer2;
 	}
 }
 
