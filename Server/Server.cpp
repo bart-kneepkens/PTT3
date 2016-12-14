@@ -4,6 +4,9 @@
 #include <sys/socket.h> // for send() and recv()
 #include <iostream>
 #include <unistd.h>     // for sleep(), close()
+#include <vector>
+#include <string>
+#include <sstream>
 
 class Server{
     
@@ -20,9 +23,41 @@ class Server{
     }
 };
 
-
 int servSocket;
-int clientSocket;
+
+
+Module waitForModule(){
+    int clientSocket = AcceptTCPConnection(servSocket);
+    
+    std::cout << "Accepted client with id: " << clientSocket << std::endl;
+    
+    char buff[1024];
+    
+    int received = recv(clientSocket, buff, 1024,0);
+    
+    //std::cout << "Received: " << buff << std::endl;
+    
+    std::string helloString(buff);
+    
+    std::cout << "Received: " << helloString << std::endl;
+    
+    std::vector<std::string> segments;
+    std::string segment;
+    std::stringstream ss;
+    ss.str(helloString);
+    
+    while(std::getline(ss, segment, ':')){
+        segments.push_back(segment);
+    }
+    
+    std::string moduleName = segments.at(2);
+    std::string moduleType = segments.at(1);
+    
+    close(clientSocket);
+    
+    std::cout << "returning module : "<< moduleType << ":" << moduleName << ":" << clientSocket << std::endl;
+    return Module(moduleType, moduleName, clientSocket);
+}
 
 int main(){
     // Wait for modules to send connect message async
@@ -33,29 +68,10 @@ int main(){
     
     std::cout << "Created server socket with id: " << servSocket << std::endl;
     
-    clientSocket = AcceptTCPConnection(servSocket);
-    
-    std::cout << "Accepted client with id: " << clientSocket << std::endl;
-    
-    char buff[1024];
-    
-    int received = recv(clientSocket, buff, 1024,0);
-    
-    std::cout << "Received: " << buff << std::endl;
-    
-    std::string helloString(buff);
-    
-    std::cout << "Received: " << helloString << std::endl;
-    
-    close(clientSocket);
+    waitForModule();
     
     close(servSocket);
     
     
     return 0;
-}
-
-Module waitForModule(){
-    
-    return Module();
 }
