@@ -11,7 +11,7 @@ class MotorDriver
 {
 	private:
 		std::string systemAddress;
-		void Read(const std::string parameterFile, const std::string output);
+		void Read(const std::string parameterFile, std::string* output);
 		int Read(const std::string parameterFile);
 		void Write(const std::string parameterFile, const std::string value);
 		void Write(const std::string parameterFile, int value);
@@ -27,6 +27,7 @@ class MotorDriver
 		void Stop();
 		void RunToRelPos();
 		void Reset();
+		std::string GetState();
 };
 
 #endif
