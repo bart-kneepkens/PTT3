@@ -7,35 +7,32 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <pthread.h>
 
-class Server{
-    
-    int StartSequence(){
-        
-    }
-    
-    int connectModule(){
-        
-    }
-    
-    int runModule(){
-        
-    }
-};
+//class Server{
+//    
+//    int StartSequence(){
+//        
+//    }
+//    
+//    int connectModule(){
+//        
+//    }
+//    
+//    int runModule(){
+//        
+//    }
+//};
 
 int servSocket;
 
-
-Module waitForModule(){
-    int clientSocket = AcceptTCPConnection(servSocket);
-    
+Module acceptModule(int clientSocket){
     std::cout << "Accepted client with id: " << clientSocket << std::endl;
     
     char buff[1024];
     
     int received = recv(clientSocket, buff, 1024,0);
     
-    //std::cout << "Received: " << buff << std::endl;
     
     std::string helloString(buff);
     
@@ -59,6 +56,15 @@ Module waitForModule(){
     return Module(moduleType, moduleName, clientSocket);
 }
 
+static void * myThread (void * threadArgs)
+{
+    int * clntSock_ptr = (int*) threadArgs;
+    
+    acceptModule(*clntSock_ptr);
+    pthread_detach(pthread_self());
+    return (NULL);
+}
+
 int main(){
     // Wait for modules to send connect message async
     
@@ -68,10 +74,22 @@ int main(){
     
     std::cout << "Created server socket with id: " << servSocket << std::endl;
     
-    waitForModule();
+    while(1){
+        
+        int clientSocket = AcceptTCPConnection(servSocket);
+        
+        pthread_t threadID;
+        
+        int result = pthread_create(&threadID, NULL, myThread, &clientSocket);
+        
+        if(result != 0){
+            std::cout << "Error creating thread. Exiting." << result << std::endl;
+            return 1;
+        }
+
+    }
     
     close(servSocket);
-    
     
     return 0;
 }
