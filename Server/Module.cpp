@@ -13,4 +13,16 @@ public:
         this->name = name;
         this->socketFD = fileDescriptor;
     }
+    
+    std::string GetType(){
+        return type;
+    }
+    
+    std::string GetName(){
+        return name;
+    }
+    
+    int GetSocketFD(){
+        return socketFD;
+    }
 };

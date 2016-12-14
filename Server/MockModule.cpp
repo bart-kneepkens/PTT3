@@ -8,7 +8,7 @@
 // Change toSend to hi:{in/out/main}:{modulename}
 
 int main(){
-    int sock = CreateTCPClientSocket("localhost", 1234);
+    int sock = CreateTCPClientSocket("localhost", 1111);
     std::cout << "Opened client socket";
     
     char toSend  [1024] = "hi:in:Solver";
