@@ -1,6 +1,7 @@
 #include "Module.cpp"
 #include "CreateTCPServerSocket.cpp"
 #include "AcceptTCPConnection.cpp"
+#include <sys/socket.h> // for send() and recv()
 #include <iostream>
 #include <unistd.h>     // for sleep(), close()
 
@@ -36,7 +37,15 @@ int main(){
     
     std::cout << "Accepted client with id: " << clientSocket << std::endl;
     
-    sleep(5);
+    char buff[1024];
+    
+    int received = recv(clientSocket, buff, 1024,0);
+    
+    std::cout << "Received: " << buff << std::endl;
+    
+    std::string helloString(buff);
+    
+    std::cout << "Received: " << helloString << std::endl;
     
     close(clientSocket);
     

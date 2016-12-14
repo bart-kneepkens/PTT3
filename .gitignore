@@ -39,3 +39,5 @@ Solver/SolverSocketClient
 Solver/SolverSocketServer
 Solver/output.json
 maze_parser/.idea/
+Server/mock
+Server/server
