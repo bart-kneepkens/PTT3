@@ -7,13 +7,9 @@
 #include <stdlib.h>
 #include <iostream>
 
-int sockfd;
-
-void closeServerSocket (void)
-{
-    std::cout << "Shutting down SolverSocketServer... " << std::flush;
-    close(sockfd);
-    std::cout << "Done!" << std::endl;
+namespace {
+    const uint16_t BUFFER_SIZE = 256;
+    const char DELIMITER = '^';
 }
 
 int main(int argc, char *argv[]) {
@@ -23,65 +19,72 @@ int main(int argc, char *argv[]) {
 
     // If no port was provided, print error and exit.
     if (argc < 2) {
-        fprintf(stderr, "ERROR, no port provided\n");
+        fprintf(stderr, "Error: no port provided!\n");
         exit(1);
     }
 
     // Open up the server-side socket. If it fails, print error and exit.
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    int sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0) {
-        perror("ERROR opening socket");
+        perror("Error while opening socket!");
         exit(1);
     }
-
-    // Make sure sockfd is closed when this program exits.
-    atexit(closeServerSocket);
 
     // Bind the socket to the port.
     sockaddr_in serv_addr;
     bzero((char *) &serv_addr, sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_addr.s_addr = INADDR_ANY;
-    serv_addr.sin_port = htons(atoi(argv[1]));
+    const int port = atoi(argv[1]);
+    serv_addr.sin_port = htons(port);
 
     // If binding failed, throw an error and exit.
     if (bind(sockfd, (sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
-        perror("ERROR on binding");
+        perror("Error while binding socket to port!");
+        close(sockfd);
         exit(1);
     }
 
-    // Start listening to the socket indefinitely.
+    // Now start listening to the socket.
+    listen(sockfd, 5);
+    sockaddr_in cli_addr;
+    socklen_t clilen = sizeof(cli_addr);
+    std::cout << "Done! Now listening on port " << port << "." << std::endl;
+
+    // Outer loop, each iteration handling a single accepted incoming connection.
     while (1) {
-        listen(sockfd, 5);
-        sockaddr_in cli_addr;
-        socklen_t clilen = sizeof(cli_addr);
 
         // Accept incoming connection. If it failed, print error.
         const int newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
+        std::cout << "Accepting new connection!" << std::endl;
         if (newsockfd < 0) {
-            perror("ERROR on accept");
+            perror("Error while accepting!");
+            continue;
         }
 
-        // Start reading from incoming connection.
-        char buffer[256];
-        bzero(buffer, 256);
-        int n = read(newsockfd, buffer, 255);
+        // While we're still connected to the current client...
+        ssize_t readFlag = 1;
+        while (readFlag) {
+            size_t buf_idx = 0;
+            char buf[BUFFER_SIZE] = {0};
 
-        // If reading failed, print error.
-        if (n < 0) {
-            perror("ERROR reading from socket");
+            // Read words from the client, delimited by a special character.
+            while (buf_idx < BUFFER_SIZE && 1 == (readFlag = read(newsockfd, &buf[buf_idx], 1))) {
+
+                // If we encountered the delimiter, break from this loop.
+                if (buf_idx > 0 && DELIMITER == buf[buf_idx]) {
+                    buf[buf_idx] = 0;
+                    break;
+                }
+                buf_idx++;
+            }
+
+            // Print debug message.
+            std::cout << "Received word: '" << buf << "'." << std::endl;
         }
 
-        // Do stuff with the data we received. For now, just print a simple message.
-        printf("Here is the message: %s\n", buffer);
-
-        // Write a reply to the client. If it fails, print an error.
-        n = write(newsockfd, "I got your message", 18);
-        if (n < 0) {
-            perror("ERROR writing to socket");
-        }
-
-        // Clean up and close.
+        // Close the file descriptor.
+        std::cout << "Closing connection!" << std::endl;
         close(newsockfd);
     }
 }

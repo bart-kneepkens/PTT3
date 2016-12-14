@@ -14,6 +14,9 @@ add_library(Core_Files
         "../maze_parser/MazeParser.cpp"
 		"MazeSolver.hpp"
         "MazeSolver.cpp"
+		"IModuleIN.hpp"
+        "IModuleINOUT.hpp"
+        "IModuleOUT.hpp"
 )
 
 

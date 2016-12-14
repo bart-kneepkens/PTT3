@@ -2,13 +2,14 @@
 #define SOLVER_MAZESOLVER_H
 
 #include "../maze_parser/MazeParser.hpp"
+#include "IModuleINOUT.hpp"
 
 namespace maze_solver {
 
     using std::vector;
     using std::string;
 
-    class MazeSolver {
+    class MazeSolver : public IModuleINOUT {
     private:
         vector<vector<char>*> Maze;
         vector<vector<char>*>*Solution;
@@ -33,7 +34,7 @@ namespace maze_solver {
     public:
         MazeSolver();
         ~MazeSolver();
-        void solve(maze_parser::MazeMessage& message);
+        maze_parser::MazeMessage* Run(maze_parser::MazeMessage& msg);
     };
 }
 #endif

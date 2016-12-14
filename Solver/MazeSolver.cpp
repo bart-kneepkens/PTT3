@@ -18,75 +18,8 @@ namespace maze_solver {
     COORD startingPoint;
     COORD endingPoint;
 
-    bool maze_solver::MazeSolver::solveForCoordinates(unsigned int X, unsigned int Y) {
-
-        //printf("X: %d, Y: %d\n", X, Y);
-
-        // Set the current block to the right char.
-        Solution->at(Y)->at(X) = maze_parser::PATH;
-
-        // Return true if ending point has been reached.
-        if (X == endingPoint.X && Y == endingPoint.Y) {
-            return true;
-        }
-
-        bool foundEndingPoint = false;
-
-        // Travel to all 4 surrounding blocks if possible, starting with the blocks that are closest to the ending point.
-        if (Y > endingPoint.Y) {
-            if (X > endingPoint.X) {
-                // Order: Y-1, X-1, Y+1, X+1
-                foundEndingPoint = (exploreBlock(X, Y - 1) || exploreBlock(X - 1, Y) || exploreBlock(X, Y + 1) ||
-                                    exploreBlock(X + 1, Y));
-            } else if (X < endingPoint.X) {
-                // Order: Y-1, X+1, Y+1, X-1
-                foundEndingPoint = (exploreBlock(X, Y - 1) || exploreBlock(X + 1, Y) || exploreBlock(X, Y + 1) ||
-                                    exploreBlock(X - 1, Y));
-            } else {
-                // Order: Y-1, X+1, X-1, Y+1
-                foundEndingPoint = (exploreBlock(X, Y - 1) || exploreBlock(X + 1, Y) || exploreBlock(X - 1, Y) ||
-                                    exploreBlock(X, Y + 1));
-            }
-        } else if (Y < endingPoint.Y) {
-            if (X > endingPoint.X) {
-                // Order: Y+1, X-1, Y-1, X+1
-                foundEndingPoint = (exploreBlock(X, Y + 1) || exploreBlock(X - 1, Y) || exploreBlock(X, Y - 1) ||
-                                    exploreBlock(X + 1, Y));
-            } else if (X < endingPoint.X) {
-                // Order: Y+1, X+1, Y-1, X-1
-                foundEndingPoint = (exploreBlock(X, Y + 1) || exploreBlock(X + 1, Y) || exploreBlock(X, Y - 1) ||
-                                    exploreBlock(X - 1, Y));
-            } else {
-                // Order: Y+1, X+1, X-1, Y-1
-                foundEndingPoint = (exploreBlock(X, Y + 1) || exploreBlock(X + 1, Y) || exploreBlock(X - 1, Y) ||
-                                    exploreBlock(X, Y - 1));
-            }
-        } else {
-            if (X >= endingPoint.X) {
-                // Order: X-1, Y+1, Y-1, X+1
-                foundEndingPoint = (exploreBlock(X - 1, Y) || exploreBlock(X, Y + 1) || exploreBlock(X, Y - 1) ||
-                                    exploreBlock(X + 1, Y));
-            } else if (X < endingPoint.X) {
-                // Order: X+1, Y+1, Y-1, X-1
-                foundEndingPoint = (exploreBlock(X + 1, Y) || exploreBlock(X, Y + 1) || exploreBlock(X, Y - 1) ||
-                                    exploreBlock(X - 1, Y));
-            }
-        }
-
-        // If ending point was not found, set current block to be a dead end.
-        if (!foundEndingPoint) {
-            Solution->at(Y)->at(X) = maze_parser::DEADEND;
-        }
-        return foundEndingPoint;
-    }
-
-    maze_solver::MazeSolver::MazeSolver() {}
-
-    maze_solver::MazeSolver::~MazeSolver() {}
-
-    void maze_solver::MazeSolver::solve(maze_parser::MazeMessage &message) {
-
-        this->Maze = *message.Scan;
+    maze_parser::MazeMessage *MazeSolver::Run(maze_parser::MazeMessage &msg) {
+        this->Maze = *(msg.Scan);
         startingPoint = COORD(-1, -1);
         endingPoint = COORD(-1, -1);
         const unsigned int columnLength = Maze.size();
@@ -116,7 +49,7 @@ namespace maze_solver {
         // If no walls were found at all, print error message and return.
         if (!foundWall) {
             std::cout << "Invalid maze: it contains no walls!" << std::endl;
-            return;
+            return NULL;
         }
 
         // Try find an opening in the top wall.
@@ -196,7 +129,7 @@ namespace maze_solver {
         // If we failed to find two openings, throw an exception.
         if (startingPoint.X < 0 || endingPoint.X < 0) {
             std::cout << "Invalid maze: it should have at least two openings!" << std::endl;
-            return;
+            return NULL;
         }
 
         // Create empty solution field.
@@ -207,8 +140,72 @@ namespace maze_solver {
             std::cout << "Failed to find a solution." << std::endl;
         }
 
-        message.Solution = Solution;
+        msg.Solution = Solution;
     }
+
+    bool maze_solver::MazeSolver::solveForCoordinates(unsigned int X, unsigned int Y) {
+
+        // Set the current block to the right char.
+        Solution->at(Y)->at(X) = maze_parser::PATH;
+
+        // Return true if ending point has been reached.
+        if (X == endingPoint.X && Y == endingPoint.Y) {
+            return true;
+        }
+
+        bool foundEndingPoint = false;
+
+        // Travel to all 4 surrounding blocks if possible, starting with the blocks that are closest to the ending point.
+        if (Y > endingPoint.Y) {
+            if (X > endingPoint.X) {
+                // Order: Y-1, X-1, Y+1, X+1
+                foundEndingPoint = (exploreBlock(X, Y - 1) || exploreBlock(X - 1, Y) || exploreBlock(X, Y + 1) ||
+                                    exploreBlock(X + 1, Y));
+            } else if (X < endingPoint.X) {
+                // Order: Y-1, X+1, Y+1, X-1
+                foundEndingPoint = (exploreBlock(X, Y - 1) || exploreBlock(X + 1, Y) || exploreBlock(X, Y + 1) ||
+                                    exploreBlock(X - 1, Y));
+            } else {
+                // Order: Y-1, X+1, X-1, Y+1
+                foundEndingPoint = (exploreBlock(X, Y - 1) || exploreBlock(X + 1, Y) || exploreBlock(X - 1, Y) ||
+                                    exploreBlock(X, Y + 1));
+            }
+        } else if (Y < endingPoint.Y) {
+            if (X > endingPoint.X) {
+                // Order: Y+1, X-1, Y-1, X+1
+                foundEndingPoint = (exploreBlock(X, Y + 1) || exploreBlock(X - 1, Y) || exploreBlock(X, Y - 1) ||
+                                    exploreBlock(X + 1, Y));
+            } else if (X < endingPoint.X) {
+                // Order: Y+1, X+1, Y-1, X-1
+                foundEndingPoint = (exploreBlock(X, Y + 1) || exploreBlock(X + 1, Y) || exploreBlock(X, Y - 1) ||
+                                    exploreBlock(X - 1, Y));
+            } else {
+                // Order: Y+1, X+1, X-1, Y-1
+                foundEndingPoint = (exploreBlock(X, Y + 1) || exploreBlock(X + 1, Y) || exploreBlock(X - 1, Y) ||
+                                    exploreBlock(X, Y - 1));
+            }
+        } else {
+            if (X >= endingPoint.X) {
+                // Order: X-1, Y+1, Y-1, X+1
+                foundEndingPoint = (exploreBlock(X - 1, Y) || exploreBlock(X, Y + 1) || exploreBlock(X, Y - 1) ||
+                                    exploreBlock(X + 1, Y));
+            } else if (X < endingPoint.X) {
+                // Order: X+1, Y+1, Y-1, X-1
+                foundEndingPoint = (exploreBlock(X + 1, Y) || exploreBlock(X, Y + 1) || exploreBlock(X, Y - 1) ||
+                                    exploreBlock(X - 1, Y));
+            }
+        }
+
+        // If ending point was not found, set current block to be a dead end.
+        if (!foundEndingPoint) {
+            Solution->at(Y)->at(X) = maze_parser::DEADEND;
+        }
+        return foundEndingPoint;
+    }
+
+    maze_solver::MazeSolver::MazeSolver() {}
+
+    maze_solver::MazeSolver::~MazeSolver() {}
 
     vector<vector<char> *> *maze_solver::MazeSolver::emptyField(unsigned int columns, unsigned int rows) {
         vector<vector<char> *> *field = new std::vector<std::vector<char> *>();
@@ -230,5 +227,6 @@ namespace maze_solver {
                 Maze.at(Y)->at(X) == maze_parser::EMPTY && Solution->at(Y)->at(X) == maze_parser::EMPTY &&
                 solveForCoordinates(X, Y));
     }
+
 }
 
