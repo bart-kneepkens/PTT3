@@ -11,6 +11,7 @@
 
 int servSocket;
 std::vector<Module> connectedModules;
+bool sufficientModules = false;
 
 Module acceptModule(int clientSocket){
     std::cout << "Accepted client with id: " << clientSocket << std::endl;
@@ -18,7 +19,6 @@ Module acceptModule(int clientSocket){
     char buff[1024];
     
     int received = recv(clientSocket, buff, 1024,0);
-    
     
     std::string helloString(buff);
     
@@ -42,27 +42,29 @@ Module acceptModule(int clientSocket){
     return Module(moduleType, moduleName, clientSocket);
 }
 
-static void * myThread (void * threadArgs){
+static void * ConnectModuleThread (void * threadArgs){
     int * clntSock_ptr = (int*) threadArgs;
     
     Module m = acceptModule(*clntSock_ptr);
     connectedModules.push_back(m);
     
+    if(connectedModules.size() == 3){
+		sufficientModules = true;
+	}
+    
     pthread_detach(pthread_self());
     return (NULL);
 }
 
-static void * waitThread (void * threadArgs){
-    //std::vector<Module> connectedModules_ptr = *(std::vector<Module>*) threadArgs;
-    
-    while(1){
+static void * WaitForModulesThread (void * threadArgs){
+    while(!sufficientModules){
 		int clientSocket = AcceptTCPConnection(servSocket);
         
         std::cout << "Accepted client: " << clientSocket << std::endl;
         
         pthread_t threadID;
         
-        int result = pthread_create(&threadID, NULL, myThread, &clientSocket);
+        int result = pthread_create(&threadID, NULL, ConnectModuleThread, &clientSocket);
         
         if(result != 0){
             std::cout << "Error creating thread. Exiting." << result << std::endl;
@@ -88,34 +90,18 @@ int main(){
     
     std::cout << "Created server socket with id: " << servSocket << std::endl;
     
-    /*
-    while(connectedModules.size() != 3){
-        
-        /*
-        int clientSocket = AcceptTCPConnection(servSocket);
-        
-        std::cout << "Accepted client: " << clientSocket;
-        
-        pthread_t threadID;
-        
-        int result = pthread_create(&threadID, NULL, myThread, &clientSocket);
-        
-        if(result != 0){
-            std::cout << "Error creating thread. Exiting." << result << std::endl;
-            return 1;
-        }
-
-    } */
-    
-    //std::cout << "Has 3 modules!!!! " << std::endl;
-    
     pthread_t threadID;
-        
-	int result = pthread_create(&threadID, NULL, waitThread, &connectedModules);
+	int result = pthread_create(&threadID, NULL, WaitForModulesThread, NULL);
     
     while(1){
 		printModules();
-		sleep(10);
+		sleep(5);
+		
+		if(connectedModules.size() == 3){
+			std::cout << "--------- Thread detached" << std::endl;
+			pthread_detach(threadID);
+			pthread_cancel(threadID);
+		}
 	}
     close(servSocket);
     
