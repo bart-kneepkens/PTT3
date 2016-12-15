@@ -11,7 +11,6 @@
 
 int servSocket;
 std::vector<Module> connectedModules;
-bool sufficientModules = false;
 
 Module acceptModule(int clientSocket){
     std::cout << "Accepted client with id: " << clientSocket << std::endl;
@@ -38,6 +37,8 @@ Module acceptModule(int clientSocket){
     
     //close(clientSocket);
     
+    send(clientSocket, "ACK", 4, 0);
+    
     std::cout << "returning module : "<< moduleType << ":" << moduleName << ":" << clientSocket << std::endl;
     return Module(moduleType, moduleName, clientSocket);
 }
@@ -48,16 +49,12 @@ static void * ConnectModuleThread (void * threadArgs){
     Module m = acceptModule(*clntSock_ptr);
     connectedModules.push_back(m);
     
-    if(connectedModules.size() == 3){
-		sufficientModules = true;
-	}
-    
     pthread_detach(pthread_self());
     return (NULL);
 }
 
 static void * WaitForModulesThread (void * threadArgs){
-    while(!sufficientModules){
+    while(1){
 		int clientSocket = AcceptTCPConnection(servSocket);
         
         std::cout << "Accepted client: " << clientSocket << std::endl;
@@ -95,14 +92,28 @@ int main(){
     
     while(1){
 		printModules();
-		sleep(5);
+		sleep(1);
 		
 		if(connectedModules.size() == 3){
 			std::cout << "--------- Thread detached" << std::endl;
 			pthread_detach(threadID);
 			pthread_cancel(threadID);
+			break;
 		}
 	}
+	
+	std::cout << " Type 'start' to start the sequence in default order ... " << std::endl;
+	
+	std::string userInput;
+	
+	std::cin >> userInput;
+	std::cin.ignore();
+	
+	if(userInput == "start"){
+		std::cout << "Starting Sequence ... " << std::endl;
+	}
+	
+	
     close(servSocket);
     
     return 0;

@@ -18,7 +18,11 @@ int main(){
     send(sock, toSend, 1024, 0);
     std::cout << "\nsent stuff \n";
     
-    sleep(20);
+    char reaction [4];
+    
+    recv(sock,  reaction, 4, 0);
+    
+    std::cout << reaction << std::endl;
     
     close(sock);
 }
