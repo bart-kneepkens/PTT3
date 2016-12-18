@@ -18,7 +18,7 @@ namespace maze_solver {
     COORD startingPoint;
     COORD endingPoint;
 
-    unsigned int maze_solver::MazeSolver::Run(maze_parser::MazeMessage* msgPtr) {
+    int maze_solver::MazeSolver::Run(maze_parser::MazeMessage* msgPtr) {
         // Make sure a maze was supplied.
         if (msgPtr == NULL) {
             std::cerr << "Maze is NULL!" << std::endl;

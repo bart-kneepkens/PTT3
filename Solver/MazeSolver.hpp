@@ -34,7 +34,7 @@ namespace maze_solver {
     public:
         MazeSolver();
         ~MazeSolver();
-        unsigned int Run(maze_parser::MazeMessage* msgPtr);
+        int Run(maze_parser::MazeMessage* msgPtr);
     };
 }
 #endif

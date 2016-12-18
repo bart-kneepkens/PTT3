@@ -23,7 +23,7 @@ public:
      * @param msgPtr Pointer to a MazeMessage, or NULL.
      * @return 0 if the function exited normally, otherwise anything else.
      */
-    virtual unsigned int Run(maze_parser::MazeMessage* msgPtr) = 0;
+    virtual int Run(maze_parser::MazeMessage* msgPtr) = 0;
 };
 
 #endif //PTT3_IMODULE_HPP
