@@ -124,19 +124,6 @@ Core_Files/fast:
 .PHONY : Core_Files/fast
 
 #=============================================================================
-# Target rules for targets named SolverSocketServer
-
-# Build rule for target.
-SolverSocketServer: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 SolverSocketServer
-.PHONY : SolverSocketServer
-
-# fast build rule for target.
-SolverSocketServer/fast:
-	$(MAKE) -f CMakeFiles/SolverSocketServer.dir/build.make CMakeFiles/SolverSocketServer.dir/build
-.PHONY : SolverSocketServer/fast
-
-#=============================================================================
 # Target rules for targets named Solver
 
 # Build rule for target.
@@ -148,6 +135,19 @@ Solver: cmake_check_build_system
 Solver/fast:
 	$(MAKE) -f CMakeFiles/Solver.dir/build.make CMakeFiles/Solver.dir/build
 .PHONY : Solver/fast
+
+#=============================================================================
+# Target rules for targets named SolverSocketServer
+
+# Build rule for target.
+SolverSocketServer: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 SolverSocketServer
+.PHONY : SolverSocketServer
+
+# fast build rule for target.
+SolverSocketServer/fast:
+	$(MAKE) -f CMakeFiles/SolverSocketServer.dir/build.make CMakeFiles/SolverSocketServer.dir/build
+.PHONY : SolverSocketServer/fast
 
 #=============================================================================
 # Target rules for targets named SolverSocketClient
@@ -261,8 +261,8 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Core_Files"
-	@echo "... SolverSocketServer"
 	@echo "... Solver"
+	@echo "... SolverSocketServer"
 	@echo "... SolverSocketClient"
 	@echo "... MazeSolver.o"
 	@echo "... MazeSolver.i"

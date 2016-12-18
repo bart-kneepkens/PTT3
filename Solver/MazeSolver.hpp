@@ -2,16 +2,16 @@
 #define SOLVER_MAZESOLVER_H
 
 #include "../maze_parser/MazeParser.hpp"
-#include "IModuleINOUT.hpp"
+#include "IModule.hpp"
 
 namespace maze_solver {
 
     using std::vector;
     using std::string;
 
-    class MazeSolver : public IModuleINOUT {
+    class MazeSolver : public IModule {
     private:
-        vector<vector<char>*> Maze;
+        vector<vector<char>*>* Maze;
         vector<vector<char>*>*Solution;
         bool solveForCoordinates(unsigned int X, unsigned int Y);
         /**
@@ -34,7 +34,7 @@ namespace maze_solver {
     public:
         MazeSolver();
         ~MazeSolver();
-        maze_parser::MazeMessage* Run(maze_parser::MazeMessage& msg);
+        unsigned int Run(maze_parser::MazeMessage* msgPtr);
     };
 }
 #endif

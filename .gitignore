@@ -29,15 +29,14 @@
 *.app
 
 # Miscellaneous
+.idea/
+CMakeFiles/
 Scanner/main
-Solver/.idea/
 Solver/CMakeCache.txt
-Solver/CMakeFiles/
 Solver/cmake_install.cmake
 Solver/Solver
 Solver/SolverSocketClient
 Solver/SolverSocketServer
 Solver/output.json
-maze_parser/.idea/
 Server/mock
 Server/server

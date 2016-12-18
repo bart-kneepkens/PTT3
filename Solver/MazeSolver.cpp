@@ -18,12 +18,18 @@ namespace maze_solver {
     COORD startingPoint;
     COORD endingPoint;
 
-    maze_parser::MazeMessage *MazeSolver::Run(maze_parser::MazeMessage &msg) {
-        this->Maze = *(msg.Scan);
+    unsigned int maze_solver::MazeSolver::Run(maze_parser::MazeMessage* msgPtr) {
+        // Make sure a maze was supplied.
+        if (msgPtr == NULL) {
+            std::cerr << "Maze is NULL!" << std::endl;
+            return 1;
+        }
+        
+        this->Maze = msgPtr->Scan;
         startingPoint = COORD(-1, -1);
         endingPoint = COORD(-1, -1);
-        const unsigned int columnLength = Maze.size();
-        const unsigned int rowLength = (Maze.at(0))->size();
+        const unsigned int columnLength = Maze->size();
+        const unsigned int rowLength = (Maze->at(0))->size();
         const unsigned int maxYIndex = columnLength - 1;
         const unsigned int maxXIndex = rowLength - 1;
         unsigned int yStart = 0;
@@ -32,7 +38,7 @@ namespace maze_solver {
         // Find row with first occurrence of an entrance.
         for (; yStart < columnLength; yStart++) {
             for (unsigned int x = 0; x < rowLength; x++) {
-                const char block = Maze.at(yStart)->at(x);
+                const char block = Maze->at(yStart)->at(x);
 
                 if (block == maze_parser::WALL) {
                     foundWall = true;
@@ -48,13 +54,13 @@ namespace maze_solver {
 
         // If no walls were found at all, print error message and return.
         if (!foundWall) {
-            std::cout << "Invalid maze: it contains no walls!" << std::endl;
-            return NULL;
+            std::cerr << "Invalid maze: it contains no walls!" << std::endl;
+            return 1;
         }
 
         // Try find an opening in the top wall.
         for (unsigned int x = 0; x < rowLength; x++) {
-            const char block = Maze.at(yStart)->at(x);
+            const char block = Maze->at(yStart)->at(x);
 
             if (block == maze_parser::EMPTY) {
                 if (startingPoint.X < 0) {
@@ -74,7 +80,7 @@ namespace maze_solver {
         // Try find an opening in the left and right walls.
         if (startingPoint.X < 0 || endingPoint.X < 0) {
             for (unsigned int y = yStart + 1; y < maxYIndex; y++) {
-                char block = Maze.at(y)->at(0);
+                char block = Maze->at(y)->at(0);
 
                 if (block == maze_parser::EMPTY) {
                     if (startingPoint.X < 0) {
@@ -89,7 +95,7 @@ namespace maze_solver {
                     }
                 }
 
-                block = Maze.at(y)->at(maxXIndex);
+                block = Maze->at(y)->at(maxXIndex);
 
                 if (block == maze_parser::EMPTY) {
                     if (startingPoint.X < 0) {
@@ -108,7 +114,7 @@ namespace maze_solver {
 
         // Try find an opening in the bottom wall.
         if (startingPoint.X < 0 || endingPoint.X < 0) {
-            const vector<char> lastRow = *(Maze.at(maxYIndex));
+            const vector<char> lastRow = *(Maze->at(maxYIndex));
 
             for (unsigned int x = 0; x < rowLength; x++) {
                 if (lastRow.at(x) == maze_parser::EMPTY) {
@@ -128,8 +134,8 @@ namespace maze_solver {
 
         // If we failed to find two openings, throw an exception.
         if (startingPoint.X < 0 || endingPoint.X < 0) {
-            std::cout << "Invalid maze: it should have at least two openings!" << std::endl;
-            return NULL;
+            std::cerr << "Invalid maze: it should have at least two openings!" << std::endl;
+            return 1;
         }
 
         // Create empty solution field.
@@ -137,10 +143,12 @@ namespace maze_solver {
 
         // Fill solution field with actual solution.
         if (!solveForCoordinates(startingPoint.X, startingPoint.Y)) {
-            std::cout << "Failed to find a solution." << std::endl;
+            std::cerr << "Failed to find a solution." << std::endl;
+            return 1;
         }
 
-        msg.Solution = Solution;
+        msgPtr->Solution = Solution;
+        return 0;
     }
 
     bool maze_solver::MazeSolver::solveForCoordinates(unsigned int X, unsigned int Y) {
@@ -223,8 +231,8 @@ namespace maze_solver {
     }
 
     bool MazeSolver::exploreBlock(unsigned int X, unsigned int Y) {
-        return (Y >= 0 && X >= 0 && Y < Maze.size() && X < Maze.at(Y)->size() &&
-                Maze.at(Y)->at(X) == maze_parser::EMPTY && Solution->at(Y)->at(X) == maze_parser::EMPTY &&
+        return (Y >= 0 && X >= 0 && Y < Maze->size() && X < Maze->at(Y)->size() &&
+                Maze->at(Y)->at(X) == maze_parser::EMPTY && Solution->at(Y)->at(X) == maze_parser::EMPTY &&
                 solveForCoordinates(X, Y));
     }
 
