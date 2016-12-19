@@ -22,11 +22,11 @@ add_library(Core_Files
 
 # Executables to be build.
 
-add_executable(SolverSocketServer SolverSocketServer.cpp)
-add_executable(SolverSocketClient SolverSocketClient.cpp)
+add_executable(ModuleServer ModuleServer.cpp)
+add_executable(ModuleClient ModuleClient.cpp)
 
 
 # Linking core files to executables.
 
-target_link_libraries(SolverSocketServer Core_Files)
-target_link_libraries(SolverSocketClient Core_Files)
+target_link_libraries(ModuleServer Core_Files)
+target_link_libraries(ModuleClient Core_Files)
