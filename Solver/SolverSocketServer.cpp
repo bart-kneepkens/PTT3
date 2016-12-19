@@ -56,16 +56,15 @@ int main(int argc, char *argv[]) {
     char buffer[256];
     int n = receiveMsg(newsockfd, buffer, 256);
     printf("Here is the message: %s\n",buffer);
+
     bzero(buffer, 256);
-    buffer[0] = 'a';
-    buffer[1] = 'c';
-    buffer[2] = 'k';
+    buffer[0] = 'A';
+    buffer[1] = 'C';
+    buffer[2] = 'K';
     n = sendMsg(newsockfd, buffer);
+    std::cout << "Replied to client." << std::endl;
 
     close(newsockfd);
     close(sockfd);
-
-    std::cout << "Replied to client." << std::endl;
-
-    std::cout << "Closing connection!" << std::endl;
+    std::cout << "Closed connection." << std::endl;
 }

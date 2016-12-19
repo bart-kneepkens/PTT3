@@ -92,18 +92,19 @@ int main(int argc, char *argv[])
     }
     std::cout << "Connected to server." << std::endl;
 
-    char buffer[256];
-    bzero(buffer,256);
-    //bzero(buffer,5);
-    buffer[0] = 'd';
-    buffer[1] = 'i';
-    buffer[2] = 'c';
-    buffer[3] = 'k';
-    buffer[4] = 's';
+    // Send this module's type to the server.
+    const std::string moduleTypeMsg = "hi:" + moduleType;
+    char buffer[moduleTypeMsg.length()];
+    strcpy(buffer, moduleTypeMsg.c_str());
+    if (sendMsg(sockfd, buffer) < 0) {
+        exit(1);
+    }
+    std::cout << "Sent module type to server." << std::endl;
 
-    int n = sendMsg(sockfd, buffer);
-    n = receiveMsg(sockfd, buffer, 256);
-    printf("%s\n",buffer);
+    char ackBuffer[4];
+    int n = receiveMsg(sockfd, ackBuffer, 4);
+    std::cout << "Received ACK from server." << std::endl;
+    printf("%s\n", ackBuffer);
     close(sockfd);
     return 0;
 }

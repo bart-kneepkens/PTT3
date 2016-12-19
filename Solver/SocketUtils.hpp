@@ -9,10 +9,10 @@
 const uint16_t BUFFER_SIZE = 256;               // Default buffer size.
 const uint16_t ACK_BUFFER_SIZE = 4;             // Buffer size for ACK messages.
 const char DELIMITER = '^';                     // Delimiter for incoming messages.
-const std::string SCANNER_STRING = "scanner";   // String that corresponds to MazeScanner (to be implemented).
-const std::string SOLVER_STRING = "solver";     // String that corresponds to MazeSolver.
-const std::string PLOTTER_STRING = "plotter";   // String that corresponds to MazePlotter (to be implemented).
-const std::string ACK_MSG = "ACK";              // Message that is sent as acknowledgement.
+const std::string SCANNER_STRING = "in:scanner";   // String that corresponds to MazeScanner (to be implemented).
+const std::string SOLVER_STRING = "inout:solver";     // String that corresponds to MazeSolver.
+const std::string PLOTTER_STRING = "out:plotter";   // String that corresponds to MazePlotter (to be implemented).
+const char ACK_MSG[3] = {'A', 'C', 'K'};        // Message that is sent as acknowledgement.
 
 /**
  * Sends the specified message in 'buffer' through the specified socket. The socket should already be open before
