@@ -41,7 +41,7 @@ int main(int argc, char *argv[]) {
     listen(sockfd, 5);
     sockaddr_in cli_addr;
     socklen_t clilen = sizeof(cli_addr);
-    std::cout << "Done! Now listening on port " << port << "." << std::endl;
+    std::cout << "Now listening on port " << port << "." << std::endl;
 
     // Accept incoming connection. If it failed, print error.
     const int newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);

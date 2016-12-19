@@ -118,22 +118,29 @@ int main(int argc, char *argv[])
         close(sockfd);
         exit(1);
     }
-    std::cout << "Received ACK from server." << std::endl;
-    std::cout << "Now awaiting messages from server..." << std::endl;
+    std::cout << "Received ACK from server. Now awaiting messages from server..." << std::endl;
 
     // Now wait indefinitely for maze messages from the server.
-    //while (1) {
+    while (1) {
         // Read maze message.
         char msgBuffer[MAZE_MSG_BUFFER_SIZE];
         if (receiveMsg(sockfd, msgBuffer, MAZE_MSG_BUFFER_SIZE) < 0) {
             close(sockfd);
             exit(1);
         }
-        std::cout << "Received MazeMessage from server." << std::endl;
+        std::cout << "Received data from server." << std::endl;
 
-        // Parse buffer to string, and then string to MazeMessage instance.
+        // Parse buffer to string, and then string to MazeMessage instance. If parsing fails, we assume the server
+        // has either derped or died, so we close the client properly as well.
         std::string msgString(msgBuffer);
-        maze_parser::MazeMessage* mazeMsg = maze_parser::jsonToMazeMessage(msgString);
+        maze_parser::MazeMessage *mazeMsg;
+        try {
+            mazeMsg = maze_parser::jsonToMazeMessage(msgString);
+        } catch (std::invalid_argument) {
+            std::cout << "Server has either derped or died. Closing client socket and exiting..." << std::endl;
+            close(sockfd);
+            exit(0);
+        }
 
         // Call module to perform logic on the received MazeMessage.
         module->Run(&mazeMsg);
@@ -148,13 +155,5 @@ int main(int argc, char *argv[])
             exit(1);
         }
         std::cout << "Sent processed MazeMessage back to server." << std::endl;
-
-
-
-
-
-        //std::cout << mazeMsg->toString() << std::endl;
-
-        //std::cout << msgString << std::endl;
-    //}
+    }
 }

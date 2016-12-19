@@ -42,7 +42,7 @@ namespace maze_solver {
 
                 if (block == maze_parser::WALL) {
                     foundWall = true;
-                    std::cout << "Found first wall on position: Y=" << yStart << "; X=" << x << std::endl;
+                    //std::cout << "Found first wall on position: Y=" << yStart << "; X=" << x << std::endl;
                     break;
                 }
             }
@@ -66,12 +66,12 @@ namespace maze_solver {
                 if (startingPoint.X < 0) {
                     startingPoint.X = x;
                     startingPoint.Y = yStart;
-                    std::cout << "Set starting point to: Y=" << yStart << "; X=" << x << std::endl;
+                    //std::cout << "Set starting point to: Y=" << yStart << "; X=" << x << std::endl;
 
                 } else if (endingPoint.X < 0) {
                     endingPoint.X = x;
                     endingPoint.Y = yStart;
-                    std::cout << "Set ending point to: Y=" << yStart << "; X=" << x << std::endl;
+                    //std::cout << "Set ending point to: Y=" << yStart << "; X=" << x << std::endl;
                     break;
                 }
             }
@@ -86,11 +86,11 @@ namespace maze_solver {
                     if (startingPoint.X < 0) {
                         startingPoint.X = 0;
                         startingPoint.Y = y;
-                        std::cout << "Set starting point to: Y=" << y << "; X=" << 0 << std::endl;
+                        //std::cout << "Set starting point to: Y=" << y << "; X=" << 0 << std::endl;
                     } else if (endingPoint.X < 0) {
                         endingPoint.X = 0;
                         endingPoint.Y = y;
-                        std::cout << "Set ending point to: Y=" << y << "; X=" << 0 << std::endl;
+                        //std::cout << "Set ending point to: Y=" << y << "; X=" << 0 << std::endl;
                         break;
                     }
                 }
@@ -101,11 +101,11 @@ namespace maze_solver {
                     if (startingPoint.X < 0) {
                         startingPoint.X = maxXIndex;
                         startingPoint.Y = y;
-                        std::cout << "Set starting point to: Y=" << y << "; X=" << maxXIndex << std::endl;
+                        //std::cout << "Set starting point to: Y=" << y << "; X=" << maxXIndex << std::endl;
                     } else if (endingPoint.X < 0) {
                         endingPoint.X = maxXIndex;
                         endingPoint.Y = y;
-                        std::cout << "Set ending point to: Y=" << y << "; X=" << maxXIndex << std::endl;
+                        //std::cout << "Set ending point to: Y=" << y << "; X=" << maxXIndex << std::endl;
                         break;
                     }
                 }
@@ -121,11 +121,11 @@ namespace maze_solver {
                     if (startingPoint.X < 0) {
                         startingPoint.X = x;
                         startingPoint.Y = maxYIndex;
-                        std::cout << "Set starting point to: Y=" << maxYIndex << "; X=" << x << std::endl;
+                        //std::cout << "Set starting point to: Y=" << maxYIndex << "; X=" << x << std::endl;
                     } else if (endingPoint.X < 0) {
                         endingPoint.X = x;
                         endingPoint.Y = maxYIndex;
-                        std::cout << "Set ending point to: Y=" << maxYIndex << "; X=" << x << std::endl;
+                        //std::cout << "Set ending point to: Y=" << maxYIndex << "; X=" << x << std::endl;
                         break;
                     }
                 }
