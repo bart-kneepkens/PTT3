@@ -124,30 +124,60 @@ Core_Files/fast:
 .PHONY : Core_Files/fast
 
 #=============================================================================
-# Target rules for targets named SolverSocketServer
+# Target rules for targets named ModuleServer
 
 # Build rule for target.
-SolverSocketServer: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 SolverSocketServer
-.PHONY : SolverSocketServer
+ModuleServer: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ModuleServer
+.PHONY : ModuleServer
 
 # fast build rule for target.
-SolverSocketServer/fast:
-	$(MAKE) -f CMakeFiles/SolverSocketServer.dir/build.make CMakeFiles/SolverSocketServer.dir/build
-.PHONY : SolverSocketServer/fast
+ModuleServer/fast:
+	$(MAKE) -f CMakeFiles/ModuleServer.dir/build.make CMakeFiles/ModuleServer.dir/build
+.PHONY : ModuleServer/fast
 
 #=============================================================================
-# Target rules for targets named SolverSocketClient
+# Target rules for targets named ModuleClient
 
 # Build rule for target.
-SolverSocketClient: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 SolverSocketClient
-.PHONY : SolverSocketClient
+ModuleClient: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ModuleClient
+.PHONY : ModuleClient
 
 # fast build rule for target.
-SolverSocketClient/fast:
-	$(MAKE) -f CMakeFiles/SolverSocketClient.dir/build.make CMakeFiles/SolverSocketClient.dir/build
-.PHONY : SolverSocketClient/fast
+ModuleClient/fast:
+	$(MAKE) -f CMakeFiles/ModuleClient.dir/build.make CMakeFiles/ModuleClient.dir/build
+.PHONY : ModuleClient/fast
+
+# target to build an object file
+ModuleClient.o:
+	$(MAKE) -f CMakeFiles/ModuleClient.dir/build.make CMakeFiles/ModuleClient.dir/ModuleClient.o
+.PHONY : ModuleClient.o
+
+# target to preprocess a source file
+ModuleClient.i:
+	$(MAKE) -f CMakeFiles/ModuleClient.dir/build.make CMakeFiles/ModuleClient.dir/ModuleClient.i
+.PHONY : ModuleClient.i
+
+# target to generate assembly for a file
+ModuleClient.s:
+	$(MAKE) -f CMakeFiles/ModuleClient.dir/build.make CMakeFiles/ModuleClient.dir/ModuleClient.s
+.PHONY : ModuleClient.s
+
+# target to build an object file
+ModuleServer.o:
+	$(MAKE) -f CMakeFiles/ModuleServer.dir/build.make CMakeFiles/ModuleServer.dir/ModuleServer.o
+.PHONY : ModuleServer.o
+
+# target to preprocess a source file
+ModuleServer.i:
+	$(MAKE) -f CMakeFiles/ModuleServer.dir/build.make CMakeFiles/ModuleServer.dir/ModuleServer.i
+.PHONY : ModuleServer.i
+
+# target to generate assembly for a file
+ModuleServer.s:
+	$(MAKE) -f CMakeFiles/ModuleServer.dir/build.make CMakeFiles/ModuleServer.dir/ModuleServer.s
+.PHONY : ModuleServer.s
 
 # target to build an object file
 SocketUtils.o:
@@ -163,36 +193,6 @@ SocketUtils.i:
 SocketUtils.s:
 	$(MAKE) -f CMakeFiles/Core_Files.dir/build.make CMakeFiles/Core_Files.dir/SocketUtils.s
 .PHONY : SocketUtils.s
-
-# target to build an object file
-SolverSocketClient.o:
-	$(MAKE) -f CMakeFiles/SolverSocketClient.dir/build.make CMakeFiles/SolverSocketClient.dir/SolverSocketClient.o
-.PHONY : SolverSocketClient.o
-
-# target to preprocess a source file
-SolverSocketClient.i:
-	$(MAKE) -f CMakeFiles/SolverSocketClient.dir/build.make CMakeFiles/SolverSocketClient.dir/SolverSocketClient.i
-.PHONY : SolverSocketClient.i
-
-# target to generate assembly for a file
-SolverSocketClient.s:
-	$(MAKE) -f CMakeFiles/SolverSocketClient.dir/build.make CMakeFiles/SolverSocketClient.dir/SolverSocketClient.s
-.PHONY : SolverSocketClient.s
-
-# target to build an object file
-SolverSocketServer.o:
-	$(MAKE) -f CMakeFiles/SolverSocketServer.dir/build.make CMakeFiles/SolverSocketServer.dir/SolverSocketServer.o
-.PHONY : SolverSocketServer.o
-
-# target to preprocess a source file
-SolverSocketServer.i:
-	$(MAKE) -f CMakeFiles/SolverSocketServer.dir/build.make CMakeFiles/SolverSocketServer.dir/SolverSocketServer.i
-.PHONY : SolverSocketServer.i
-
-# target to generate assembly for a file
-SolverSocketServer.s:
-	$(MAKE) -f CMakeFiles/SolverSocketServer.dir/build.make CMakeFiles/SolverSocketServer.dir/SolverSocketServer.s
-.PHONY : SolverSocketServer.s
 
 # target to build an object file
 home/martin/git/PTT3/Solver/MazeSolver.o:
@@ -247,18 +247,18 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... Core_Files"
-	@echo "... SolverSocketServer"
-	@echo "... SolverSocketClient"
+	@echo "... ModuleServer"
+	@echo "... ModuleClient"
 	@echo "... rebuild_cache"
+	@echo "... ModuleClient.o"
+	@echo "... ModuleClient.i"
+	@echo "... ModuleClient.s"
+	@echo "... ModuleServer.o"
+	@echo "... ModuleServer.i"
+	@echo "... ModuleServer.s"
 	@echo "... SocketUtils.o"
 	@echo "... SocketUtils.i"
 	@echo "... SocketUtils.s"
-	@echo "... SolverSocketClient.o"
-	@echo "... SolverSocketClient.i"
-	@echo "... SolverSocketClient.s"
-	@echo "... SolverSocketServer.o"
-	@echo "... SolverSocketServer.i"
-	@echo "... SolverSocketServer.s"
 	@echo "... home/martin/git/PTT3/Solver/MazeSolver.o"
 	@echo "... home/martin/git/PTT3/Solver/MazeSolver.i"
 	@echo "... home/martin/git/PTT3/Solver/MazeSolver.s"

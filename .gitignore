@@ -35,8 +35,8 @@ CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
 
-Module/SolverSocketClient
-Module/SolverSocketServer
+Module/ModuleClient
+Module/ModuleServer
 
 Scanner/main
 

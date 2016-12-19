@@ -1,3 +1,8 @@
+/**
+ * Represents a generic module runnable. Should be able to handle and run all module types, assuming they
+ * correctly inherit and implement IModule.
+ */
+
 #include <netdb.h>
 
 #include "../Solver/MazeSolver.hpp"
@@ -97,24 +102,59 @@ int main(int argc, char *argv[])
     char buffer[moduleTypeMsg.length()];
     strcpy(buffer, moduleTypeMsg.c_str());
     if (sendMsg(sockfd, buffer) < 0) {
+        close(sockfd);
         exit(1);
     }
     std::cout << "Sent module type to server." << std::endl;
 
     // Receive acknowledgement from server, exiting if this fails.
-    char ackBuffer[4];
-    if (receiveMsg(sockfd, ackBuffer, 4) < 0) {
+    char ackBuffer[ACK_BUFFER_SIZE];
+    if (receiveMsg(sockfd, ackBuffer, ACK_BUFFER_SIZE) < 0) {
+        close(sockfd);
         exit(1);
     }
     if (strcmp(ackBuffer, ACK_MSG) != 0) {
         std::cerr << "Received something other than ACK from server: '" << ackBuffer << "'!" << std::endl;
+        close(sockfd);
         exit(1);
     }
     std::cout << "Received ACK from server." << std::endl;
+    std::cout << "Now awaiting messages from server..." << std::endl;
 
-    // Now wait indefinitely for commands from the server.
+    // Now wait indefinitely for maze messages from the server.
+    //while (1) {
+        // Read maze message.
+        char msgBuffer[MAZE_MSG_BUFFER_SIZE];
+        if (receiveMsg(sockfd, msgBuffer, MAZE_MSG_BUFFER_SIZE) < 0) {
+            close(sockfd);
+            exit(1);
+        }
+        std::cout << "Received MazeMessage from server." << std::endl;
 
-    // Close and exit.
-    close(sockfd);
-    return 0;
+        // Parse buffer to string, and then string to MazeMessage instance.
+        std::string msgString(msgBuffer);
+        maze_parser::MazeMessage* mazeMsg = maze_parser::jsonToMazeMessage(msgString);
+
+        // Call module to perform logic on the received MazeMessage.
+        module->Run(&mazeMsg);
+
+        // Parse Maze Message back to char array and send it back to the server.
+        msgString = maze_parser::mazeMessageToJson(*mazeMsg);
+        char replyBuffer[msgString.length()];
+        strcpy(replyBuffer, msgString.c_str());
+        if (sendMsg(sockfd, replyBuffer) < 0) {
+            perror("Error while sending processed MazeMessage back to server!");
+            close(sockfd);
+            exit(1);
+        }
+        std::cout << "Sent processed MazeMessage back to server." << std::endl;
+
+
+
+
+
+        //std::cout << mazeMsg->toString() << std::endl;
+
+        //std::cout << msgString << std::endl;
+    //}
 }
