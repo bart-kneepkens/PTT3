@@ -2,7 +2,7 @@
 #define SOLVER_MAZESOLVER_H
 
 #include "../maze_parser/MazeParser.hpp"
-#include "IModule.hpp"
+#include "../Module/IModule.hpp"
 
 namespace maze_solver {
 

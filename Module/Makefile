@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/martin/git/PTT3/Solver
+CMAKE_SOURCE_DIR = /home/martin/git/PTT3/Module
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/martin/git/PTT3/Solver
+CMAKE_BINARY_DIR = /home/martin/git/PTT3/Module
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/martin/git/PTT3/Solver/CMakeFiles /home/martin/git/PTT3/Solver/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/martin/git/PTT3/Module/CMakeFiles /home/martin/git/PTT3/Module/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/martin/git/PTT3/Solver/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/martin/git/PTT3/Module/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -111,19 +111,6 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named Solver
-
-# Build rule for target.
-Solver: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 Solver
-.PHONY : Solver
-
-# fast build rule for target.
-Solver/fast:
-	$(MAKE) -f CMakeFiles/Solver.dir/build.make CMakeFiles/Solver.dir/build
-.PHONY : Solver/fast
-
-#=============================================================================
 # Target rules for targets named Core_Files
 
 # Build rule for target.
@@ -136,50 +123,91 @@ Core_Files/fast:
 	$(MAKE) -f CMakeFiles/Core_Files.dir/build.make CMakeFiles/Core_Files.dir/build
 .PHONY : Core_Files/fast
 
-# target to build an object file
-MazeSolver.o:
-	$(MAKE) -f CMakeFiles/Core_Files.dir/build.make CMakeFiles/Core_Files.dir/MazeSolver.o
-.PHONY : MazeSolver.o
+#=============================================================================
+# Target rules for targets named SolverSocketServer
 
-# target to preprocess a source file
-MazeSolver.i:
-	$(MAKE) -f CMakeFiles/Core_Files.dir/build.make CMakeFiles/Core_Files.dir/MazeSolver.i
-.PHONY : MazeSolver.i
+# Build rule for target.
+SolverSocketServer: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 SolverSocketServer
+.PHONY : SolverSocketServer
 
-# target to generate assembly for a file
-MazeSolver.s:
-	$(MAKE) -f CMakeFiles/Core_Files.dir/build.make CMakeFiles/Core_Files.dir/MazeSolver.s
-.PHONY : MazeSolver.s
+# fast build rule for target.
+SolverSocketServer/fast:
+	$(MAKE) -f CMakeFiles/SolverSocketServer.dir/build.make CMakeFiles/SolverSocketServer.dir/build
+.PHONY : SolverSocketServer/fast
 
-# target to build an object file
-Solver.o:
-	$(MAKE) -f CMakeFiles/Solver.dir/build.make CMakeFiles/Solver.dir/Solver.o
-.PHONY : Solver.o
+#=============================================================================
+# Target rules for targets named SolverSocketClient
 
-# target to preprocess a source file
-Solver.i:
-	$(MAKE) -f CMakeFiles/Solver.dir/build.make CMakeFiles/Solver.dir/Solver.i
-.PHONY : Solver.i
+# Build rule for target.
+SolverSocketClient: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 SolverSocketClient
+.PHONY : SolverSocketClient
 
-# target to generate assembly for a file
-Solver.s:
-	$(MAKE) -f CMakeFiles/Solver.dir/build.make CMakeFiles/Solver.dir/Solver.s
-.PHONY : Solver.s
+# fast build rule for target.
+SolverSocketClient/fast:
+	$(MAKE) -f CMakeFiles/SolverSocketClient.dir/build.make CMakeFiles/SolverSocketClient.dir/build
+.PHONY : SolverSocketClient/fast
 
 # target to build an object file
-home/martin/git/PTT3/Module/SocketUtils.o:
-	$(MAKE) -f CMakeFiles/Core_Files.dir/build.make CMakeFiles/Core_Files.dir/home/martin/git/PTT3/Module/SocketUtils.o
-.PHONY : home/martin/git/PTT3/Module/SocketUtils.o
+SocketUtils.o:
+	$(MAKE) -f CMakeFiles/Core_Files.dir/build.make CMakeFiles/Core_Files.dir/SocketUtils.o
+.PHONY : SocketUtils.o
 
 # target to preprocess a source file
-home/martin/git/PTT3/Module/SocketUtils.i:
-	$(MAKE) -f CMakeFiles/Core_Files.dir/build.make CMakeFiles/Core_Files.dir/home/martin/git/PTT3/Module/SocketUtils.i
-.PHONY : home/martin/git/PTT3/Module/SocketUtils.i
+SocketUtils.i:
+	$(MAKE) -f CMakeFiles/Core_Files.dir/build.make CMakeFiles/Core_Files.dir/SocketUtils.i
+.PHONY : SocketUtils.i
 
 # target to generate assembly for a file
-home/martin/git/PTT3/Module/SocketUtils.s:
-	$(MAKE) -f CMakeFiles/Core_Files.dir/build.make CMakeFiles/Core_Files.dir/home/martin/git/PTT3/Module/SocketUtils.s
-.PHONY : home/martin/git/PTT3/Module/SocketUtils.s
+SocketUtils.s:
+	$(MAKE) -f CMakeFiles/Core_Files.dir/build.make CMakeFiles/Core_Files.dir/SocketUtils.s
+.PHONY : SocketUtils.s
+
+# target to build an object file
+SolverSocketClient.o:
+	$(MAKE) -f CMakeFiles/SolverSocketClient.dir/build.make CMakeFiles/SolverSocketClient.dir/SolverSocketClient.o
+.PHONY : SolverSocketClient.o
+
+# target to preprocess a source file
+SolverSocketClient.i:
+	$(MAKE) -f CMakeFiles/SolverSocketClient.dir/build.make CMakeFiles/SolverSocketClient.dir/SolverSocketClient.i
+.PHONY : SolverSocketClient.i
+
+# target to generate assembly for a file
+SolverSocketClient.s:
+	$(MAKE) -f CMakeFiles/SolverSocketClient.dir/build.make CMakeFiles/SolverSocketClient.dir/SolverSocketClient.s
+.PHONY : SolverSocketClient.s
+
+# target to build an object file
+SolverSocketServer.o:
+	$(MAKE) -f CMakeFiles/SolverSocketServer.dir/build.make CMakeFiles/SolverSocketServer.dir/SolverSocketServer.o
+.PHONY : SolverSocketServer.o
+
+# target to preprocess a source file
+SolverSocketServer.i:
+	$(MAKE) -f CMakeFiles/SolverSocketServer.dir/build.make CMakeFiles/SolverSocketServer.dir/SolverSocketServer.i
+.PHONY : SolverSocketServer.i
+
+# target to generate assembly for a file
+SolverSocketServer.s:
+	$(MAKE) -f CMakeFiles/SolverSocketServer.dir/build.make CMakeFiles/SolverSocketServer.dir/SolverSocketServer.s
+.PHONY : SolverSocketServer.s
+
+# target to build an object file
+home/martin/git/PTT3/Solver/MazeSolver.o:
+	$(MAKE) -f CMakeFiles/Core_Files.dir/build.make CMakeFiles/Core_Files.dir/home/martin/git/PTT3/Solver/MazeSolver.o
+.PHONY : home/martin/git/PTT3/Solver/MazeSolver.o
+
+# target to preprocess a source file
+home/martin/git/PTT3/Solver/MazeSolver.i:
+	$(MAKE) -f CMakeFiles/Core_Files.dir/build.make CMakeFiles/Core_Files.dir/home/martin/git/PTT3/Solver/MazeSolver.i
+.PHONY : home/martin/git/PTT3/Solver/MazeSolver.i
+
+# target to generate assembly for a file
+home/martin/git/PTT3/Solver/MazeSolver.s:
+	$(MAKE) -f CMakeFiles/Core_Files.dir/build.make CMakeFiles/Core_Files.dir/home/martin/git/PTT3/Solver/MazeSolver.s
+.PHONY : home/martin/git/PTT3/Solver/MazeSolver.s
 
 # target to build an object file
 home/martin/git/PTT3/maze_parser/MazeMessage.o:
@@ -218,18 +246,22 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
-	@echo "... rebuild_cache"
-	@echo "... Solver"
 	@echo "... Core_Files"
-	@echo "... MazeSolver.o"
-	@echo "... MazeSolver.i"
-	@echo "... MazeSolver.s"
-	@echo "... Solver.o"
-	@echo "... Solver.i"
-	@echo "... Solver.s"
-	@echo "... home/martin/git/PTT3/Module/SocketUtils.o"
-	@echo "... home/martin/git/PTT3/Module/SocketUtils.i"
-	@echo "... home/martin/git/PTT3/Module/SocketUtils.s"
+	@echo "... SolverSocketServer"
+	@echo "... SolverSocketClient"
+	@echo "... rebuild_cache"
+	@echo "... SocketUtils.o"
+	@echo "... SocketUtils.i"
+	@echo "... SocketUtils.s"
+	@echo "... SolverSocketClient.o"
+	@echo "... SolverSocketClient.i"
+	@echo "... SolverSocketClient.s"
+	@echo "... SolverSocketServer.o"
+	@echo "... SolverSocketServer.i"
+	@echo "... SolverSocketServer.s"
+	@echo "... home/martin/git/PTT3/Solver/MazeSolver.o"
+	@echo "... home/martin/git/PTT3/Solver/MazeSolver.i"
+	@echo "... home/martin/git/PTT3/Solver/MazeSolver.s"
 	@echo "... home/martin/git/PTT3/maze_parser/MazeMessage.o"
 	@echo "... home/martin/git/PTT3/maze_parser/MazeMessage.i"
 	@echo "... home/martin/git/PTT3/maze_parser/MazeMessage.s"

@@ -31,12 +31,17 @@
 # Miscellaneous
 .idea/
 CMakeFiles/
+
+CMakeCache.txt
+cmake_install.cmake
+
+Module/SolverSocketClient
+Module/SolverSocketServer
+
 Scanner/main
-Solver/CMakeCache.txt
-Solver/cmake_install.cmake
+
 Solver/Solver
-Solver/SolverSocketClient
-Solver/SolverSocketServer
 Solver/output.json
+
 Server/mock
 Server/server

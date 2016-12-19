@@ -1,6 +1,6 @@
 #include <netdb.h>
 
-#include "MazeSolver.hpp"
+#include "../Solver/MazeSolver.hpp"
 #include "SocketUtils.hpp"
 
 /**
