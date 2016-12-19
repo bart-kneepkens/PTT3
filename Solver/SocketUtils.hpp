@@ -12,7 +12,7 @@ const char DELIMITER = '^';                     // Delimiter for incoming messag
 const std::string SCANNER_STRING = "in:scanner";   // String that corresponds to MazeScanner (to be implemented).
 const std::string SOLVER_STRING = "inout:solver";     // String that corresponds to MazeSolver.
 const std::string PLOTTER_STRING = "out:plotter";   // String that corresponds to MazePlotter (to be implemented).
-const char ACK_MSG[3] = {'A', 'C', 'K'};        // Message that is sent as acknowledgement.
+const char ACK_MSG[4] = {'A', 'C', 'K'};        // Message that is sent as acknowledgement.
 
 /**
  * Sends the specified message in 'buffer' through the specified socket. The socket should already be open before

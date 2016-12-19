@@ -92,7 +92,7 @@ int main(int argc, char *argv[])
     }
     std::cout << "Connected to server." << std::endl;
 
-    // Send this module's type to the server.
+    // Send this module's type to the server, exiting if this fails.
     const std::string moduleTypeMsg = "hi:" + moduleType;
     char buffer[moduleTypeMsg.length()];
     strcpy(buffer, moduleTypeMsg.c_str());
@@ -101,10 +101,20 @@ int main(int argc, char *argv[])
     }
     std::cout << "Sent module type to server." << std::endl;
 
+    // Receive acknowledgement from server, exiting if this fails.
     char ackBuffer[4];
-    int n = receiveMsg(sockfd, ackBuffer, 4);
+    if (receiveMsg(sockfd, ackBuffer, 4) < 0) {
+        exit(1);
+    }
+    if (strcmp(ackBuffer, ACK_MSG) != 0) {
+        std::cerr << "Received something other than ACK from server: '" << ackBuffer << "'!" << std::endl;
+        exit(1);
+    }
     std::cout << "Received ACK from server." << std::endl;
-    printf("%s\n", ackBuffer);
+
+    // Now wait indefinitely for commands from the server.
+
+    // Close and exit.
     close(sockfd);
     return 0;
 }
