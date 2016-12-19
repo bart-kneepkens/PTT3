@@ -178,6 +178,21 @@ MazeSolver.s:
 .PHONY : MazeSolver.s
 
 # target to build an object file
+SocketUtils.o:
+	$(MAKE) -f CMakeFiles/Core_Files.dir/build.make CMakeFiles/Core_Files.dir/SocketUtils.o
+.PHONY : SocketUtils.o
+
+# target to preprocess a source file
+SocketUtils.i:
+	$(MAKE) -f CMakeFiles/Core_Files.dir/build.make CMakeFiles/Core_Files.dir/SocketUtils.i
+.PHONY : SocketUtils.i
+
+# target to generate assembly for a file
+SocketUtils.s:
+	$(MAKE) -f CMakeFiles/Core_Files.dir/build.make CMakeFiles/Core_Files.dir/SocketUtils.s
+.PHONY : SocketUtils.s
+
+# target to build an object file
 Solver.o:
 	$(MAKE) -f CMakeFiles/Solver.dir/build.make CMakeFiles/Solver.dir/Solver.o
 .PHONY : Solver.o
@@ -267,6 +282,9 @@ help:
 	@echo "... MazeSolver.o"
 	@echo "... MazeSolver.i"
 	@echo "... MazeSolver.s"
+	@echo "... SocketUtils.o"
+	@echo "... SocketUtils.i"
+	@echo "... SocketUtils.s"
 	@echo "... Solver.o"
 	@echo "... Solver.i"
 	@echo "... Solver.s"

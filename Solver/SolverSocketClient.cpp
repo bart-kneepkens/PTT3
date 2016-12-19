@@ -1,23 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
 #include <netdb.h>
-#include <iostream>
 
 #include "MazeSolver.hpp"
-
-// Constant values and settings.
-const uint16_t BUFFER_SIZE = 256;               // Default buffer size.
-const uint16_t ACK_BUFFER_SIZE = 100;//4;             // Buffer size for ACK messages.
-const char DELIMITER = '^';                     // Delimiter for incoming messages.
-const std::string SCANNER_STRING = "scanner";   // String that corresponds to MazeScanner (to be implemented).
-const std::string SOLVER_STRING = "solver";     // String that corresponds to MazeSolver.
-const std::string PLOTTER_STRING = "plotter";   // String that corresponds to MazePlotter (to be implemented).
-const std::string ACK_MSG = "ACK";              // Message that is sent as acknowledgement.
+#include "SocketUtils.hpp"
 
 /**
  * Identifies what child class of IModule to return a dynamically allocated instance of, and then does so. Will return
@@ -106,49 +90,20 @@ int main(int argc, char *argv[])
         close(sockfd);
         exit(1);
     }
+    std::cout << "Connected to server." << std::endl;
 
-    // Inform server of this module's type.
-    const char* moduleTypeCharPtr = moduleType.c_str();//(moduleType + DELIMITER).c_str();
-    if (write(sockfd, moduleTypeCharPtr, strlen(moduleTypeCharPtr)) < 0) {
-        perror("Error while informing server of module type!");
-        close(sockfd);
-        exit(1);
-    }
-    std::cout << "Sent module type to server." << std::endl;
+    char buffer[256];
+    bzero(buffer,256);
+    //bzero(buffer,5);
+    buffer[0] = 'd';
+    buffer[1] = 'i';
+    buffer[2] = 'c';
+    buffer[3] = 'k';
+    buffer[4] = 's';
 
-    // Await acknowledgement from server.
-    while (1) {
-        char ackBuffer[3];
-        bzero(ackBuffer, 3);
-        if (read(sockfd, ackBuffer, 3) < 0) {
-            perror("Error while awaiting acknowledgement from server!");
-            close(sockfd);
-            exit(1);
-        }
-
-        std::cout << "Server replied with: '" << ackBuffer << "'." << std::endl;
-    }
-
-    // Get test message in buffer.
-    //while (1) {
-        /*printf("Please enter the message: ");
-        char buffer[BUFFER_SIZE];
-        bzero(buffer, BUFFER_SIZE);                     // Set all values in buffer to zero.
-        fgets(buffer, BUFFER_SIZE - 1, stdin);          // Load user input into buffer.
-        buffer[strcspn(buffer, "\r\n")] = 0;            // Remove newlines from buffer.
-        int n = write(sockfd, buffer, strlen(buffer));  // Write buffer to server socket.
-
-        if (n < 0) {
-            std::cerr << "Error while writing to socket!" << std::endl;
-        }*/
-
-        // Get reply from server.
-        /*bzero(buffer, BUFFER_SIZE);
-        n = read(sockfd, buffer, BUFFER_SIZE - 1);
-        if (n < 0) {
-            std::cerr << "Error reading from socket" << std::endl;
-        }
-
-        printf("%s\n", buffer);*/
-    //}
+    int n = sendMsg(sockfd, buffer);
+    n = receiveMsg(sockfd, buffer, 256);
+    printf("%s\n",buffer);
+    close(sockfd);
+    return 0;
 }

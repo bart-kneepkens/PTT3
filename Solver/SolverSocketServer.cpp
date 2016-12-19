@@ -1,20 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/socket.h>
 #include <netinet/in.h>
-#include <stdlib.h>
 #include <iostream>
 
-// Constant values and settings.
-const uint16_t BUFFER_SIZE = 256;               // Default buffer size.
-const uint16_t ACK_BUFFER_SIZE = 4;             // Buffer size for ACK messages.
-const char DELIMITER = '^';                     // Delimiter for incoming messages.
-const std::string SCANNER_STRING = "scanner";   // String that corresponds to MazeScanner (to be implemented).
-const std::string SOLVER_STRING = "solver";     // String that corresponds to MazeSolver.
-const std::string PLOTTER_STRING = "plotter";   // String that corresponds to MazePlotter (to be implemented).
-const std::string ACK_MSG = "ACK";              // Message that is sent as acknowledgement.
+#include "SocketUtils.hpp"
 
 int main(int argc, char *argv[]) {
 
@@ -66,60 +53,19 @@ int main(int argc, char *argv[]) {
             exit(1);
         }
 
-        // Await module identification message.
-        char moduleTypeBuffer[BUFFER_SIZE];
-        bzero(moduleTypeBuffer, BUFFER_SIZE);
-        if (read(newsockfd, &moduleTypeBuffer, BUFFER_SIZE) < 0) {
-            perror("Error while awaiting module identification message!");
-            close(newsockfd);
-            exit(1);
-        }
-        std::cout << "Received module type: '" << moduleTypeBuffer << "'." << std::endl;
+    char buffer[256];
+    int n = receiveMsg(newsockfd, buffer, 256);
+    printf("Here is the message: %s\n",buffer);
+    bzero(buffer, 256);
+    buffer[0] = 'a';
+    buffer[1] = 'c';
+    buffer[2] = 'k';
+    n = sendMsg(newsockfd, buffer);
 
-        // Reply with acknowledgement.
-        const char* ackPtr = ACK_MSG.c_str();
-        if (write(sockfd, ackPtr, 3) < 0) {
-            perror("Error while informing server of module type!");
-            close(sockfd);
-            exit(1);
-        }
-        std::cout << "Sent ack to client!" << std::endl;
+    close(newsockfd);
+    close(sockfd);
 
+    std::cout << "Replied to client." << std::endl;
 
-        /*if (write(sockfd, ackPtr, strlen(ackPtr)) < 0) {
-            perror("Error while sending ack to client!");
-            close(newsockfd);
-            exit(1);
-        }
-        std::cout << "Sent ack to client!" << std::endl;*/
-
-        // Finally, close the file descriptor.
-        std::cout << "Closing connection!" << std::endl;
-        //close(newsockfd);
-
-        // While we're still connected to the current client...
-        /*ssize_t readFlag = 1;
-        while (readFlag) {
-            size_t buf_idx = 0;
-            char buf[BUFFER_SIZE] = {0};
-
-            // Read words from the client, delimited by a special character.
-            while (buf_idx < BUFFER_SIZE && 1 == (readFlag = read(newsockfd, &buf[buf_idx], 1))) {
-
-                // If we encountered the delimiter, break from this loop.
-                if (buf_idx > 0 && DELIMITER == buf[buf_idx]) {
-                    buf[buf_idx] = 0;
-                    break;
-                }
-                buf_idx++;
-            }
-
-            // Print debug message.
-            std::cout << "Received word: '" << buf << "'." << std::endl;
-        }
-
-        // Close the file descriptor.
-        std::cout << "Closing connection!" << std::endl;
-        close(newsockfd);*/
-    //}
+    std::cout << "Closing connection!" << std::endl;
 }

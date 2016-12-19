@@ -12,9 +12,12 @@ add_library(Core_Files
         "../maze_parser/MazeMessage.cpp"
         "../maze_parser/MazeParser.hpp"
         "../maze_parser/MazeParser.cpp"
+        "IModule.hpp"
+        "SocketUtils.hpp"
 		"MazeSolver.hpp"
+        "SocketUtils.cpp"
         "MazeSolver.cpp"
-		"IModule.hpp"
+
 )
 
 
