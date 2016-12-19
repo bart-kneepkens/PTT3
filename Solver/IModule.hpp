@@ -16,14 +16,14 @@ public:
     virtual ~IModule() {};
 
     /**
-     * Takes a MazeMessage pointer (which may be NULL), performs some logic that may or may not include the supplied
+     * Takes a MazeMessage pointer to poiner (which value may be NULL), performs some logic that may or may not include the supplied
      * pointer's value, and finally places any resulting data in the MazeMessage pointer's value (if any at all).
      * Returns an exit code indicating whether the function exited normally.
      *
-     * @param msgPtr Pointer to a MazeMessage, or NULL.
+     * @param msg Pointer to a pointer to a MazeMessage.
      * @return 0 if the function exited normally, otherwise anything else.
      */
-    virtual int Run(maze_parser::MazeMessage* msgPtr) = 0;
+    virtual int Run(maze_parser::MazeMessage** msg) = 0;
 };
 
 #endif //PTT3_IMODULE_HPP

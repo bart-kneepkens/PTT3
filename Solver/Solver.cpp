@@ -10,7 +10,6 @@ using std::vector;
 const std::string OUTPUT_FILENAME = "output.json";
 
 int main(int argc, char **argv) {
-
     char *fileValue = NULL;         // The supplied file location.
     char *jsonStringValue = NULL;   // The supplied json-string.
     int c;                          // Index into the arguments.
@@ -58,7 +57,7 @@ int main(int argc, char **argv) {
     // Parse the json to a MazeMessage object, solve its containing maze, then parse it back to json.
     maze_parser::MazeMessage *msgFromJson = maze_parser::jsonToMazeMessage(jsonStringValue);
     maze_solver::MazeSolver solver;
-    solver.Run(msgFromJson);
+    solver.Run(&msgFromJson);
     std::cout << msgFromJson->toString() << std::endl;
     const std::string jsonFromMsg = maze_parser::mazeMessageToJson(*msgFromJson);
 

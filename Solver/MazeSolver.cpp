@@ -18,14 +18,14 @@ namespace maze_solver {
     COORD startingPoint;
     COORD endingPoint;
 
-    int maze_solver::MazeSolver::Run(maze_parser::MazeMessage* msgPtr) {
+    int maze_solver::MazeSolver::Run(maze_parser::MazeMessage** msg) {
         // Make sure a maze was supplied.
-        if (msgPtr == NULL) {
+        if (msg == NULL || *msg == NULL) {
             std::cerr << "Maze is NULL!" << std::endl;
             return 1;
         }
         
-        this->Maze = msgPtr->Scan;
+        this->Maze = (**msg).Scan;
         startingPoint = COORD(-1, -1);
         endingPoint = COORD(-1, -1);
         const unsigned int columnLength = Maze->size();
@@ -147,7 +147,7 @@ namespace maze_solver {
             return 1;
         }
 
-        msgPtr->Solution = Solution;
+        (**msg).Solution = Solution;
         return 0;
     }
 
