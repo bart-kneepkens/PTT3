@@ -4,6 +4,7 @@
 #include "Plotter.h"
 #include "MazeMessage.hpp"
 #include "PlotInstruction.h"
+#include "../Module/IModule.hpp"
 
 enum MazeObject
 {
@@ -11,12 +12,13 @@ enum MazeObject
 	Solution
 };
 
-class PlotterController
+class PlotterController :public IModule
 {
 public:
 	PlotterController(std::string Path_To_Motors);
 	~PlotterController();
-	void Run(MazeMessage maze, MazeObject objectToDraw);
+	
+	int Run(maze_parser::MazeMessage** msg);
 	void Stop (bool forceful);
 	PlotterStatus GetStatus() const;
 

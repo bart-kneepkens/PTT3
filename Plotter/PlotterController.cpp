@@ -1,29 +1,28 @@
 #include "PlotterController.h"
 
+const string path = "";
 
-PlotterController::PlotterController(std::string Path_To_Motors)
+
+PlotterController::PlotterController()
 {
-	plotter = new Plotter(Path_To_Motors);
+	plotter = new Plotter(path);
 }
 
 PlotterController::~PlotterController()
 {}
 
-void PlotterController::Run(MazeMessage maze, MazeObject objectToDraw)
+int Run(maze_parser::MazeMessage** msg)
 {
-	switch(objectToDraw)
-	{
-		case Maze:
-			parseMazeMessageToMovementInstructions(maze.Scan);
+	parseMazeMessageToMovementInstructions(*msg->maze.Scan);
 
-		case Solution:
-			parseMazeMessageToMovementInstructions(maze.Solution);
-	}
+		// case Solution:
+		// 	parseMazeMessageToMovementInstructions(*msg->maze.Solution);
+	return 0;
 }
 
 void PlotterController::Stop(bool forceful)
 {
-
+	
 }
 
 PlotterStatus PlotterController::GetStatus()

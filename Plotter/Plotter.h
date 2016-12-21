@@ -1,12 +1,13 @@
 #ifndef PLOTTER_H
 #define PLOTTER_H
 
-#include "../MotorDriver/MotorDriver.h"
+#include "../Scanner/MotorDriver.h"
 
 class Plotter
 {
 public:
 	Plotter(std::string Path_To_Motors);
+	~Plotter();
 	void SetX(int destination, int speed);
 	void SetY(int destination, int speed);
 	
@@ -14,6 +15,9 @@ public:
 
 	void StartPlot();
 	void EndPlot();
+
+	int GetMotorX();
+	int GetMotorY();
 private:
 	MotorDriver* motorX;
 	MotorDriver* motorY;
@@ -26,6 +30,7 @@ private:
 
 	int GetPosition(MotorDriver*);
 	int GetSpeed(MotorDriver*);
-}
+
+};
 
 #endif

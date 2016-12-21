@@ -73,7 +73,7 @@ int Plotter::GetStatus()
 	{
 		result = 1;
 
-		if(GetPosition(motorPen) => penDown)
+		if(GetPosition(motorPen) >= penDown)
 		{
 			result = 2;
 		}
@@ -84,10 +84,10 @@ int Plotter::GetStatus()
 
 int Plotter::GetMotorX()
 {
-	return GetPosition(MotorX);
+	return GetPosition(motorX);
 }
 
 int Plotter::GetMotorY()
 {
-	return GetPosition(MotorY);
+	return GetPosition(motorY);
 }
