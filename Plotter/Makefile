@@ -111,6 +111,19 @@ Core_Files/fast:
 	$(MAKE) -f CMakeFiles/Core_Files.dir/build.make CMakeFiles/Core_Files.dir/build
 .PHONY : Core_Files/fast
 
+#=============================================================================
+# Target rules for targets named PlotterProgram
+
+# Build rule for target.
+PlotterProgram: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 PlotterProgram
+.PHONY : PlotterProgram
+
+# fast build rule for target.
+PlotterProgram/fast:
+	$(MAKE) -f CMakeFiles/PlotterProgram.dir/build.make CMakeFiles/PlotterProgram.dir/build
+.PHONY : PlotterProgram/fast
+
 # target to build an object file
 PlotInstruction.o:
 	$(MAKE) -f CMakeFiles/Core_Files.dir/build.make CMakeFiles/Core_Files.dir/PlotInstruction.o
@@ -157,6 +170,21 @@ PlotterController.s:
 .PHONY : PlotterController.s
 
 # target to build an object file
+PlotterProgram.o:
+	$(MAKE) -f CMakeFiles/PlotterProgram.dir/build.make CMakeFiles/PlotterProgram.dir/PlotterProgram.o
+.PHONY : PlotterProgram.o
+
+# target to preprocess a source file
+PlotterProgram.i:
+	$(MAKE) -f CMakeFiles/PlotterProgram.dir/build.make CMakeFiles/PlotterProgram.dir/PlotterProgram.i
+.PHONY : PlotterProgram.i
+
+# target to generate assembly for a file
+PlotterProgram.s:
+	$(MAKE) -f CMakeFiles/PlotterProgram.dir/build.make CMakeFiles/PlotterProgram.dir/PlotterProgram.s
+.PHONY : PlotterProgram.s
+
+# target to build an object file
 mnt/c/Users/yam20/Documents/GitHub/PTT3/maze_parser/MazeMessage.o:
 	$(MAKE) -f CMakeFiles/Core_Files.dir/build.make CMakeFiles/Core_Files.dir/mnt/c/Users/yam20/Documents/GitHub/PTT3/maze_parser/MazeMessage.o
 .PHONY : mnt/c/Users/yam20/Documents/GitHub/PTT3/maze_parser/MazeMessage.o
@@ -178,6 +206,7 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... Core_Files"
+	@echo "... PlotterProgram"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... PlotInstruction.o"
@@ -189,6 +218,9 @@ help:
 	@echo "... PlotterController.o"
 	@echo "... PlotterController.i"
 	@echo "... PlotterController.s"
+	@echo "... PlotterProgram.o"
+	@echo "... PlotterProgram.i"
+	@echo "... PlotterProgram.s"
 	@echo "... mnt/c/Users/yam20/Documents/GitHub/PTT3/maze_parser/MazeMessage.o"
 	@echo "... mnt/c/Users/yam20/Documents/GitHub/PTT3/maze_parser/MazeMessage.i"
 	@echo "... mnt/c/Users/yam20/Documents/GitHub/PTT3/maze_parser/MazeMessage.s"
