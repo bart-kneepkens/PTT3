@@ -16,7 +16,7 @@ enum MazeObject
 class PlotterController :public IModule
 {
 public:
-	PlotterController(std::string Path_To_Motors);
+	PlotterController();
 	~PlotterController();
 
 	int Run(maze_parser::MazeMessage** msg);
@@ -26,13 +26,13 @@ public:
 private:
 	PlotterStatus currentStatus;
 	Plotter* plotter;
-	std::vector<PlotInstruction> instructions;
+	std::vector<PlotInstruction>* instructions;
 
 	unsigned int movementModifier = 1;
 	unsigned int linesPerVertical = 6;
 
 	void parseMazeMessageToMovementInstructions(std::vector<std::vector<char>*>* toDraw);
-	void draw(std::vector<PlotInstruction> instructions);
+	void plot(std::vector<PlotInstruction>* instructions);
 
 };
 

@@ -1,6 +1,6 @@
 #include "PlotterController.h"
 
-const string path = "";
+const std::string path = "";
 
 
 PlotterController::PlotterController()
@@ -11,9 +11,50 @@ PlotterController::PlotterController()
 PlotterController::~PlotterController()
 {}
 
-int Run(maze_parser::MazeMessage** msg)
+void PlotterController::parseMazeMessageToMovementInstructions(std::vector<std::vector<char>*>* toDraw)
 {
-	parseMazeMessageToMovementInstructions(*msg->maze.Scan);
+	if (toDraw != NULL)
+	{
+		for(int i = 0; i < toDraw->size(); i++)
+		{
+			std::vector<char>* row = toDraw->at(i); 
+			if (row != NULL)
+			{
+				bool draw = false;
+				bool prevDraw = false;
+				int distance = 0;
+
+				for (int Xaxis = 0; Xaxis < row->size(); Xaxis++)
+				{
+					if (row->at(Xaxis) == '#' || row->at(Xaxis) == '*')
+					{
+						draw = true;
+					}
+					else 
+					{
+						draw = false;
+					}
+
+					if (draw != prevDraw)
+					{
+						PlotInstruction* newInstruction = new PlotInstruction(!draw, distance*movementModifier);
+						instructions->push_back(*newInstruction);
+						distance = 0;
+					}
+
+					distance++;
+					prevDraw = draw;
+				}
+
+				plot(instructions);
+			}
+		}
+	}
+}
+
+int PlotterController::Run(maze_parser::MazeMessage** msg)
+{
+	parseMazeMessageToMovementInstructions((**msg).Scan);
 
 		// case Solution:
 		// 	parseMazeMessageToMovementInstructions(*msg->maze.Solution);
@@ -25,7 +66,7 @@ void PlotterController::Stop(bool forceful)
 
 }
 
-PlotterStatus PlotterController::GetStatus()
+PlotterStatus PlotterController::GetStatus() const
 {
 	switch (plotter->GetStatus())
 	{
@@ -48,64 +89,23 @@ PlotterStatus PlotterController::GetStatus()
 	}
 }
 
-void PlotterController::parseMazeMessageToMovementInstructions(std::vector<std::vector<char>*>* toDraw)
-{
-	if (toDraw != NULL)
-	{
-		for(std::vector<char> *row : toDraw)
-		{
-			if (row != NULL)
-			{
-				bool draw = false;
-				bool prevDraw = false;
-				int distance = 0;
-
-				int Xaxis = 0;
-				for ( ; Xaxis < row->size(); Xaxis++)
-				{
-					if (*(row+Xaxis) == '#' || *(row+Xaxis) == '*')
-					{
-						draw = true;
-					}
-					else 
-					{
-						draw = false;
-					}
-
-					if (draw != prevDraw)
-					{
-						PlotInstruction newInstruction = new PlotInstruction(!draw, distance*movementModifier);
-						instructions.push_back(newInstruction);
-						distance = 0;
-					}
-
-					distance++;
-					prevDraw = draw;
-				}
-
-				draw(instructions);
-			}
-		}
-	}
-}
-
 PlotterStatus currStat;
 
-void PlotterController::draw(std::vector<PlotInstruction> instructions)
+void PlotterController::plot(std::vector<PlotInstruction>* instructions)
 {
 	for (int i = 0; i < linesPerVertical; i++)
 	{
 		double fraction = ((1/linesPerVertical)*i);
 		int oscillator = 0;
-		while (oscillator < instructions.size())
+		while (oscillator < instructions->size())
 		{
-			PlotInstruction inst = instructions[oscillator];
+			PlotInstruction inst = instructions->at(oscillator);
 
 			currStat = GetStatus();
 			if(currStat == Idle)
 			{
 				++oscillator;
-				if (instructions[oscillator].ShouldDraw() == true)
+				if (instructions->at(oscillator).ShouldDraw() == true)
 				{
 					plotter->StartPlot();
 				}
@@ -114,20 +114,19 @@ void PlotterController::draw(std::vector<PlotInstruction> instructions)
 					plotter->EndPlot();
 				}
 
-				plotter->SetX(plotter->GetMotorX()+instructions[oscillator].GetDistance(), 100);
-
+				plotter->SetX(plotter->GetMotorX()+instructions->at(oscillator).GetDistance(), 100);
 			}
 
 		}
 		while (oscillator > 0)
 		{
-			PlotInstruction inst = instructions[oscillator];
+			PlotInstruction inst = instructions->at(oscillator);
 
 			currStat = GetStatus();
 			if(currStat == Idle)
 			{
 				--oscillator;
-				if (instructions[oscillator].ShouldDraw() == true)
+				if (instructions->at(oscillator).ShouldDraw() == true)
 				{
 					plotter->StartPlot();
 				}
@@ -135,9 +134,8 @@ void PlotterController::draw(std::vector<PlotInstruction> instructions)
 				{
 					plotter->EndPlot();
 				}
-				plotter->SetX(plotter->GetMotorX()-instructions[oscillator].GetDistance(), 100);
+				plotter->SetX(plotter->GetMotorX()-instructions->at(oscillator).GetDistance(), 100);
 			}
-
 		}
 
 		plotter->SetY(plotter->GetMotorY()+(fraction*movementModifier), 100);
