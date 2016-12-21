@@ -3,6 +3,7 @@
 
 #include "Plotter.h"
 #include "MazeMessage.hpp"
+#include "PlotInstruction.h"
 
 enum MazeObject
 {
@@ -14,7 +15,7 @@ class PlotterController
 {
 public:
 	PlotterController(std::string Path_To_Motors);
-	~PlotterController(); //empty
+	~PlotterController();
 	void Run(MazeMessage maze, MazeObject objectToDraw);
 	void Stop (bool forceful);
 	PlotterStatus GetStatus() const;
@@ -22,9 +23,13 @@ public:
 private:
 	PlotterStatus currentStatus;
 	Plotter* plotter;
-	void plotLine();
-	void drawMaze();
-	void drawSolution();
+	std::vector<PlotInstruction> instructions;
+
+	unsigned int movementModifier = 1;
+	unsigned int linesPerVertical = 6;
+
+	void parseMazeMessageToMovementInstructions(std::vector<std::vector<char>*>* toDraw);
+	void draw(std::vector<PlotInstruction> instructions);
 
 };
 
