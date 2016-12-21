@@ -1,42 +1,60 @@
-#include <iostream>
 #include "../Common/LogBuffer.h"
+#include <iostream>
 #include <sys/mman.h>
 #include <unistd.h>
 #include <semaphore.h>
 #include <stdio.h>
 #include <fcntl.h>
 
-const char* SHM_NAME = "LogBuffer";
+class Logger {
+	public:
+        static Logger& getInstance()
+        {
+            static Logger instance; // Guaranteed to be destroyed.      
+            return instance; // Instantiated on first use.
+        }
+        
+        void logMessage(std::string message){
+			std::cout << "Logging Message: " << message << std::endl;
+		}
+    private:    
+        char* SHM_NAME;
+		
+		struct LogBuffer* buff;
 
-struct LogBuffer* buff;
+		int shm_fd;
+		
+        Logger() {
+			SHM_NAME = "LogBuffer";
+			
+			// Get shared memory file descriptor.
+			if ((shm_fd = shm_open(SHM_NAME, O_CREAT | O_RDWR, 0666)) == -1){
+				perror("cannot open");
+			}
+    
+			// Set the shared memory size to the size of LogBuffer struct.
+			if (ftruncate(shm_fd, sizeof(LogBuffer)) != 0){
+				perror("cannot set size");
+			}
+    
+			// Map shared memory in address space.
+			if ((buff = (struct LogBuffer *) mmap(0, sizeof(LogBuffer), PROT_WRITE, MAP_SHARED, shm_fd, 0)) == MAP_FAILED){
+				perror("cannot mmap");
+			}
+			
+			// Lock the shared memory.
+			if (mlock(buff, sizeof(LogBuffer)) != 0){
+				perror("cannot mlock");
+			}
+    
+			// Shared memory is ready for use.
+			printf("Shared Memory successfully opened.\n");
+		}
+		                    
+        Logger(Logger const&);              // Don't Implement
+        void operator=(Logger const&); // Don't implement
+};
 
-int shm_fd;
 
-int main(){
-	// Get shared memory file descriptor.
-    if ((shm_fd = shm_open(SHM_NAME, O_CREAT | O_RDWR, 0666)) == -1){
-        perror("cannot open");
-        return -1;
-    }
-    
-    // Set the shared memory size to the size of LogBuffer struct.
-    if (ftruncate(shm_fd, sizeof(LogBuffer)) != 0){
-        perror("cannot set size");
-        return -1;
-    }
-    
-    // Map shared memory in address space.
-    if ((buff = (struct LogBuffer *) mmap(0, sizeof(LogBuffer), PROT_WRITE, MAP_SHARED, shm_fd, 0)) == MAP_FAILED){
-        perror("cannot mmap");
-        return -1;
-    }
-    
-    // Lock the shared memory.
-    if (mlock(buff, sizeof(LogBuffer)) != 0){
-        perror("cannot mlock");
-        return -1;
-    }
-    
-    // Shared memory is ready for use.
-    printf("Shared Memory successfully opened.\n");
-}
+
+
