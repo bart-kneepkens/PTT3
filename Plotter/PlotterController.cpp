@@ -22,7 +22,7 @@ int Run(maze_parser::MazeMessage** msg)
 
 void PlotterController::Stop(bool forceful)
 {
-	
+
 }
 
 PlotterStatus PlotterController::GetStatus()
@@ -74,7 +74,8 @@ void PlotterController::parseMazeMessageToMovementInstructions(std::vector<std::
 
 					if (draw != prevDraw)
 					{
-						instructions.push_back(new PlotInstruction(!draw, distance*movementModifier));
+						PlotInstruction newInstruction = new PlotInstruction(!draw, distance*movementModifier);
+						instructions.push_back(newInstruction);
 						distance = 0;
 					}
 
@@ -94,7 +95,7 @@ void PlotterController::draw(std::vector<PlotInstruction> instructions)
 {
 	for (int i = 0; i < linesPerVertical; i++)
 	{
-		double fraction = ((1/linesPerVertical)*i)
+		double fraction = ((1/linesPerVertical)*i);
 		int oscillator = 0;
 		while (oscillator < instructions.size())
 		{
@@ -113,7 +114,7 @@ void PlotterController::draw(std::vector<PlotInstruction> instructions)
 					plotter->EndPlot();
 				}
 
-				plotter->SetX(plotter->GetMotorX()+instructions[oscillator].GetDistance());
+				plotter->SetX(plotter->GetMotorX()+instructions[oscillator].GetDistance(), 100);
 
 			}
 
@@ -134,12 +135,12 @@ void PlotterController::draw(std::vector<PlotInstruction> instructions)
 				{
 					plotter->EndPlot();
 				}
-				plotter->SetX(plotter->GetMotorX()-instructions[oscillator].GetDistance())
+				plotter->SetX(plotter->GetMotorX()-instructions[oscillator].GetDistance(), 100);
 			}
 
 		}
 
-		plotter->SetY(plotter->GetMotorY()+(fraction*movementModifier));
+		plotter->SetY(plotter->GetMotorY()+(fraction*movementModifier), 100);
 
 	}
 }

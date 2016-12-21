@@ -2,9 +2,10 @@
 #define PLOTTERCONTROLLER_H
 
 #include "Plotter.h"
-#include "MazeMessage.hpp"
+#include "../maze_parser/MazeMessage.hpp"
 #include "PlotInstruction.h"
 #include "../Module/IModule.hpp"
+#include "PlotterStatus.h"
 
 enum MazeObject
 {
@@ -17,7 +18,7 @@ class PlotterController :public IModule
 public:
 	PlotterController(std::string Path_To_Motors);
 	~PlotterController();
-	
+
 	int Run(maze_parser::MazeMessage** msg);
 	void Stop (bool forceful);
 	PlotterStatus GetStatus() const;

@@ -64,8 +64,8 @@ int Plotter::GetSpeed(MotorDriver* motor)
 
 int Plotter::GetStatus()
 {
-	currentX = GetPosition(MotorX);
-	currentY = GetPosition(MotorY);
+	currentX = GetPosition(motorX);
+	currentY = GetPosition(motorY);
 
 	int result = 0;
 
