@@ -2,6 +2,7 @@
 #include "Logger.cpp"
 
 int main(){
-	std::cout << "hey b0ss." << std::endl;
+	// Use the singleton for logging
+	// It's not possible to create an instance of Logger.
 	Logger::getInstance().logMessage("BOODSCHAP!!");
 }

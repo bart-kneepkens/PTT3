@@ -6,13 +6,13 @@ MOCK_SOURCE=MockServer.cpp
 
 GPP=g++
 
-.PHONY: loggerCentral mock
+.PHONY: loggercentral mock
 
-loggerCentral: 
-	$(GPP) $(CFLAGS) $(LOGGERCENTRAL_SOURCE) -o loggerCentral -lrt
+loggercentral: 
+	$(GPP) $(CFLAGS) $(LOGGERCENTRAL_SOURCE) -o loggercentral -lrt -pthread
 
 mock: 
-	$(GPP) $(CFLAGS) -Wno-write-strings $(MOCK_SOURCE) -o mock -lrt 
+	$(GPP) $(CFLAGS) -Wno-write-strings $(MOCK_SOURCE) -o mock -lrt  -pthread
 
 clean:
-	@rm -rf loggerCentral mock
+	@rm -rf loggercentral mock

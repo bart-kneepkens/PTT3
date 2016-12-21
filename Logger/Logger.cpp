@@ -5,17 +5,29 @@
 #include <semaphore.h>
 #include <stdio.h>
 #include <fcntl.h>
+#include <time.h>
+#include <string.h>
 
 class Logger {
 	public:
-        static Logger& getInstance()
-        {
+        static Logger& getInstance(){
             static Logger instance; // Guaranteed to be destroyed.      
             return instance; // Instantiated on first use.
         }
         
         void logMessage(std::string message){
-			std::cout << "Logging Message: " << message << std::endl;
+			LogMessage msg;
+			
+			strcpy(msg.text, message.c_str());
+			time(&msg.timestamp);
+			
+			sem_wait(&(buff->empty));
+			
+			addToBuffer(msg);
+			
+			sem_post(&(buff->filled));
+			
+			std::cout << "Logged Message: " << msg.text << ":" << msg.timestamp << std::endl;
 		}
     private:    
         char* SHM_NAME;
@@ -48,11 +60,33 @@ class Logger {
 			}
     
 			// Shared memory is ready for use.
-			printf("Shared Memory successfully opened.\n");
+			printf("LOGGER: Shared Memory successfully opened.\n");
+			
+			// Initialize semaphore 'filled' with value 0.
+			if(sem_init(&(buff->filled), 1, 0) != 0){
+				perror("Can not init semaphore 'filled'");
+				//return -1;
+			}
+
+			// Initialize semaphore 'empty' with value 10.
+			if(sem_init(&(buff->empty), 1, 10) != 0){
+				perror("Can not init semaphore 'empty'");
+				//return -1;
+			}
+			
+			buff->isReady = true;
+	
 		}
 		                    
         Logger(Logger const&);              // Don't Implement
-        void operator=(Logger const&); // Don't implement
+        void operator=(Logger const&); 		// Don't implement
+
+		void addToBuffer(LogMessage msg){
+			for (int i = 0; i < 9; i++){
+				buff->messages[i] = buff->messages[i+1];
+			}
+			buff->messages[9] = msg;
+		}
 };
 
 

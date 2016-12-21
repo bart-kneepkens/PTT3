@@ -12,7 +12,20 @@ struct LogBuffer* buff;
 
 int shm_fd;
 
+LogMessage takeLastFromBuffer(){
+		
+	LogMessage last = buff->messages[0];
+
+	for(int i = 0; i < 9; i++){
+		buff->messages[i] = buff->messages[i+1];
+	}
+	
+	return last;
+}
+
 int main(){
+	munmap(buff, sizeof(LogBuffer));
+	
 	// Get shared memory file descriptor.
     if ((shm_fd = shm_open(SHM_NAME, O_CREAT | O_RDWR, 0666)) == -1){
         perror("cannot open");
@@ -40,7 +53,14 @@ int main(){
     // Shared memory is ready for use.
     printf("Shared Memory successfully opened.\n");
     
-    while(true){
-		
+    buff->isReady = 0;
+    
+    // Wait for Logger class to make isReady true before entering
+    // Else the semaphores are not initialised resulting in a deadlock.
+    while(buff->isReady){
+		sem_wait(&(buff->filled));
+		LogMessage msg = takeLastFromBuffer();
+		sem_post(&(buff->empty));
+		std::cout << "FAKE PRINTING MESSAGE:" << msg.text << ":" << msg.timestamp << std::endl;
 	}
 }
