@@ -23,9 +23,9 @@ add_library(Core_Files
 
 # Executables to be build.
 
-#add_executable(Solver Solver.cpp)
+add_executable(PlotterProgram PlotterProgram.cpp)
 
 
 # Linking core files to executables.
 
-#target_link_libraries(Plotter Core_Files)
+target_link_libraries(PlotterProgram Core_Files)
