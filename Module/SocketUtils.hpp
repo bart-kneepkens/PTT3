@@ -8,6 +8,8 @@
 #include <string>
 #include <unistd.h>
 #include <cstring>
+#include <vector>
+#include <sstream>
 
 // Constant values and settings.
 const uint16_t MAZE_MSG_BUFFER_SIZE = 2048;             // Buffer size for Maze Messages.
@@ -38,5 +40,13 @@ int sendMsg(int socket, char buffer[]);
  * @return
  */
 int receiveMsg(int socket, char buffer[], unsigned int bufferSize);
+
+/**
+ * Splits the supplied string on the supplied delimiter.
+ * @param str
+ * @param delimiter
+ * @return
+ */
+std::vector<std::string> splitString(std::string str, char delimiter);
 
 #endif //PTT3_SOCKETUTILS_HPP

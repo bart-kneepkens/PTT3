@@ -22,7 +22,7 @@ add_library(Core_Files
 
 # Executables to be build.
 
-add_executable(ModuleServer ModuleServer.cpp)
+add_executable(ModuleServer ModuleServer.cpp ModuleData.hpp ModuleData.cpp)
 add_executable(ModuleClient ModuleClient.cpp)
 
 

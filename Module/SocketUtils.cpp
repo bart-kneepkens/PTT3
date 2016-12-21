@@ -16,3 +16,15 @@ int receiveMsg(int socket, char buffer[], unsigned int bufferSize) {
     }
     return n;
 }
+
+std::vector<std::string> splitString(std::string str, char delimiter) {
+    std::vector<std::string> segments;
+    std::string segment;
+    std::stringstream ss;
+    ss.str(str);
+
+    while(std::getline(ss, segment, delimiter)){
+        segments.push_back(segment);
+    }
+    return segments;
+}

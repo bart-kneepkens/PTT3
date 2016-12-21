@@ -1,17 +1,22 @@
 /**
- * This file is used solely for testing purposes: in the near future, Bart's Server in PTT3/Server will be used.
+ * The server to which ModuleClients make themselves known, and from which module chains can be edited and executed.
  */
 
 #include <netinet/in.h>
 #include <iostream>
+#include <vector>
 
 #include "SocketUtils.hpp"
+#include "ModuleData.hpp"
 #include "../maze_parser/MazeParser.hpp"
+
+/** All registered modules. */
+std::vector<ModuleData> modules;
 
 int main(int argc, char *argv[]) {
     // If no port was provided, print error and exit.
     if (argc < 2) {
-        fprintf(stderr, "Error: no port provided!\n");
+        std::cerr << "Error: no port provided!" << std::endl;
         exit(1);
     }
 
@@ -43,39 +48,71 @@ int main(int argc, char *argv[]) {
     socklen_t clilen = sizeof(cli_addr);
     std::cout << "Now listening on port " << port << "." << std::endl;
 
-    // Accept incoming connection. If it failed, print error.
-    const int newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
-    if (newsockfd < 0) {
-        perror("Error while accepting new connection!");
-        close(sockfd);
-        exit(1);
-    }
-    std::cout << "Accepted new connection!" << std::endl;
+    // Continuously accept new modules.
+    while (1) {
+        // Accept incoming connection. If it failed, print error.
+        const int newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
+        if (newsockfd < 0) {
+            perror("Error while accepting new connection!");
+            continue;
+            //close(sockfd);
+            //exit(1);
+        }
+        std::cout << "Accepted new connection!" << std::endl;
 
-    // Receive module type from client.
-    char buffer[16];
-    if (receiveMsg(newsockfd, buffer, 16) < 0) {
-        perror("Error while receiving module type!");
-        close(sockfd);
-        exit(1);
-    }
-    std::cout << "Received module type: '" << buffer << "'." << std::endl;
+        // Receive module type from client.
+        char buffer[16];
+        if (receiveMsg(newsockfd, buffer, 16) < 0) {
+            perror("Error while receiving module type!");
+            close(newsockfd);
+            continue;
+            //close(sockfd);
+            //exit(1);
+        }
+        std::cout << "Received module type: '" << buffer << "'." << std::endl;
 
-    // Send ACK to client.
-    buffer[ACK_BUFFER_SIZE];
-    bzero(buffer, ACK_BUFFER_SIZE);
-    buffer[0] = 'A';
-    buffer[1] = 'C';
-    buffer[2] = 'K';
-    if (sendMsg(newsockfd, buffer) < 0) {
-        perror("Error while sending ACK to client!");
-        close(sockfd);
-        exit(1);
+        // Make sure the module type is correct, otherwise kill the connection.
+        std::string bufferStr(buffer);
+        std::vector<std::string> segments = splitString(bufferStr, ':');
+        if (segments.size() < 3) {
+            std::cerr << "Received module type is invalid!" << std::endl;
+            close(newsockfd);
+            continue;
+        }
+
+        ModuleType::ModuleType moduleType;
+        ModuleSubType::ModuleSubType moduleSubType;
+
+        try {
+            moduleType = ModuleType::fromString(segments.at(2));
+            moduleSubType = ModuleSubType::fromString(segments.at(3));
+        }
+        catch (std::exception ex) {
+            std::cerr << ex.what() << std::endl;
+            close(newsockfd);
+            continue;
+        }
+
+        ModuleData newModule = ModuleData(moduleType, moduleSubType, newsockfd);
+
+        // Send ACK to client.
+        char ACK_MSG_COPY[ACK_BUFFER_SIZE];
+        std::copy(ACK_MSG, ACK_MSG + ACK_BUFFER_SIZE, ACK_MSG_COPY);
+        if (sendMsg(newsockfd, ACK_MSG_COPY) < 0) {
+            perror("Error while sending ACK to client!");
+            close(newsockfd);
+            continue;
+            //close(sockfd);
+            //exit(1);
+        }
+        std::cout << "Sent ACK to client." << std::endl;
+
+        // If everything went well, add the newly registered module to the vector.
+        modules.push_back(newModule);
     }
-    std::cout << "Sent ACK to client." << std::endl;
 
     // Send MazeMessage to client.
-    const std::string json = "{\n"
+    /*const std::string json = "{\n"
             "  \"scan\": [\n"
             "    [\" \", \" \", \" \", \" \", \" \", \" \", \" \", \" \", \" \", \" \"],\n"
             "    [\" \", \" \", \" \", \" \", \" \", \" \", \" \", \" \", \" \", \" \"],\n"
@@ -118,7 +155,7 @@ int main(int argc, char *argv[]) {
     std::cout << parsedMsg->toString() << std::endl;
 
     // Close and clean up.
-    close(newsockfd);
+    close(newsockfd);*/
     close(sockfd);
     std::cout << "Closed connection." << std::endl;
 }

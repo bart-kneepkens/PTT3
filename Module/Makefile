@@ -165,6 +165,21 @@ ModuleClient.s:
 .PHONY : ModuleClient.s
 
 # target to build an object file
+ModuleData.o:
+	$(MAKE) -f CMakeFiles/ModuleServer.dir/build.make CMakeFiles/ModuleServer.dir/ModuleData.o
+.PHONY : ModuleData.o
+
+# target to preprocess a source file
+ModuleData.i:
+	$(MAKE) -f CMakeFiles/ModuleServer.dir/build.make CMakeFiles/ModuleServer.dir/ModuleData.i
+.PHONY : ModuleData.i
+
+# target to generate assembly for a file
+ModuleData.s:
+	$(MAKE) -f CMakeFiles/ModuleServer.dir/build.make CMakeFiles/ModuleServer.dir/ModuleData.s
+.PHONY : ModuleData.s
+
+# target to build an object file
 ModuleServer.o:
 	$(MAKE) -f CMakeFiles/ModuleServer.dir/build.make CMakeFiles/ModuleServer.dir/ModuleServer.o
 .PHONY : ModuleServer.o
@@ -253,6 +268,9 @@ help:
 	@echo "... ModuleClient.o"
 	@echo "... ModuleClient.i"
 	@echo "... ModuleClient.s"
+	@echo "... ModuleData.o"
+	@echo "... ModuleData.i"
+	@echo "... ModuleData.s"
 	@echo "... ModuleServer.o"
 	@echo "... ModuleServer.i"
 	@echo "... ModuleServer.s"
