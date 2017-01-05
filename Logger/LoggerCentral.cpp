@@ -13,11 +13,10 @@ struct LogBuffer* buff;
 int shm_fd;
 
 LogMessage takeLastFromBuffer(){
-		
-	LogMessage last = buff->messages[0];
+	LogMessage last = buff->messages[9];
 
-	for(int i = 0; i < 9; i++){
-		buff->messages[i] = buff->messages[i+1];
+	for(int i = 1; i < 9; i++){
+		buff->messages[i -1 ] = buff->messages[i];
 	}
 	
 	return last;
@@ -53,11 +52,21 @@ int main(){
     // Shared memory is ready for use.
     printf("Shared Memory successfully opened.\n");
     
-    buff->isReady = 0;
+    // Initialize semaphore 'filled' with value 0.
+	if(sem_init(&(buff->filled), 1, 0) != 0){
+		perror("Can not init semaphore 'filled'");
+		return -1;
+	}
+
+	// Initialize semaphore 'empty' with value 10.
+	if(sem_init(&(buff->empty), 1, 10) != 0){
+		perror("Can not init semaphore 'empty'");
+		return -1;
+	}
     
     // Wait for Logger class to make isReady true before entering
     // Else the semaphores are not initialised resulting in a deadlock.
-    while(buff->isReady){
+    while(true){
 		sem_wait(&(buff->filled));
 		LogMessage msg = takeLastFromBuffer();
 		sem_post(&(buff->empty));

@@ -61,20 +61,6 @@ class Logger {
     
 			// Shared memory is ready for use.
 			printf("LOGGER: Shared Memory successfully opened.\n");
-			
-			// Initialize semaphore 'filled' with value 0.
-			if(sem_init(&(buff->filled), 1, 0) != 0){
-				perror("Can not init semaphore 'filled'");
-				//return -1;
-			}
-
-			// Initialize semaphore 'empty' with value 10.
-			if(sem_init(&(buff->empty), 1, 10) != 0){
-				perror("Can not init semaphore 'empty'");
-				//return -1;
-			}
-			
-			buff->isReady = true;
 	
 		}
 		                    
