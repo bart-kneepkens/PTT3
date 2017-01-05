@@ -64,7 +64,6 @@ public:
         // Wait for Logger class to make isRady true before entering
         // Else the semaphores are not initialised resulting in a deadlock.
         while(true){
-            std::cout << "waiting" << std::endl;
             sem_wait(&(buff->filled));
             LogMessage msg = takeLastFromBuffer();
             sem_post(&(buff->empty));
