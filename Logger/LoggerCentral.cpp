@@ -5,6 +5,8 @@
 #include <semaphore.h>
 #include <stdio.h>
 #include <fcntl.h>
+#include <fstream>
+
 
 const char* SHM_NAME = "LogBuffer";
 
@@ -63,13 +65,22 @@ int main(){
 		perror("Can not init semaphore 'empty'");
 		return -1;
 	}
-    
-    // Wait for Logger class to make isReady true before entering
+	
+	// Open LogFile
+	std::ofstream logFile;
+	logFile.open("MazeSolverLogs", std::ofstream::out | std::ofstream::app);
+	char dateFormatted[18];
+	struct tm *tm;
+  
+    // Wait for Logger class to make isRady true before entering
     // Else the semaphores are not initialised resulting in a deadlock.
     while(true){
 		sem_wait(&(buff->filled));
 		LogMessage msg = takeLastFromBuffer();
 		sem_post(&(buff->empty));
-		std::cout << "FAKE PRINTING MESSAGE:" << msg.text << ":" << msg.timestamp << std::endl;
+		tm = localtime(&(msg.timestamp));
+		strftime(dateFormatted, sizeof(dateFormatted), "%D,%T", tm);
+		logFile << dateFormatted << " :: " << msg.text << std::endl;
+		std::cout << dateFormatted << " :: " << msg.text << std::endl;
 	}
 }
