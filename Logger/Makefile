@@ -6,7 +6,7 @@ MOCK_SOURCE=MockServer.cpp
 
 MOCK_CENTRAL_SOURCE=MockCentral.cpp
 
-GPP=g++
+GPP=arm-linux-g++
 
 .PHONY: loggercentral mock mockcentral
 
