@@ -1,6 +1,6 @@
 #include "ModuleData.hpp"
 
-ModuleType::ModuleType ModuleType::fromString(std::string str) {
+ModuleType::ModuleType ModuleType::FromString(std::string str) {
     if (str == "in") {
         return ModuleType::IN;
     }
@@ -13,7 +13,7 @@ ModuleType::ModuleType ModuleType::fromString(std::string str) {
     throw std::invalid_argument("Could not parse string '" + str + "' to enum 'ModuleType'!");
 }
 
-ModuleSubType::ModuleSubType ModuleSubType::fromString(std::string str) {
+ModuleSubType::ModuleSubType ModuleSubType::FromString(std::string str) {
     if (str == "scanner") {
         return ModuleSubType::SCANNER;
     }
@@ -32,15 +32,15 @@ ModuleData::ModuleData(ModuleType::ModuleType type, ModuleSubType::ModuleSubType
 
 ModuleData::~ModuleData() {}
 
-int ModuleData::getSocketId() const {
+int ModuleData::GetSocketId() const {
     return this->socketId;
 }
 
-ModuleType::ModuleType ModuleData::getType() const {
+ModuleType::ModuleType ModuleData::GetType() const {
     return this->type;
 }
 
-ModuleSubType::ModuleSubType ModuleData::getSubType() const {
+ModuleSubType::ModuleSubType ModuleData::GetSubType() const {
     return this->subType;
 }
 

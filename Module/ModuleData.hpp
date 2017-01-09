@@ -21,7 +21,7 @@ namespace ModuleType {
      * @param str
      * @return
      */
-    ModuleType fromString(std::string str);
+    ModuleType FromString(std::string str);
 }
 
 namespace ModuleSubType {
@@ -41,7 +41,7 @@ namespace ModuleSubType {
     * @param str
     * @return
     */
-    ModuleSubType fromString(std::string str);
+    ModuleSubType FromString(std::string str);
 }
 
 /** Holds data of a single Module Client that registered itself to the server. */
@@ -55,11 +55,11 @@ public:
 
     ~ModuleData();
 
-    ModuleType::ModuleType getType() const;
+    ModuleType::ModuleType GetType() const;
 
-    ModuleSubType::ModuleSubType getSubType() const;
+    ModuleSubType::ModuleSubType GetSubType() const;
 
-    int getSocketId() const;
+    int GetSocketId() const;
 };
 
 #endif //PTT3_MODULEDATA_HPP

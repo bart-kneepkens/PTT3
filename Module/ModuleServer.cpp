@@ -8,12 +8,22 @@
 
 #include "SocketUtils.hpp"
 #include "ModuleData.hpp"
+#include "ModuleHandler.hpp"
 #include "../maze_parser/MazeParser.hpp"
 
 /** All registered modules. */
 std::vector<ModuleData> modules;
 
 int main(int argc, char *argv[]) {
+
+    ModuleHandler mh = ModuleHandler(5);
+    mh.StartListening();
+    for (unsigned int i = 0; i < 1000000; i++) {
+        std::cout << i << std::endl;
+    }
+    mh.StopListening();
+    return 0;
+
     // If no port was provided, print error and exit.
     if (argc < 2) {
         std::cerr << "Error: no port provided!" << std::endl;
@@ -84,8 +94,8 @@ int main(int argc, char *argv[]) {
         ModuleSubType::ModuleSubType moduleSubType;
 
         try {
-            moduleType = ModuleType::fromString(segments.at(2));
-            moduleSubType = ModuleSubType::fromString(segments.at(3));
+            moduleType = ModuleType::FromString(segments.at(2));
+            moduleSubType = ModuleSubType::FromString(segments.at(3));
         }
         catch (std::exception ex) {
             std::cerr << ex.what() << std::endl;
