@@ -22,6 +22,13 @@ namespace ModuleType {
      * @return
      */
     ModuleType FromString(std::string str);
+
+    /**
+     * Parses a ModuleType to a string.
+     * @param moduleType
+     * @return
+     */
+    std::string ToString(ModuleType moduleType);
 }
 
 namespace ModuleSubType {
@@ -42,6 +49,13 @@ namespace ModuleSubType {
     * @return
     */
     ModuleSubType FromString(std::string str);
+
+    /**
+    * Parses a ModuleSubType to a string.
+    * @param moduleSubType
+    * @return
+    */
+    std::string ToString(ModuleSubType moduleSubType);
 }
 
 /** Holds data of a single Module Client that registered itself to the server. */
