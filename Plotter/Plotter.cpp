@@ -8,6 +8,9 @@ Plotter::Plotter(std::string Path_To_Motors)
 	motorX   = new MotorDriver(Path_To_Motors + "/motor0/");
 	motorY   = new MotorDriver(Path_To_Motors + "/motor1/");
 	motorPen = new MotorDriver(Path_To_Motors + "/motor2/");
+
+	SetX(0, 100); //Reset both motors to 0 origin. Hold the motor off their rail until they are at the origin.
+	SetY(0, 100); 
 }
 
 Plotter::~Plotter()
@@ -62,20 +65,20 @@ int Plotter::GetSpeed(MotorDriver* motor)
 	return motor->GetSpeed();
 }
 
-int Plotter::GetStatus()
+PlotterStatus Plotter::GetStatus()
 {
 	currentX = GetPosition(motorX);
 	currentY = GetPosition(motorY);
 
-	int result = 0;
+	PlotterStatus result = Idle;
 
 	if(currentX != prevX || currentY != prevY)
 	{
-		result = 1;
+		result = Moving;
 
 		if(GetPosition(motorPen) >= penDown)
 		{
-			result = 2;
+			result = Plotting;
 		}
 	}
 
