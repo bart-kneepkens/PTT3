@@ -1,9 +1,11 @@
 #ifndef MODULE_MODULEHANDLER_HPP
 #define MODULE_MODULEHANDLER_HPP
+
+#include <netinet/in.h>
 #include <iostream>
 #include <pthread.h>
-#include <vector>
 
+#include "SocketUtils.hpp"
 #include "ModuleData.hpp"
 
 /**
@@ -11,8 +13,11 @@
  */
 class ModuleHandler {
 private:
-    /** The server port on which this handler listens. */
-    const int serverPort;
+    /** The socket to which this handler listens. */
+    int sockfd;
+
+    /** The port on which this handler is listening. */
+    const int port;
 
     /** Mutex indicating whether or not this handler is listening (it is listening if this mutex is locked). */
     pthread_mutex_t isListening;
@@ -35,9 +40,10 @@ private:
 public:
     /**
      * Constructor.
+     * @param port The port to listen to.
      * @return
      */
-    ModuleHandler(const int serverPort);
+    ModuleHandler(const int port);
 
     /**
      * Destructor. Calls StopListening.

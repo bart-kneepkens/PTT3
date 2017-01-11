@@ -17,7 +17,9 @@ add_library(Core_Files
 add_library(Server_Files
         "InputHandler.hpp"
         "ModuleData.hpp"
-        "ModuleData.cpp" ModuleHandler.hpp ModuleHandler.cpp)
+        "ModuleData.cpp"
+		"ModuleHandler.hpp"
+		"ModuleHandler.cpp")
 
 # Files required only by client.
 add_library(Client_Files
@@ -29,8 +31,10 @@ add_library(Client_Files
 add_executable(ModuleServer ModuleServer.cpp)
 add_executable(ModuleClient ModuleClient.cpp)
 
-# Linking core files to executables.
-target_link_libraries(ModuleServer Core_Files Server_Files)
-target_link_libraries(ModuleClient Core_Files Client_Files)
+# Linking libraries.
+target_link_libraries(Server_Files Core_Files)
+target_link_libraries(Client_Files Core_Files)
+target_link_libraries(ModuleServer Server_Files)
+target_link_libraries(ModuleClient Client_Files)
 
 
