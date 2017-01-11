@@ -2,6 +2,7 @@
 #define PLOTTER_H
 
 #include "../Scanner/MotorDriver.h"
+#include "PlotterStatus.h"
 
 class Plotter
 {
@@ -11,7 +12,7 @@ public:
 	void SetX(int destination, int speed);
 	void SetY(int destination, int speed);
 	
-	int GetStatus();
+	PlotterStatus GetStatus();
 
 	void StartPlot();
 	void EndPlot();

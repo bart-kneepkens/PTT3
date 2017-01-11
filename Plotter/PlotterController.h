@@ -7,11 +7,21 @@
 #include "../Module/IModule.hpp"
 #include "PlotterStatus.h"
 
-enum MazeObject
+enum DrawDirection
 {
-	Maze,
-	Solution
+	Up,
+	Down,
+	Right,
+	Left,
+	None,
+	End
 };
+
+typedef struct SolutionStruct
+{
+	unsigned int X;
+	unsigned int Y;	
+}SolutionStruct;
 
 class PlotterController :public IModule
 {
@@ -25,14 +35,18 @@ public:
 
 private:
 	PlotterStatus currentStatus;
+	DrawDirection drawSolutionDirection;
 	Plotter* plotter;
 	std::vector<PlotInstruction>* instructions;
+	SolutionStruct sStruct;
 
 	unsigned int movementModifier = 1;
 	unsigned int linesPerVertical = 6;
 
 	void parseMazeMessageToMovementInstructions(std::vector<std::vector<char>*>* toDraw);
 	void plot(std::vector<PlotInstruction>* instructions);
+	void parseSolutionMsg(std::vector<std::vector<char>*>* solution);
+	DrawDirection getNextSegment(std::vector<std::vector<char>*>* solution, SolutionStruct* sol, DrawDirection from);
 
 };
 
