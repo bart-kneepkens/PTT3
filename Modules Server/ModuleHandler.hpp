@@ -5,7 +5,7 @@
 #include <iostream>
 #include <pthread.h>
 
-#include "SocketUtils.hpp"
+#include "../SocketUtils/SocketUtils.hpp"
 #include "ModuleData.hpp"
 
 /**

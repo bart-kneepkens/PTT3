@@ -6,7 +6,7 @@
 #include <netdb.h>
 
 #include "../Solver/MazeSolver.hpp"
-#include "SocketUtils.hpp"
+#include "../SocketUtils/SocketUtils.hpp"
 
 /**
  * Identifies what child class of IModule to return a dynamically allocated instance of, and then does so. Will return
