@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../Common/LogBuffer.h"
+#include "LogBuffer.h"
 #include <sys/mman.h>
 #include <unistd.h>
 #include <semaphore.h>

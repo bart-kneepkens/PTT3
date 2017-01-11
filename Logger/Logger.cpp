@@ -1,4 +1,4 @@
-#include "../Common/LogBuffer.h"
+#include "LogBuffer.h"
 #include <iostream>
 #include <sys/mman.h>
 #include <unistd.h>
