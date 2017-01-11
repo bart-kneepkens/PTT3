@@ -8,24 +8,30 @@
 #include <time.h>
 #include <string.h>
 
+/*
+ Logger is the class that has the responsibility of handling a string, and transferring it to the LoggerCentral.
+ It is a singleton because one and only one instance should ever exist.
+ */
 class Logger {
 public:
+    // This function makes this class a singleton.
     static Logger& getInstance(){
-        static Logger instance; // Guaranteed to be destroyed.
-        return instance; // Instantiated on first use.
+        static Logger instance;
+        return instance;
     }
     
+    // This function takes a string and creates a LogMessage struct, after which it adds it to shared memory.
     void logMessage(std::string message){
         LogMessage msg;
         
-        strcpy(msg.text, message.c_str());
-        time(&msg.timestamp);
+        strcpy(msg.text, message.c_str());  // Copy the string into the struct.
+        time(&msg.timestamp);               // Put a timestamp into the struct.
         
-        sem_wait(&(buff->empty));
+        sem_wait(&(buff->empty));           // Wait and lower the empty semaphore.
         
         addToBuffer(msg);
         
-        sem_post(&(buff->filled));
+        sem_post(&(buff->filled));          // Up the filled semaphore.
         
         std::cout << "Logged Message: " << msg.text << ":" << msg.timestamp << std::endl;
     }
@@ -67,10 +73,14 @@ private:
     Logger(Logger const&);              // Don't Implement
     void operator=(Logger const&); 		// Don't implement
     
+    // Adds a LogMessage struct to the shared memory. (LIFO)
     void addToBuffer(LogMessage msg){
+        // Firstly push every struct in the buffer one place foward.
         for (int i = 0; i < 9; i++){
             buff->messages[i] = buff->messages[i+1];
         }
+        
+        // Place the struct at the back of the buffer.
         buff->messages[9] = msg;
     }
 };

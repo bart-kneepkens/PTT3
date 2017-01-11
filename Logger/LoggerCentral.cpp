@@ -7,12 +7,13 @@
 #include <fcntl.h>
 #include <fstream>
 
+/*
+ LoggerCentral is the class that takes logged messages from shared memory and writes them to a file.
+ */
 class LoggerCentral {
 public:
     LoggerCentral(){
         SHM_NAME = "LogBuffer";
-        
-        //munmap(buff, sizeof(LogBuffer));
         
         // Get shared memory file descriptor.
         if ((shm_fd = shm_open(SHM_NAME, O_CREAT | O_RDWR, 0666)) == -1){
@@ -55,21 +56,22 @@ public:
     }
     
     void run() {
-        // Open LogFile
+        // Open LogFile text file
         std::ofstream logFile;
         logFile.open("MazeSolverLogs", std::ofstream::out | std::ofstream::app);
-        char dateFormatted[18];
-        struct tm *tm;
         
-        // Wait for Logger class to make isRady true before entering
-        // Else the semaphores are not initialised resulting in a deadlock.
+        char dateFormatted[18]; // string to hold the formatted date.
+        struct tm *tm;          // struct to hold the time.
+        
         while(true){
-            sem_wait(&(buff->filled));
+            sem_wait(&(buff->filled));  // Wait and lower semaphore filled.
             LogMessage msg = takeLastFromBuffer();
-            sem_post(&(buff->empty));
-            tm = localtime(&(msg.timestamp));
-            strftime(dateFormatted, sizeof(dateFormatted), "%D,%T", tm);
-            logFile << dateFormatted << " :: " << msg.text << std::endl;
+            sem_post(&(buff->empty));   // Up semaphore empty.
+            tm = localtime(&(msg.timestamp)); // Initialize the tm struct
+            strftime(dateFormatted, sizeof(dateFormatted), "%D,%T", tm); // Format the time into the dateFormatted string.
+            
+            logFile << dateFormatted << " :: " << msg.text << std::endl; // Write new entry in the logfile.
+            
             std::cout << dateFormatted << " :: " << msg.text << std::endl;
         }
     }
@@ -81,6 +83,7 @@ private:
     
     int shm_fd;
     
+    // Takes the last LogMessage from the shared memory buffer. (LIFO)
     LogMessage takeLastFromBuffer(){
         LogMessage last = buff->messages[9];
         
