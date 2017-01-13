@@ -185,6 +185,21 @@ PlotterProgram.s:
 .PHONY : PlotterProgram.s
 
 # target to build an object file
+mnt/c/Users/yam20/Documents/GitHub/PTT3/Scanner/MotorDriver.o:
+	$(MAKE) -f CMakeFiles/Core_Files.dir/build.make CMakeFiles/Core_Files.dir/mnt/c/Users/yam20/Documents/GitHub/PTT3/Scanner/MotorDriver.o
+.PHONY : mnt/c/Users/yam20/Documents/GitHub/PTT3/Scanner/MotorDriver.o
+
+# target to preprocess a source file
+mnt/c/Users/yam20/Documents/GitHub/PTT3/Scanner/MotorDriver.i:
+	$(MAKE) -f CMakeFiles/Core_Files.dir/build.make CMakeFiles/Core_Files.dir/mnt/c/Users/yam20/Documents/GitHub/PTT3/Scanner/MotorDriver.i
+.PHONY : mnt/c/Users/yam20/Documents/GitHub/PTT3/Scanner/MotorDriver.i
+
+# target to generate assembly for a file
+mnt/c/Users/yam20/Documents/GitHub/PTT3/Scanner/MotorDriver.s:
+	$(MAKE) -f CMakeFiles/Core_Files.dir/build.make CMakeFiles/Core_Files.dir/mnt/c/Users/yam20/Documents/GitHub/PTT3/Scanner/MotorDriver.s
+.PHONY : mnt/c/Users/yam20/Documents/GitHub/PTT3/Scanner/MotorDriver.s
+
+# target to build an object file
 mnt/c/Users/yam20/Documents/GitHub/PTT3/maze_parser/MazeMessage.o:
 	$(MAKE) -f CMakeFiles/Core_Files.dir/build.make CMakeFiles/Core_Files.dir/mnt/c/Users/yam20/Documents/GitHub/PTT3/maze_parser/MazeMessage.o
 .PHONY : mnt/c/Users/yam20/Documents/GitHub/PTT3/maze_parser/MazeMessage.o
@@ -221,6 +236,9 @@ help:
 	@echo "... PlotterProgram.o"
 	@echo "... PlotterProgram.i"
 	@echo "... PlotterProgram.s"
+	@echo "... mnt/c/Users/yam20/Documents/GitHub/PTT3/Scanner/MotorDriver.o"
+	@echo "... mnt/c/Users/yam20/Documents/GitHub/PTT3/Scanner/MotorDriver.i"
+	@echo "... mnt/c/Users/yam20/Documents/GitHub/PTT3/Scanner/MotorDriver.s"
 	@echo "... mnt/c/Users/yam20/Documents/GitHub/PTT3/maze_parser/MazeMessage.o"
 	@echo "... mnt/c/Users/yam20/Documents/GitHub/PTT3/maze_parser/MazeMessage.i"
 	@echo "... mnt/c/Users/yam20/Documents/GitHub/PTT3/maze_parser/MazeMessage.s"

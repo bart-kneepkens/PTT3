@@ -2,17 +2,16 @@
 #define PLOTTER_H
 
 #include "../Scanner/MotorDriver.h"
-#include "PlotterStatus.h"
 
 class Plotter
 {
 public:
 	Plotter(std::string Path_To_Motors);
 	~Plotter();
-	void SetX(int destination, int speed);
-	void SetY(int destination, int speed);
+	void SetX(int destination, int speed, bool inverse);
+	void SetY(int destination, int speed, bool inverse);
 	
-	PlotterStatus GetStatus();
+	int GetStatus();
 
 	void StartPlot();
 	void EndPlot();

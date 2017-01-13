@@ -11,6 +11,8 @@ add_library(Core_Files
         "../maze_parser/MazeMessage.hpp"
         "../maze_parser/MazeMessage.cpp"
         "../Module/IModule.hpp"
+        "../Scanner/MotorDriver.cpp"
+        "../Scanner/MotorDriver.h"
         "PlotInstruction.cpp"
         "PlotInstruction.h"
         "Plotter.cpp"
