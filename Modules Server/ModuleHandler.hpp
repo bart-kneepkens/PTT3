@@ -13,7 +13,7 @@
  */
 class ModuleHandler {
 private:
-    /** The socket to which this handler listens. */
+    /** The socket file descriptor to which this handler listens. */
     int sockfd;
 
     /** The port on which this handler is listening. */
@@ -69,6 +69,19 @@ public:
      * @return True if this was listening before this was called, false otherwise.
      */
     bool StopListening();
+
+    /**
+     * Gets the module with the supplied socket id.
+     * @param socketId
+     * @return
+     */
+    ModuleData GetModule(int socketId);
+
+    /**
+     * Closes and removes the module with the supplied socket id from this handler.
+     * @param socketId
+     */
+    void CloseAndRemoveModule(int socketId);
 };
 
 #endif //MODULE_MODULEHANDLER_HPP

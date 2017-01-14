@@ -5,7 +5,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -std=c++11")
 
 # Executables to be build.
 add_executable(ModulesServer
-		"ModuleServer.cpp"
+		"Main.cpp"
 		"ModuleData.cpp"
 		"ModuleHandler.cpp"
 		"../maze_parser/MazeMessage.cpp"

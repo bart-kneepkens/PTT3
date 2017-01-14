@@ -129,5 +129,33 @@ bool ModuleHandler::StopListening() {
     return false;
 }
 
+void ModuleHandler::CloseAndRemoveModule(int socketId) {
+    pthread_mutex_lock(&modulesMutex);
+
+    for (unsigned int i = 0; i < modules.size(); i++) {
+        const int curSocketId = modules.at(i).GetSocketId();
+
+        if (curSocketId == socketId) {
+            close(curSocketId);
+            modules.erase(modules.begin() + i);
+            return;
+        }
+    }
+    pthread_mutex_unlock(&modulesMutex);
+}
+
+ModuleData ModuleHandler::GetModule(int socketId) {
+    pthread_mutex_lock(&modulesMutex);
+
+    for (unsigned int i = 0; i < modules.size(); i++) {
+        const ModuleData moduleData = modules.at(i);
+
+        if (moduleData.GetSocketId() == socketId) {
+            return moduleData;
+        }
+    }
+    pthread_mutex_unlock(&modulesMutex);
+}
+
 
 

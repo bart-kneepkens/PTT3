@@ -69,4 +69,3 @@ ModuleType::ModuleType ModuleData::GetType() const {
 ModuleSubType::ModuleSubType ModuleData::GetSubType() const {
     return this->subType;
 }
-

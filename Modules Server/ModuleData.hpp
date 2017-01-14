@@ -61,9 +61,9 @@ namespace ModuleSubType {
 /** Holds data of a single Module Client that registered itself to the server. */
 class ModuleData {
 private:
-    const ModuleType::ModuleType type;
-    const ModuleSubType::ModuleSubType subType;
-    const int socketId;
+    ModuleType::ModuleType type;
+    ModuleSubType::ModuleSubType subType;
+    int socketId;
 public:
     ModuleData(ModuleType::ModuleType type, ModuleSubType::ModuleSubType subType, int socketId);
 
