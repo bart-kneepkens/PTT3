@@ -1,21 +1,26 @@
 #include "MazeMessage.hpp"
 
-maze_parser::MazeMessage::MazeMessage(vector < vector < char > * > *scan, vector < vector < char > * > *solution) {
+maze_parser::MazeMessage::MazeMessage(vector<vector<char> *> *scan, vector<vector<char> *> *solution) {
     Scan = scan;
     Solution = solution;
 }
 
 maze_parser::MazeMessage::~MazeMessage() {
-
-    for (unsigned int i = 0; i < Scan->size(); i++) {
-        delete Scan->at(i);
+    if (Scan != 0) {
+        while (!Scan->empty()) {
+            delete Scan->back();
+            Scan->pop_back();
+        }
+        delete Scan;
     }
-    delete Scan;
 
-    for (unsigned int i = 0; i < Solution->size(); i++) {
-        delete Solution->at(i);
+    if (Solution != 0) {
+        while (!Solution->empty()) {
+            delete Solution->back();
+            Solution->pop_back();
+        }
+        delete Solution;
     }
-    delete Solution;
 }
 
 std::string maze_parser::MazeMessage::toString() const {

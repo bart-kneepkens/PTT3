@@ -69,3 +69,44 @@ ModuleType::ModuleType ModuleData::GetType() const {
 ModuleSubType::ModuleSubType ModuleData::GetSubType() const {
     return this->subType;
 }
+
+void ModuleData::Run(maze_parser::MazeMessage *&msg) const {
+    // If msg is NULL, instantiate it.
+    if (msg == 0) {
+        msg = new maze_parser::MazeMessage();
+    }
+
+    // Parse the msg to JSON.
+    std::string msgAsJson = maze_parser::mazeMessageToJson(*msg);
+
+    // Send the JSON to the remote module.
+    char buffer[msgAsJson.length()];
+    strcpy(buffer, msgAsJson.c_str());
+
+    // If sending failed, throw an exception.
+    if (sendMsg(socketId, buffer) < 0) {
+        std::stringstream ss;
+        ss << "Failed to send data to module with socketfd '" << socketId << "'!";
+        throw std::logic_error(ss.str());
+    }
+
+    // Now read the reply.
+    char msgBuffer[MAZE_MSG_BUFFER_SIZE];
+
+    // If reading the reply failed, throw an exception.
+    if (receiveMsg(socketId, msgBuffer, MAZE_MSG_BUFFER_SIZE) < 0) {
+        std::stringstream ss;
+        ss << "Failed to receive data from module with socketfd '" << socketId << "'!";
+        throw std::logic_error(ss.str());
+    }
+
+    // Parse the reply to a MazeMessage.
+    std::string replyJson(msgBuffer);
+    try {
+        msg = maze_parser::jsonToMazeMessage(replyJson);
+    } catch (std::invalid_argument) {
+        std::stringstream ss;
+        ss << "Failed to parse received data from module with socketfd '" << socketId << "'!";
+        throw std::logic_error(ss.str());
+    }
+}

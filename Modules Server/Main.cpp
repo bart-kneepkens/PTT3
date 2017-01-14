@@ -92,7 +92,23 @@ int main(int argc, char *argv[]) {
         }
         else if (input == "run" || input == "launch" || input == "start") {
             // Run a module chain.
-            std::cout << "This action is currently unsupported!" << std::endl;
+            // TEST CODE:
+            maze_parser::MazeMessage msg = maze_parser::MazeMessage();
+            msg.Scan = new std::vector<std::vector<char> *>();
+
+            // Build test scan.
+            for (unsigned int i = 0; i < 10; i++) {
+                msg.Scan->push_back(new std::vector<char>());
+
+                for (unsigned int j = 0; j < 10; j++) {
+                    msg.Scan->at(i)->push_back((j != 4) ? '#' : ' ');
+                }
+            }
+
+            maze_parser::MazeMessage *msgPtr = &msg;
+            ModuleData moduleData = moduleHandler.GetModules().at(0);
+            moduleData.Run(msgPtr);
+            std::cout << msgPtr->toString() << std::endl;
         }
         else {
             // Print 'command not recognized' message.
