@@ -67,12 +67,26 @@ void PrintChains() {
     std::cout << std::flush;
 }
 
+/**
+ * Used by the thread that continuously reads log messages and writes them to a file.
+ * @param threadArgs
+ * @return
+ */
+void* LoggerCentralThread(void *threadArgs) {
+    LoggerCentral loggerCentral = LoggerCentral();
+    loggerCentral.run();
+}
+
 int main(int argc, char *argv[]) {
     // If no port was provided, print error and exit.
     if (argc < 2) {
         std::cerr << "Error: no port provided!" << std::endl;
         exit(1);
     }
+
+    // Run logger central.
+    pthread_t loggerCentralThread;
+    pthread_create(&loggerCentralThread, NULL, LoggerCentralThread, NULL);
 
     // Get logger.
     Logger &logger = Logger::getInstance();
