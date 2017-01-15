@@ -7,6 +7,7 @@
 #include "../SocketUtils/SocketUtils.hpp"
 #include "../maze_parser/MazeMessage.hpp"
 #include "../maze_parser/MazeParser.hpp"
+#include "../Logger/Logger.hpp"
 
 namespace ModuleType {
     /** The main types of a connected module. */

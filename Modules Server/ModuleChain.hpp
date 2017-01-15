@@ -6,6 +6,7 @@
 #include <stdexcept>
 
 #include "ModuleData.hpp"
+#include "../Logger/Logger.hpp"
 
 /**
  * Responsible for holding a created chain of modules and calling them in consecutive order.

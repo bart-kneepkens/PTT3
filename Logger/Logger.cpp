@@ -24,7 +24,7 @@ Logger::Logger() {
     }
 
     // Shared memory is ready for use.
-    printf("LOGGER: Shared Memory successfully opened.\n");
+    // printf("LOGGER: Shared Memory successfully opened.\n");
 }
 
 void Logger::addToBuffer(LogMessage msg) {
@@ -54,7 +54,8 @@ void Logger::logMessage(std::string message) {
 
     sem_post(&(buff->filled));          // Up the filled semaphore.
 
-    std::cout << "Logged Message: " << msg.text << ":" << msg.timestamp << std::endl;
+    //std::cout << "Logged Message: " << msg.text << ":" << msg.timestamp << std::endl;
+    std::cout << msg.text << std::endl; // Simplified console print.
 }
 
 

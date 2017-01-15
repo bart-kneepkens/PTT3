@@ -1,7 +1,7 @@
 # Miscellaneous settings.
 cmake_minimum_required(VERSION 2.5)
 project(ModulesServer)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lrt -pthread -std=c++11")
 
 # Executables to be build.
 add_executable(ModulesServer
@@ -11,6 +11,9 @@ add_executable(ModulesServer
 		"ModuleChain.cpp"
 		"../maze_parser/MazeMessage.cpp"
 		"../maze_parser/MazeParser.cpp"
-		"../SocketUtils/SocketUtils.cpp")
+		"../SocketUtils/SocketUtils.cpp"
+		"../Logger/Logger.cpp")
+
+target_link_libraries(ModulesServer -lrt)
 
 

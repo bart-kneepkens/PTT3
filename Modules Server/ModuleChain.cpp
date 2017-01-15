@@ -21,8 +21,9 @@ void ModuleChain::AppendModule(ModuleData &moduleData) {
 }
 
 void ModuleChain::Run() const {
-    // Instantiate empty MazeMessage to be sent to the first module.
+    // Instantiate empty MazeMessage to be sent to the first module, and get logger.
     maze_parser::MazeMessage *msgPtr = new maze_parser::MazeMessage();
+    Logger &logger = Logger::getInstance();
 
     // For testing purposes: load scanned maze in msgPtr.
     msgPtr->Scan = new std::vector<std::vector<char>* >();
@@ -36,7 +37,9 @@ void ModuleChain::Run() const {
     try {
         // Loop over the modules, passing the MazeMessage to each consecutive module.
         for (unsigned int i = 0; i < modules.size(); i++) {
-            std::cout << "Processing module with socketfd: " << modules.at(i).GetSocketId() << "..." << std::endl;
+            std::stringstream ss;
+            ss << "Processing module with socketfd: " << modules.at(i).GetSocketId() << "...";
+            logger.logMessage(ss.str());
             modules.at(i).Run(msgPtr);
         }
     } catch (std::exception ex) {
@@ -48,5 +51,5 @@ void ModuleChain::Run() const {
 
     // Delete msgPtr to prevent memory leakage.
     delete msgPtr;
-    std::cout << "Finished running chain!" << std::endl;
+    logger.logMessage("Finished running chain!");
 }

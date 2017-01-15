@@ -7,6 +7,7 @@
 
 #include "../SocketUtils/SocketUtils.hpp"
 #include "ModuleData.hpp"
+#include "../Logger/Logger.hpp"
 
 /**
  * Responsible for registering and storing modules. Not thread-safe.

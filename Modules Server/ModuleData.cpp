@@ -71,6 +71,9 @@ ModuleSubType::ModuleSubType ModuleData::GetSubType() const {
 }
 
 void ModuleData::Run(maze_parser::MazeMessage *&msg) const {
+    // Get logger.
+    Logger &logger = Logger::getInstance();
+
     // If msg is NULL, instantiate it.
     if (msg == 0) {
         msg = new maze_parser::MazeMessage();
@@ -87,7 +90,9 @@ void ModuleData::Run(maze_parser::MazeMessage *&msg) const {
     if (sendMsg(socketId, buffer) < 0) {
         std::stringstream ss;
         ss << "Failed to send data to module with socketfd '" << socketId << "'!";
-        throw std::logic_error(ss.str());
+        const std::string msg = ss.str();
+        logger.logMessage(msg);
+        throw std::logic_error(msg);
     }
 
     // Now read the reply.
@@ -97,7 +102,9 @@ void ModuleData::Run(maze_parser::MazeMessage *&msg) const {
     if (receiveMsg(socketId, msgBuffer, MAZE_MSG_BUFFER_SIZE) < 0) {
         std::stringstream ss;
         ss << "Failed to receive data from module with socketfd '" << socketId << "'!";
-        throw std::logic_error(ss.str());
+        const std::string msg = ss.str();
+        logger.logMessage(msg);
+        throw std::logic_error(msg);
     }
 
     // Parse the reply to a MazeMessage.
@@ -109,6 +116,8 @@ void ModuleData::Run(maze_parser::MazeMessage *&msg) const {
     } catch (std::invalid_argument) {
         std::stringstream ss;
         ss << "Failed to parse received data from module with socketfd '" << socketId << "'!";
-        throw std::logic_error(ss.str());
+        const std::string msg = ss.str();
+        logger.logMessage(msg);
+        throw std::logic_error(msg);
     }
 }

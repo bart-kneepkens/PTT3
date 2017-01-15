@@ -1,12 +1,14 @@
 #include "ModuleHandler.hpp"
 
 void* ModuleHandler::ListenToIncomingModules(void *threadArgs) {
+    // Cast arguments and get logger.
     ModuleHandler *handler = (ModuleHandler*)threadArgs;
+    Logger &logger = Logger::getInstance();
 
     // Open up the server-side socket. If it fails, print error and exit.
     handler->sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (handler->sockfd < 0) {
-        perror("Error while opening socket!");
+        logger.logMessage("Error while opening socket!");
         exit(1);
     }
 
@@ -19,7 +21,7 @@ void* ModuleHandler::ListenToIncomingModules(void *threadArgs) {
 
     // If binding failed, throw an error and exit.
     if (bind(handler->sockfd, (sockaddr*) &serv_addr, sizeof(serv_addr)) < 0) {
-        perror("Error while binding socket to port!");
+        logger.logMessage("Error while binding socket to port!");
         close(handler->sockfd);
         exit(1);
     }
@@ -34,14 +36,14 @@ void* ModuleHandler::ListenToIncomingModules(void *threadArgs) {
         // Accept incoming connection. If it failed, print error.
         const int newsockfd = accept(handler->sockfd, (struct sockaddr *) &cli_addr, &clilen);
         if (newsockfd < 0) {
-            perror("Error while accepting new connection!");
+            logger.logMessage("Error while accepting new connection!");
             continue;
         }
 
         // Receive module type from client.
         char buffer[16];
         if (receiveMsg(newsockfd, buffer, 16) < 0) {
-            perror("Error while receiving module type!");
+            logger.logMessage("Error while receiving module type!");
             close(newsockfd);
             continue;
         }
@@ -51,7 +53,7 @@ void* ModuleHandler::ListenToIncomingModules(void *threadArgs) {
         //std::cout << "Received string: '" << bufferStr << "'" << std::endl;
         std::vector<std::string> segments = splitString(bufferStr, ':');
         if (segments.size() < 3) {
-            std::cerr << "Received module type is invalid!" << std::endl;
+            logger.logMessage("Received module type is invalid!");
             close(newsockfd);
             continue;
         }
@@ -64,7 +66,7 @@ void* ModuleHandler::ListenToIncomingModules(void *threadArgs) {
             moduleSubType = ModuleSubType::FromString(segments.at(2));
         }
         catch (std::exception ex) {
-            std::cerr << "Failed to translate received string to Module(Sub)Type!" << std::endl;
+            logger.logMessage("Failed to translate received string to Module(Sub)Type!");
             close(newsockfd);
             continue;
         }
@@ -75,14 +77,16 @@ void* ModuleHandler::ListenToIncomingModules(void *threadArgs) {
         char ACK_MSG_COPY[ACK_BUFFER_SIZE];
         std::copy(ACK_MSG, ACK_MSG + ACK_BUFFER_SIZE, ACK_MSG_COPY);
         if (sendMsg(newsockfd, ACK_MSG_COPY) < 0) {
-            perror("Error while sending ACK to client!");
+            logger.logMessage("Error while sending ACK to client!");
             close(newsockfd);
             continue;
         }
 
         // If everything went well, add the newly registered module to the vector.
         handler->modules.push_back(newModule);
-        std::cout << "New module registered with sockedfd: " << newsockfd << "." << std::endl;
+        std::stringstream ss;
+        ss << "New module registered with sockedfd: " << newsockfd << ".";
+        logger.logMessage(ss.str());
     }
 
     // Close socket.

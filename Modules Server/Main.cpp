@@ -73,10 +73,14 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
 
+    // Get logger.
+    Logger &logger = Logger::getInstance();
+    logger.logMessage("Launching server...");
+
     // Setup and start ModuleHandler.
     ModuleHandler moduleHandler = ModuleHandler(atoi(argv[1]));
     if (!moduleHandler.StartListening()) {
-        std::cerr << "Failed to start ModuleHandler instance!" << std::endl;
+        logger.logMessage("Failed to start ModuleHandler instance!");
         exit(1);
     }
     bool running = true;
@@ -102,7 +106,7 @@ int main(int argc, char *argv[]) {
             // If index is within range, delete the chain at the supplied index.
             if (index < moduleChains.size()) {
                 moduleChains.erase(moduleChains.begin() + index);
-                std::cout << "Removed module chain." << std::endl;
+                logger.logMessage("Removed module chain.");
             }
             else {
                 std::cout << "Index is out of range!" << std::endl;
@@ -111,6 +115,7 @@ int main(int argc, char *argv[]) {
         else if (input == "exit" || input == "close" || input == "stop") {
             // Prepare to exit program.
             running = false;
+            logger.logMessage("Shutting down server...");
         }
         else if (input == "chains") {
             // Print available module chains.
@@ -130,7 +135,6 @@ int main(int argc, char *argv[]) {
             std::cout << "Modules to add by sockfd (example: '4 2 13 6'):" << std::endl;
             std::string sockfdsStr;
             std::getline(std::cin, sockfdsStr);
-            //std::cin.ignore();
 
             // Prepare new ModuleChain.
             ModuleChain newChain = ModuleChain();
@@ -145,7 +149,7 @@ int main(int argc, char *argv[]) {
 
             // Add new module chain to vector.
             moduleChains.push_back(newChain);
-            std::cout << "Added new module chain." << std::endl;
+            logger.logMessage("Added new module chain.");
         }
         else if (input == "run" || input == "launch" || input == "start") {
             // Run a module chain.
@@ -157,7 +161,7 @@ int main(int argc, char *argv[]) {
 
             // If index is within range, run the chain at the supplied index.
             if (index < moduleChains.size()) {
-                std::cout << "Running module chain..." << std::endl;
+                logger.logMessage("Running module chain...");
                 moduleChains.at(index).Run();
             }
             else {
