@@ -26,7 +26,7 @@ private:
     std::vector<ModuleData> modules;
 
     /** Mutex used for making the modules vector thread-safe. */
-    pthread_mutex_t modulesMutex;
+    //pthread_mutex_t modulesMutex;
 
     /** Thread that listens to incoming module registrations until cancelled. */
     pthread_t listeningThread;

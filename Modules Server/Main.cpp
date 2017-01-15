@@ -3,8 +3,13 @@
  */
 
 #include <iostream>
+#include <vector>
 
 #include "ModuleHandler.hpp"
+#include "ModuleChain.hpp"
+
+/** Module chains created by user. */
+std::vector<ModuleChain> moduleChains;
 
 /**
  * Prints all available commands.
@@ -22,11 +27,17 @@ void PrintHelp() {
 }
 
 /**
- * Prints all registered modules.
+ * Prints the supplied modules.
  * @param modules
  */
 void PrintModules(const std::vector<ModuleData> &modules) {
-    std::cout << "SOCKET FD\tMODULE TYPE\n";
+    // If there are no modules, print appropriate info.
+    if (modules.size() < 1) {
+        std::cout << "No modules available!" << std::endl;
+        return;
+    }
+
+    std::cout << "SOCKETFD\tMODULE TYPE\n";
 
     for (unsigned int i = 0; i < modules.size(); i++) {
         const ModuleData module = modules.at(i);
@@ -40,7 +51,19 @@ void PrintModules(const std::vector<ModuleData> &modules) {
  * Prints all created chains.
  */
 void PrintChains() {
-    std::cout << "This action is currently unsupported!" << std::endl;
+    // If there are no chains, print appropriate info.
+    if (moduleChains.size() < 1) {
+        std::cout << "No module chains available!" << std::endl;
+        return;
+    }
+
+    for (unsigned int i = 0; i < moduleChains.size(); i++) {
+        const ModuleChain chain = moduleChains.at(i);
+        std::cout << "INDEX:\t\t" << i << "\n";
+        std::cout << "MODULES:\n";
+        std::cout << chain.ToString();
+    }
+    std::cout << std::flush;
 }
 
 int main(int argc, char *argv[]) {
@@ -57,6 +80,7 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
     bool running = true;
+    moduleChains = std::vector<ModuleChain>();
 
     // Before we start looping for user input, print the available commands.
     PrintHelp();
@@ -65,10 +89,24 @@ int main(int argc, char *argv[]) {
     while (running) {
         std::string input;
         std::cin >> input;
+        std::cin.ignore();
 
         if (input == "delete" || input == "remove") {
             // Delete an existing module chain.
-            std::cout << "This action is currently unsupported!" << std::endl;
+            // Prompt user what module chain to delete, by index.
+            std::cout << "Delete module chain at index:" << std::endl;
+            unsigned int index;
+            std::cin >> index;
+            std::cin.ignore();
+
+            // If index is within range, delete the chain at the supplied index.
+            if (index < moduleChains.size()) {
+                moduleChains.erase(moduleChains.begin() + index);
+                std::cout << "Removed module chain." << std::endl;
+            }
+            else {
+                std::cout << "Index is out of range!" << std::endl;
+            }
         }
         else if (input == "exit" || input == "close" || input == "stop") {
             // Prepare to exit program.
@@ -88,27 +126,43 @@ int main(int argc, char *argv[]) {
         }
         else if (input == "new" || input == "create") {
             // Create a new module chain.
-            std::cout << "This action is currently unsupported!" << std::endl;
+            // Prompt user what modules to add to the chain.
+            std::cout << "Modules to add by sockfd (example: '4 2 13 6'):" << std::endl;
+            std::string sockfdsStr;
+            std::getline(std::cin, sockfdsStr);
+            //std::cin.ignore();
+
+            // Prepare new ModuleChain.
+            ModuleChain newChain = ModuleChain();
+
+            // Split string on spaces, then convert parts to integers.
+            std::vector<std::string> strParts = splitString(sockfdsStr, ' ');
+            for (unsigned int i = 0; i < strParts.size(); i++) {
+                int sockfd = stoi(strParts[i]);
+                ModuleData moduleData = moduleHandler.GetModule(sockfd);
+                newChain.AppendModule(moduleData);
+            }
+
+            // Add new module chain to vector.
+            moduleChains.push_back(newChain);
+            std::cout << "Added new module chain." << std::endl;
         }
         else if (input == "run" || input == "launch" || input == "start") {
             // Run a module chain.
-            // TEST CODE:
-            maze_parser::MazeMessage msg = maze_parser::MazeMessage();
-            msg.Scan = new std::vector<std::vector<char> *>();
+            // Prompt user what module chain to run, by index.
+            std::cout << "Run module chain at index:" << std::endl;
+            unsigned int index;
+            std::cin >> index;
+            std::cin.ignore();
 
-            // Build test scan.
-            for (unsigned int i = 0; i < 10; i++) {
-                msg.Scan->push_back(new std::vector<char>());
-
-                for (unsigned int j = 0; j < 10; j++) {
-                    msg.Scan->at(i)->push_back((j != 4) ? '#' : ' ');
-                }
+            // If index is within range, run the chain at the supplied index.
+            if (index < moduleChains.size()) {
+                std::cout << "Running module chain..." << std::endl;
+                moduleChains.at(index).Run();
             }
-
-            maze_parser::MazeMessage *msgPtr = &msg;
-            ModuleData moduleData = moduleHandler.GetModules().at(0);
-            moduleData.Run(msgPtr);
-            std::cout << msgPtr->toString() << std::endl;
+            else {
+                std::cout << "Index is out of range!" << std::endl;
+            }
         }
         else {
             // Print 'command not recognized' message.

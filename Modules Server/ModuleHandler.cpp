@@ -48,7 +48,7 @@ void* ModuleHandler::ListenToIncomingModules(void *threadArgs) {
 
         // Make sure the module type is correct, otherwise kill the connection.
         std::string bufferStr(buffer);
-        std::cout << "Received string: '" << bufferStr << "'" << std::endl;
+        //std::cout << "Received string: '" << bufferStr << "'" << std::endl;
         std::vector<std::string> segments = splitString(bufferStr, ':');
         if (segments.size() < 3) {
             std::cerr << "Received module type is invalid!" << std::endl;
@@ -82,15 +82,16 @@ void* ModuleHandler::ListenToIncomingModules(void *threadArgs) {
 
         // If everything went well, add the newly registered module to the vector.
         handler->modules.push_back(newModule);
+        std::cout << "New module registered with sockedfd: " << newsockfd << "." << std::endl;
     }
 
     // Close socket.
     close(handler->sockfd);
 
     // Clear modules list.
-    pthread_mutex_lock(&handler->modulesMutex);
+    //pthread_mutex_lock(&handler->modulesMutex);
     handler->modules.clear();
-    pthread_mutex_unlock(&handler->modulesMutex);
+    //pthread_mutex_unlock(&handler->modulesMutex);
 
     // Unlock isListening.
     pthread_mutex_unlock(&handler->isListening);
@@ -99,7 +100,7 @@ void* ModuleHandler::ListenToIncomingModules(void *threadArgs) {
 ModuleHandler::ModuleHandler(const int port) : port(port) {
     // Initialize mutexes.
     pthread_mutex_init(&isListening, NULL);
-    pthread_mutex_init(&modulesMutex, NULL);
+    //pthread_mutex_init(&modulesMutex, NULL);
 }
 
 ModuleHandler::~ModuleHandler() {
@@ -107,9 +108,9 @@ ModuleHandler::~ModuleHandler() {
 }
 
 std::vector<ModuleData> ModuleHandler::GetModules() {
-    pthread_mutex_lock(&modulesMutex);
+    //pthread_mutex_lock(&modulesMutex);
     std::vector<ModuleData> temp = modules;
-    pthread_mutex_unlock(&modulesMutex);
+    //pthread_mutex_unlock(&modulesMutex);
     return temp;
 }
 
@@ -130,7 +131,7 @@ bool ModuleHandler::StopListening() {
 }
 
 void ModuleHandler::CloseAndRemoveModule(int socketId) {
-    pthread_mutex_lock(&modulesMutex);
+    //pthread_mutex_lock(&modulesMutex);
 
     for (unsigned int i = 0; i < modules.size(); i++) {
         const int curSocketId = modules.at(i).GetSocketId();
@@ -141,11 +142,11 @@ void ModuleHandler::CloseAndRemoveModule(int socketId) {
             return;
         }
     }
-    pthread_mutex_unlock(&modulesMutex);
+    //pthread_mutex_unlock(&modulesMutex);
 }
 
 ModuleData ModuleHandler::GetModule(int socketId) {
-    pthread_mutex_lock(&modulesMutex);
+    //pthread_mutex_lock(&modulesMutex);
 
     for (unsigned int i = 0; i < modules.size(); i++) {
         const ModuleData moduleData = modules.at(i);
@@ -154,7 +155,7 @@ ModuleData ModuleHandler::GetModule(int socketId) {
             return moduleData;
         }
     }
-    pthread_mutex_unlock(&modulesMutex);
+    //pthread_mutex_unlock(&modulesMutex);
 }
 
 

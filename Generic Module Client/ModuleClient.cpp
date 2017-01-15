@@ -155,5 +155,6 @@ int main(int argc, char *argv[])
             exit(1);
         }
         std::cout << "Sent processed MazeMessage back to server." << std::endl;
+        delete mazeMsg;
     }
 }

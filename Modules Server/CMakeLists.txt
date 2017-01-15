@@ -8,6 +8,7 @@ add_executable(ModulesServer
 		"Main.cpp"
 		"ModuleData.cpp"
 		"ModuleHandler.cpp"
+		"ModuleChain.cpp"
 		"../maze_parser/MazeMessage.cpp"
 		"../maze_parser/MazeParser.cpp"
 		"../SocketUtils/SocketUtils.cpp")

@@ -102,7 +102,9 @@ void ModuleData::Run(maze_parser::MazeMessage *&msg) const {
 
     // Parse the reply to a MazeMessage.
     std::string replyJson(msgBuffer);
+    //std::cout << "DATA: " << replyJson << std::endl;
     try {
+        delete msg;
         msg = maze_parser::jsonToMazeMessage(replyJson);
     } catch (std::invalid_argument) {
         std::stringstream ss;

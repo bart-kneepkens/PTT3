@@ -19,7 +19,7 @@ namespace maze_solver {
     COORD endingPoint;
 
     int maze_solver::MazeSolver::Run(maze_parser::MazeMessage** msg) {
-        // Make sure a maze was supplied.
+        // If the supplied maze is invalid, just return.
         if (msg == NULL || *msg == NULL) {
             std::cerr << "Maze is NULL!" << std::endl;
             return 1;
@@ -29,6 +29,12 @@ namespace maze_solver {
         startingPoint = COORD(-1, -1);
         endingPoint = COORD(-1, -1);
         const unsigned int columnLength = Maze->size();
+
+        // If the maze is empty, just return.
+        if (columnLength < 1) {
+            return 0;
+        }
+
         const unsigned int rowLength = (Maze->at(0))->size();
         const unsigned int maxYIndex = columnLength - 1;
         const unsigned int maxXIndex = rowLength - 1;

@@ -67,7 +67,6 @@ std::string maze_parser::mazeMessageToJson(MazeMessage &mazeMessage) {
 }
 
 maze_parser::MazeMessage * maze_parser::jsonToMazeMessage(std::string json) {
-
     nlohmann::json fromJson = json::parse(json);
     nlohmann::json scan = fromJson[SCAN_JSON_KEY];
     nlohmann::json solution = fromJson[SOLUTION_JSON_KEY];
