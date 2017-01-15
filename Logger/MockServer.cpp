@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Logger.cpp"
+#include "Logger.hpp"
 
 int main(){
 	// Use the singleton for logging
