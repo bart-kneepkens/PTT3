@@ -8,6 +8,7 @@
 #include "ModuleHandler.hpp"
 #include "ModuleChain.hpp"
 #include "../Logger/LoggerCentral.hpp"
+#include "../Gpio/LedController.hpp"
 
 /** Module chains created by user. */
 std::vector<ModuleChain> moduleChains;
@@ -101,6 +102,9 @@ int main(int argc, char *argv[]) {
     bool running = true;
     moduleChains = std::vector<ModuleChain>();
 
+    // Turn on the arduino light.
+    LedController::getInstance().turnLed(true);
+
     // Before we start looping for user input, print the available commands.
     PrintHelp();
 
@@ -191,4 +195,7 @@ int main(int argc, char *argv[]) {
 
     // Close the ModuleHandler.
     moduleHandler.StopListening();
+
+    // Turn off the arduino light.
+    LedController::getInstance().turnLed(false);
 }

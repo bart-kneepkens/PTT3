@@ -13,7 +13,8 @@ add_executable(ModulesServer
 		"../maze_parser/MazeParser.cpp"
 		"../SocketUtils/SocketUtils.cpp"
 		"../Logger/Logger.cpp"
-        "../Logger/LoggerCentral.cpp")
+        "../Logger/LoggerCentral.cpp"
+        "../Gpio/LedController.cpp")
 
 target_link_libraries(ModulesServer -lrt)
 
