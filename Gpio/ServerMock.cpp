@@ -1,4 +1,4 @@
-#include "LedController.cpp"
+#include "LedController.hpp"
 #include <unistd.h>
 
 int main(){
