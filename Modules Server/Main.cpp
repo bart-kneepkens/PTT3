@@ -7,6 +7,7 @@
 
 #include "ModuleHandler.hpp"
 #include "ModuleChain.hpp"
+#include "../Logger/LoggerCentral.hpp"
 
 /** Module chains created by user. */
 std::vector<ModuleChain> moduleChains;
