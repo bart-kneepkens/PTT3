@@ -54,7 +54,7 @@ void MotorDriver::RunToRelPos()
 void MotorDriver::Reset()
 {
 	MotorDriver::Write("/command", "reset");
-	//MotorDriver::Write("/stop_action", "brake");
+	MotorDriver::Write("/stop_action", "hold");
 }
 
 std::string MotorDriver::GetState()
