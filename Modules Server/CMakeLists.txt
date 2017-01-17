@@ -1,7 +1,7 @@
 # Miscellaneous settings.
 cmake_minimum_required(VERSION 2.5)
 project(ModulesServer)
-set(CMAKE_CXX_COMPILER /home/martin/buildroot/output/host/usr/bin/arm-linux-g++)
+set(CMAKE_CXX_COMPILER arm-linux-g++)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lrt -pthread -std=c++11")
 
 # Executables to be build.
