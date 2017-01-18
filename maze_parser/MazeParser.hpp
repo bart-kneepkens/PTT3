@@ -1,7 +1,6 @@
 #ifndef SOLVER_MAZEPARSER_HPP
 #define SOLVER_MAZEPARSER_HPP
 
-#include "json.hpp"
 #include "MazeMessage.hpp"
 
 /**
@@ -10,7 +9,7 @@
 namespace maze_parser {
 
     // Using statements within the namespace to hide them from outside.
-    using nlohmann::json;
+    //using nlohmann::json;
     using std::vector;
 
     // Constants.
@@ -25,14 +24,6 @@ namespace maze_parser {
         // Constants.
         const std::string SCAN_JSON_KEY = "scan";
         const std::string SOLUTION_JSON_KEY = "solution";
-
-        /**
-         * Converts a 2d json array to a 2d char vector.
-         *
-         * @param json2dArray
-         * @return
-         */
-        vector<vector<char> *> *json2dArrayTo2dStringVector(json &json2dArray);
     }
 
     /**
