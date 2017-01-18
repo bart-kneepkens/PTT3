@@ -23,8 +23,9 @@ maze_parser::MazeMessage::~MazeMessage() {
     }
 }
 
+
 std::string maze_parser::MazeMessage::toString() const {
-    std::string toString;
+    /*std::string toString;
 
     if (Scan != 0) {
         toString += "Scan: \n\n";
@@ -59,5 +60,6 @@ std::string maze_parser::MazeMessage::toString() const {
         toString += "\n";
     }
 
-    return toString;
+    return toString;*/
+    return "";
 }
