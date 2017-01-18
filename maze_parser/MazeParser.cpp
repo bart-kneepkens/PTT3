@@ -11,7 +11,7 @@ std::string maze_parser::mazeMessageToJson(MazeMessage &mazeMessage) {
 
 	StaticJsonBuffer<255555> jsonBuffer;
     JsonObject& root = jsonBuffer.createObject();
-    JsonArray& scan = root.createNestedArray("scan");
+    JsonArray& scan = root.createNestedArray(SCAN_JSON_KEY);
     
     if (mazeMessage.Scan != 0) {
  
@@ -24,7 +24,7 @@ std::string maze_parser::mazeMessageToJson(MazeMessage &mazeMessage) {
 		}
     }
 
-	JsonArray& solution = root.createNestedArray("solution");
+	JsonArray& solution = root.createNestedArray(SOLUTION_JSON_KEY);
 	
     if (mazeMessage.Solution != 0) {     
         for (int i = 0; i < mazeMessage.Solution->size(); i++){
@@ -50,7 +50,7 @@ maze_parser::MazeMessage * maze_parser::jsonToMazeMessage(std::string json) {
 	
 	JsonObject& root = jsonBuffer.parseObject(json);
 	
-	JsonArray& scan = root["scan"];
+	JsonArray& scan = root[SCAN_JSON_KEY];
 	
 	if (!root.success())
 	{
@@ -73,7 +73,7 @@ maze_parser::MazeMessage * maze_parser::jsonToMazeMessage(std::string json) {
 		}
 	}
 	
-	JsonArray& solution = root["solution"];
+	JsonArray& solution = root[SOLUTION_JSON_KEY];
 	
 	for(int i = 0 ; i < 10 ; i++){
 		// Every row
