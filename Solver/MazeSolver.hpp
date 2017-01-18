@@ -3,6 +3,7 @@
 
 #include "../maze_parser/MazeParser.hpp"
 #include "../Generic Module Client/IModule.hpp"
+#include <iostream>
 
 namespace maze_solver {
 
