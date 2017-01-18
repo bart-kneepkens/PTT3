@@ -6,27 +6,29 @@
 #include <stdlib.h> 
 #include <string>
 #include <iostream>
-#include "lib/libconfig.h"
+//#include "lib/libconfig.h++"
+#include <libconfig.h++>
 #include "../Generic Module Client/IModule.hpp"
 
 class ScannerControl : public IModule
 {
 	public:
 		int Run(maze_parser::MazeMessage** msg);
-    ScannerControl();
+		ScannerControl();
+		~ScannerControl();
 	
 	private:
-		const int xSpeed = 500;
-		const int xPosition = 2300;
-		const int xSize = 23;
+		int xSpeed;
+		int xPosition;
+		int xSize;
 
-		const int ySpeed = 100;
-		const int yStepSize = 100;
-		const int ySize = 36; // callibratie 
+		int ySpeed;
+		int yStepSize;
+		int ySize; // callibratie 
 
-		const int scanSize = 100;
-		const int blackThreshold = 30; // callibratie 
-		const int whiteThreshold = 31; // callibratie 
+		int scanSize;
+		int blackThreshold; // callibratie 
+		int whiteThreshold;
 
 		MotorDriver* motorX;
 		MotorDriver* motorY;

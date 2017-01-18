@@ -10,6 +10,8 @@
 #include <cstring>
 #include <vector>
 #include <sstream>
+#include <stdint.h>
+#include <stdio.h>
 
 // Constant values and settings.
 const uint16_t MAZE_MSG_BUFFER_SIZE = 2048;             // Buffer size for Maze Messages.
