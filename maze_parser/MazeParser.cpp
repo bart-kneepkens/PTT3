@@ -84,7 +84,58 @@ std::string maze_parser::mazeMessageToJson(MazeMessage &mazeMessage) {
 }
 
 maze_parser::MazeMessage * maze_parser::jsonToMazeMessage(std::string json) {
-    nlohmann::json fromJson = json::parse(json);
+	
+	vector<vector<char>*> *scanVec = new vector<vector<char>*>();
+	vector<vector<char>*> *solutionVec = new vector<vector<char>*>();
+	
+	StaticJsonBuffer<255555> jsonBuffer;
+	
+	JsonObject& root = jsonBuffer.parseObject(json);
+	
+	JsonArray& scan = root["scan"];
+	
+	if (!root.success())
+	{
+		return 0;
+	}
+	
+	for(int i = 0 ; i < 10 ; i++){
+		// Every row
+		//JsonArray& rowJson = scan[i];
+		scanVec->push_back(new vector<char>());
+		
+		for(int j = 0 ; j < 10; j++ ){
+			// every block
+			std::string charAsString = scan[i][j].asString();
+			//std::cout << charAsString << std::endl;
+			
+			if(charAsString[0] != 0){
+				scanVec->at(i)->push_back(charAsString[0]);
+			}
+		}
+	}
+	
+	JsonArray& solution = root["solution"];
+	
+	for(int i = 0 ; i < 10 ; i++){
+		// Every row
+		//JsonArray& rowJson = scan[i];
+		solutionVec->push_back(new vector<char>());
+		
+		for(int j = 0 ; j < 10; j++ ){
+			// every block
+			std::string charAsString = solution[i][j].asString();
+			//std::cout << charAsString << std::endl;
+			
+			if(charAsString[0] != 0){
+				solutionVec->at(i)->push_back(charAsString[0]);
+			}
+		}
+	}
+	
+	
+	/*
+	nlohmasnn::json fromJson = json::parse(json);
     nlohmann::json scan = fromJson[SCAN_JSON_KEY];
     nlohmann::json solution = fromJson[SOLUTION_JSON_KEY];
     vector<vector<char>*> *scanVec = 0;
@@ -98,6 +149,8 @@ maze_parser::MazeMessage * maze_parser::jsonToMazeMessage(std::string json) {
         solutionVec = json2dArrayTo2dStringVector(solution);
     }
 
-    return new MazeMessage(scanVec, solutionVec);
+    return new MazeMessage(scanVec, solutionVec); */
+	return new MazeMessage(scanVec, solutionVec);
+    
 }
 
