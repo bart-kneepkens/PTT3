@@ -7,6 +7,7 @@
 #include <string>
 #include <iostream>
 #include <libconfig.h>
+#include "../Generic Module Client/IModule.hpp"
 
 class ScannerControl : public IModule
 {
