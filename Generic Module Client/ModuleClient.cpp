@@ -7,6 +7,11 @@
 
 #include "../Solver/MazeSolver.hpp"
 #include "../SocketUtils/SocketUtils.hpp"
+#include "../Scanner/ScannerControl.h"
+#include <iostream>
+#include <stdlib.h>
+#include <stdio.h>
+#include <stdexcept>
 
 /**
  * Identifies what child class of IModule to return a dynamically allocated instance of, and then does so. Will return

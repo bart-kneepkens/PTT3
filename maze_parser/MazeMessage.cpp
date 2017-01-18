@@ -23,20 +23,23 @@ maze_parser::MazeMessage::~MazeMessage() {
     }
 }
 
+
 std::string maze_parser::MazeMessage::toString() const {
-    std::string toString;
+    /*std::string toString;
 
     if (Scan != 0) {
         toString += "Scan: \n\n";
 
-        for (vector<char> *row : *Scan) {
-            if (row != 0) {
-                for (char block : *row) {
-                    toString += block;
-                    toString += " ";
-                }
-                toString += "\n";
-            }
+		//for (vector<char> *row : *Scan) {
+		for (int r = 0; r < sizeof(*Scan); r++)
+		{
+			//for (char block : *row) {
+			for (int b = 0; b < sizeof(*(*Scan[r])); b++)
+			{
+				toString += *(*Scan[r])[b];
+				toString += " ";
+			}
+			toString += "\n";
         }
         toString += "\n";
     }
@@ -44,17 +47,19 @@ std::string maze_parser::MazeMessage::toString() const {
     if (Solution != 0) {
         toString += "Solution: \n\n";
 
-        for (vector<char> *row : *Solution) {
-            if (row != 0) {
-                for (char block : *row) {
-                    toString += block;
-                    toString += " ";
-                }
-                toString += "\n";
-            }
+        //for (vector<char> *row : *Solution) {
+        for (int r = 0; r < sizeof(*Solution); r++)
+        {
+			//for (char block : *row) {
+			for (int b = 0; b < sizeof(*(*Scan[r])); b++)
+				toString += *(*Scan[r])[b];
+				toString += " ";
+			}
+			toString += "\n";
         }
         toString += "\n";
     }
 
-    return toString;
+    return toString;*/
+    return "";
 }
