@@ -70,7 +70,7 @@ int ScannerControl::Run(maze_parser::MazeMessage** msg)
 	}
 }
 
-void setMotor(MotorDriver* motor, bool forward)
+void ScannerControl::setMotor(MotorDriver* motor, bool forward)
 {
 	motor->Reset();
 	motor->SetSpeed(xSpeed);
@@ -85,8 +85,9 @@ void setMotor(MotorDriver* motor, bool forward)
 	motor->SetPolarity("normal");
 }
 
-void readConfigFile() 
+void ScannerControl::readConfigFile()
 {
+    /*
 	int x;
 	int y;
 	int z;
@@ -105,4 +106,5 @@ void readConfigFile()
 		motorZ = new MotorDriver("/sys/class/tacho-motor/motor" + z + "/");
 		scanner = new Scanner("/sys/class/lego-sensor/sensor" + sensor + "/"); 
 	}
+     */
 }

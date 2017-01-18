@@ -6,13 +6,13 @@
 #include <stdlib.h> 
 #include <string>
 #include <iostream>
-#include <libconfig.h>
+#include "lib/libconfig.h"
 #include "../Generic Module Client/IModule.hpp"
 
 class ScannerControl : public IModule
 {
 	public:
-		int ScannerControl::Run(maze_parser::MazeMessage** msg);
+		int Run(maze_parser::MazeMessage** msg);
 	
 	private:
 		const int xSpeed = 500;
@@ -35,6 +35,6 @@ class ScannerControl : public IModule
 		
 		void setMotor(MotorDriver* motor, bool forward);
 		void readConfigFile();
-}
+};
 
 #endif
