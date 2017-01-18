@@ -1,5 +1,6 @@
 #include "MazeParser.hpp"
 #include "ArduinoJson.h"
+#include <iostream>
 
 // Implementations of global functions.
 
@@ -17,37 +18,19 @@ std::string maze_parser::mazeMessageToJson(MazeMessage &mazeMessage) {
 		for (int i = 0; i < mazeMessage.Scan->size(); i++){
 			JsonArray& rowJson = scan.createNestedArray();
 			
-			for(int j = 0; j < mazeMessage.Scan->at(i)->size(); i++){
+			for(int j = 0; j < mazeMessage.Scan->at(i)->size(); j++){
 				rowJson.add(std::string(1, mazeMessage.Scan->at(i)->at(j)));
 			}
 		}
-		
-		/*
-        for (vector<char> * row : *mazeMessage.Scan) {
-            JsonArray& rowJson = scan.createNestedArray();
-
-            for (char block : *row) {
-                rowJson.add(std::string(1, block));
-            }
-        }*/
     }
 
 	JsonArray& solution = root.createNestedArray("solution");
 	
-    if (mazeMessage.Solution != 0) {
-		/*
-        for (vector<char> * row : *mazeMessage.Solution) {
-			JsonArray& rowJson = solution.createNestedArray();
-			
-            for (char block : *row) {
-				rowJson.add(std::string(1, block));
-            }
-        }*/
-        
+    if (mazeMessage.Solution != 0) {     
         for (int i = 0; i < mazeMessage.Solution->size(); i++){
 			JsonArray& rowJson = solution.createNestedArray();
 			
-			for(int j = 0; j < mazeMessage.Solution->at(i)->size(); i++){
+			for(int j = 0; j < mazeMessage.Solution->at(i)->size(); j++){
 				rowJson.add(std::string(1, mazeMessage.Solution->at(i)->at(j)));
 			}
 		}
