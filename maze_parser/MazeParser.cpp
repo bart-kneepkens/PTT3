@@ -1,5 +1,5 @@
 #include "MazeParser.hpp"
-
+#include "ArduinoJson.h"
 
 // Implementations of functions in anonymous namespace.
 
@@ -33,37 +33,54 @@ std::string maze_parser::mazeMessageToJson(MazeMessage &mazeMessage) {
 
     // Create JSON and return its string dump.
     json mazeMsgJson;
+    std::string toReturn;
 
+	StaticJsonBuffer<255555> jsonBuffer;
+    JsonObject& root = jsonBuffer.createObject();
+    JsonArray& scan = root.createNestedArray("scan");
+    
     if (mazeMessage.Scan != 0) {
-
-        json scanJson;
-
+        //json scanJson;
+ 
         for (vector<char> * row : *mazeMessage.Scan) {
-            json rowJson;
+            //json rowJson;
+            JsonArray& rowJson = scan.createNestedArray();
+           //std::cout << "ROW" << std::endl;
 
             for (char block : *row) {
-                rowJson.push_back(std::string(1, block));
+                //rowJson.push_back(std::string(1, block));
+                rowJson.add(std::string(1, block));
+                //std::cout << "BLOCK" << std::endl;
             }
-            scanJson.push_back(rowJson);
+            
+            //scanJson.push_back(rowJson);
         }
-        mazeMsgJson[SCAN_JSON_KEY] = scanJson;
+        //mazeMsgJson[SCAN_JSON_KEY] = scanJson;
     }
 
+	JsonArray& solution = root.createNestedArray("solution");
+	
     if (mazeMessage.Solution != 0) {
-        json solutionJson;
+        //json solutionJson;
 
         for (vector<char> * row : *mazeMessage.Solution) {
-            json rowJson;
-
+            //json rowJson;
+			JsonArray& rowJson = solution.createNestedArray();
+			
             for (char block : *row) {
-                rowJson.push_back(std::string(1, block));
+				rowJson.add(std::string(1, block));
+                //rowJson.push_back(std::string(1, block));
             }
-            solutionJson.push_back(rowJson);
+            //solutionJson.push_back(rowJson);
         }
-        mazeMsgJson[SOLUTION_JSON_KEY] = solutionJson;
-    }
+       // mazeMsgJson[SOLUTION_JSON_KEY] = solutionJson;
+    } 
 
-    return mazeMsgJson.dump(0);
+    //return mazeMsgJson.dump(0);
+	char buffer[255555];
+	root.printTo(buffer, sizeof(buffer));
+	
+	return std::string(buffer);
 }
 
 maze_parser::MazeMessage * maze_parser::jsonToMazeMessage(std::string json) {
