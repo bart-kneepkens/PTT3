@@ -62,6 +62,12 @@ int PlotterController::Run(maze_parser::MazeMessage** msg)
 	return 0;
 }
 
+int PlotterController::Run(std::vector<std::vector<char>*>* maze)
+{
+	parseMazeMessageToMovementInstructions(maze);
+	return 0;
+}
+
 void PlotterController::Stop(bool forceful)
 {
 

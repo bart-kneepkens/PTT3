@@ -4,7 +4,7 @@
 #include "Plotter.h"
 #include "../maze_parser/MazeMessage.hpp"
 #include "PlotInstruction.h"
-#include "../Module/IModule.hpp"
+#include "../Generic Module Client/IModule.hpp"
 #include "PlotterStatus.h"
 
 enum DrawDirection
@@ -30,6 +30,7 @@ public:
 	~PlotterController();
 
 	int Run(maze_parser::MazeMessage** msg);
+	int Run(std::vector<std::vector<char>*>* maze);
 	void Stop (bool forceful);
 	PlotterStatus GetStatus() const;
 

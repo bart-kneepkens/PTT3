@@ -1,9 +1,9 @@
 #include "PlotterController.h"
-#include "../maze_parser/MazeMessage.hpp"
+//#include "../maze_parser/MazeMessage.hpp"
 #include "Plotter.h"
 #include <iostream>
 
-#include "../Module/IModule.hpp"
+#include "../Generic Module Client/IModule.hpp"
 
 #include "../Scanner/MotorDriver.h"
 #include <unistd.h>
@@ -44,9 +44,8 @@ std::vector<std::vector<char>*>* ArrayToVector(char in[10][10])
 	std::vector<std::vector<char>*>* temp;
 	for(int i = 0; i < 10; i++)
 	{
-		
 		std::vector<char>* row;
-		std::cout << "Converting" << std::endl;
+		std::cout << "Converting " + i << std::endl;
 		for(int j = 0; j < 10; j++)
 		{
 			std::cout << "In loop";
@@ -70,23 +69,11 @@ int main()
 	std::cout << "Starting" << std::endl;
 	plotter = new PlotterController();
 	vecMaze = ArrayToVector(maze);
-	vecSol = ArrayToVector(solution);
+	//vecSol = ArrayToVector(solution);
 
 
-	std::cout << "Things declared" << std::endl;
+	std::cout << "Plotter Ready\n" << std::endl;
 
-	for (int Y = 0; Y < vecMaze->size(); Y++)
-	{
-		std::vector<char>* row = vecMaze->at(Y);
-		for (int X = 0; X < row->size(); X++)
-		{
-			std::cout << row->at(X);
-		}
-
-		std::cout << std::endl;
-	}
-
-	mazeMsg = new maze_parser::MazeMessage(vecMaze, vecSol);
 	plotter->Run(&mazeMsg);
 
 
