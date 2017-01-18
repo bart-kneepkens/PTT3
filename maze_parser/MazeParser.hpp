@@ -3,6 +3,7 @@
 
 #include "json.hpp"
 #include "MazeMessage.hpp"
+#include "jsmn.h"
 
 /**
  * Contains the code necessary to parse mazes and solutions (both 2-dimensional char vectors) to and from json.
