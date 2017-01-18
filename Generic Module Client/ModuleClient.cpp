@@ -25,7 +25,7 @@
 IModule* StringToModule(std::string theString) {
 
     if (theString == SCANNER_STRING) {
-        return new ScannerControl();
+        return NULL;
     }
     if (theString == SOLVER_STRING) {
         return new maze_solver::MazeSolver();

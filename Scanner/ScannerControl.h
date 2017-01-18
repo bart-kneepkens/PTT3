@@ -13,6 +13,7 @@ class ScannerControl : public IModule
 {
 	public:
 		int Run(maze_parser::MazeMessage** msg);
+    ScannerControl();
 	
 	private:
 		const int xSpeed = 500;

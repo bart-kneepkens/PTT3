@@ -1,5 +1,9 @@
 #include "ScannerControl.h"
 
+ScannerControl::ScannerControl(){
+
+}
+
 int ScannerControl::Run(maze_parser::MazeMessage** msg)
 {
 	readConfigFile();
