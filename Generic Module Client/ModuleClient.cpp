@@ -7,6 +7,7 @@
 
 #include "../Solver/MazeSolver.hpp"
 #include "../SocketUtils/SocketUtils.hpp"
+#include "../Scanner/ScannerControl.h"
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
@@ -24,7 +25,7 @@
 IModule* StringToModule(std::string theString) {
 
     if (theString == SCANNER_STRING) {
-        return NULL;
+        return new ScannerControl();
     }
     if (theString == SOLVER_STRING) {
         return new maze_solver::MazeSolver();
