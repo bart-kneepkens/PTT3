@@ -38,7 +38,7 @@ private:
 	PlotterStatus currentStatus;
 	DrawDirection drawSolutionDirection;
 	Plotter* plotter;
-	std::vector<PlotInstruction>* instructions;
+	std::vector<PlotInstruction> instructions;
 	SolutionStruct sStruct;
 
 	unsigned int movementModifier = 1;

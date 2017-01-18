@@ -1,4 +1,6 @@
 #include "Plotter.h"
+#include <unistd.h>
+#include <iostream>
 
 #define penUp 50
 #define penDown 0
@@ -20,11 +22,12 @@ Plotter::Plotter(std::string Path_To_Motors)
 
 
 	motorPen->SetSpeed(500);
-	motorPen->SetPosition(-300);
-	motorPen->SetPolarity("inversed");
+	motorPen->SetPosition(100);
+	motorPen->SetPolarity("normal");
 	motorPen->RunToRelPos();
-
-
+	sleep(2);
+	motorPen->SetPosition(-100);
+	motorPen->RunToRelPos();
 }
 
 Plotter::~Plotter()
@@ -72,6 +75,7 @@ void Plotter::SetY(int destination, int speed, bool inverse)
 
 void Plotter::StartPlot()
 {
+std::cout << "Plot Start\n";
 	motorPen->SetSpeed(500);
 	motorPen->SetPosition(penUp); //This needs to change to drop pen to drawing height
 	motorPen->SetPolarity("inverse");
@@ -79,6 +83,7 @@ void Plotter::StartPlot()
 }
 void Plotter::EndPlot()
 {
+std::cout << "Plot End\n";
 	motorPen->SetSpeed(500);
 	motorPen->SetPosition(-penUp); //This needs to change to drop pen to drawing height
 	motorPen->SetPolarity("normal");
