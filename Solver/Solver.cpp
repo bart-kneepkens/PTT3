@@ -7,12 +7,13 @@
 
 using std::vector;
 
-const std::string OUTPUT_FILENAME = "output.json";
+std::string OUTPUT_FILENAME;
 
 int main(int argc, char **argv) {
     char *fileValue = NULL;         // The supplied file location.
     char *jsonStringValue = NULL;   // The supplied json-string.
     int c;                          // Index into the arguments.
+    OUTPUT_FILENAME = "output.json";
 
     // Parse program arguments.
     while ((c = getopt(argc, argv, "f:j:")) != -1) {
@@ -62,7 +63,7 @@ int main(int argc, char **argv) {
     const std::string jsonFromMsg = maze_parser::mazeMessageToJson(*msgFromJson);
 
     // Print the output to a new file.
-    std::ofstream aFile(OUTPUT_FILENAME);
+    std::ofstream aFile(OUTPUT_FILENAME.c_str());
     aFile << jsonFromMsg;
     aFile.close();
 
