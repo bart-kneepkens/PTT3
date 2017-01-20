@@ -15,10 +15,10 @@ std::string maze_parser::mazeMessageToJson(MazeMessage &mazeMessage) {
     
     if (mazeMessage.Scan != 0) {
  
-		for (int i = 0; i < mazeMessage.Scan->size(); i++){
+		for (size_t i = 0; i < mazeMessage.Scan->size(); i++){
 			JsonArray& rowJson = scan.createNestedArray();
 			
-			for(int j = 0; j < mazeMessage.Scan->at(i)->size(); j++){
+			for(size_t j = 0; j < mazeMessage.Scan->at(i)->size(); j++){
 				rowJson.add(std::string(1, mazeMessage.Scan->at(i)->at(j)));
 			}
 		}
@@ -27,10 +27,10 @@ std::string maze_parser::mazeMessageToJson(MazeMessage &mazeMessage) {
 	JsonArray& solution = root.createNestedArray(SOLUTION_JSON_KEY);
 	
     if (mazeMessage.Solution != 0) {     
-        for (int i = 0; i < mazeMessage.Solution->size(); i++){
+        for (size_t i = 0; i < mazeMessage.Solution->size(); i++){
 			JsonArray& rowJson = solution.createNestedArray();
 			
-			for(int j = 0; j < mazeMessage.Solution->at(i)->size(); j++){
+			for(size_t j = 0; j < mazeMessage.Solution->at(i)->size(); j++){
 				rowJson.add(std::string(1, mazeMessage.Solution->at(i)->at(j)));
 			}
 		}

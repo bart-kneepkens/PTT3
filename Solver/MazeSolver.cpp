@@ -4,8 +4,8 @@ namespace maze_solver {
 
     class COORD {
     public:
-        int X;
-        int Y;
+        unsigned int X;
+        unsigned int Y;
 
         COORD(int x = 0, int y = 0) { X = x, Y = y; }
 
