@@ -57,7 +57,7 @@ maze_parser::MazeMessage * maze_parser::jsonToMazeMessage(std::string json) {
 		return 0;
 	}
 	
-	for(int i = 0 ; i < 10 ; i++){
+	for(int i = 0 ; i < scan.size() ; i++){
 		// Every row
 		//JsonArray& rowJson = scan[i];
 		scanVec->push_back(new vector<char>());
@@ -75,7 +75,7 @@ maze_parser::MazeMessage * maze_parser::jsonToMazeMessage(std::string json) {
 	
 	JsonArray& solution = root[SOLUTION_JSON_KEY];
 	
-	for(int i = 0 ; i < 10 ; i++){
+	for(int i = 0 ; i < solution.size() ; i++){
 		// Every row
 		//JsonArray& rowJson = scan[i];
 		solutionVec->push_back(new vector<char>());
