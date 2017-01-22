@@ -22,25 +22,25 @@ namespace PTT3
             dataGridViewMaze.RowCount = 10;
 
             CurrentMaze = new Maze();
-            CurrentMaze.maze = new char[10, 10];
+            CurrentMaze.scan = new char[10, 10];
             CurrentMaze.solution = new char[10, 10];
 
             for (int i = 0; i < 10; i++)
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    CurrentMaze.maze[i, j] = ' ';
+                    CurrentMaze.scan[i, j] = ' ';
                     CurrentMaze.solution[i, j] = ' ';
                 }
             }
 
             saveFileDialog1.DefaultExt = "json";
-            saveFileDialog1.FileName = "maze";
+            saveFileDialog1.FileName = "scan";
         }
 
         private void dataGridViewMaze_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (CurrentMaze.maze[e.RowIndex, e.ColumnIndex] == '#')
+            if (CurrentMaze.scan[e.RowIndex, e.ColumnIndex] == '#')
             {
                 e.CellStyle.BackColor = Color.Black;
             } else if (CurrentMaze.solution[e.RowIndex, e.ColumnIndex] == '$')
@@ -68,12 +68,12 @@ namespace PTT3
                 {
                     string json = r.ReadToEnd();
 
-                    char[,] deserialized = JsonConvert.DeserializeObject<Maze>(json).maze;
+                    char[,] deserialized = JsonConvert.DeserializeObject<Maze>(json).scan;
                     char[,] solution = JsonConvert.DeserializeObject<Maze>(json).solution;
 
-                    //CurrentMaze.maze = deserialized;
+                    //CurrentMaze.scan = deserialized;
                     CurrentMaze.solution = solution;
-                    CurrentMaze.maze = deserialized;
+                    CurrentMaze.scan = deserialized;
 
                     // This line makes sure the cell is updated.
                     dataGridViewMaze.CurrentCell = null;
@@ -108,17 +108,17 @@ namespace PTT3
 
             if (e.Button == MouseButtons.Left)
             {
-                if (CurrentMaze.maze[row, column] == ' ' || CurrentMaze.maze[row,column] == '\0')
+                if (CurrentMaze.scan[row, column] == ' ' || CurrentMaze.scan[row,column] == '\0')
                 {
-                    CurrentMaze.maze[row, column] = '#';
+                    CurrentMaze.scan[row, column] = '#';
                 }
                 else
                 {
-                    CurrentMaze.maze[row, column] = ' ';
+                    CurrentMaze.scan[row, column] = ' ';
                 }
             } else
             {
-                CurrentMaze.maze[row, column] = '$';
+                CurrentMaze.scan[row, column] = '$';
             }
 
             // This line makes sure the cell is updated.
