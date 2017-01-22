@@ -7,7 +7,6 @@
 
 #include "../Solver/MazeSolver.hpp"
 #include "../SocketUtils/SocketUtils.hpp"
-#include "../Scanner/ScannerControl.h"
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>

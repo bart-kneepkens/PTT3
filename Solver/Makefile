@@ -16,8 +16,6 @@ MODULECLIENT_SOURCE=../Generic\ Module\ Client/ModuleClient.cpp
 
 GPP=g++
 
-all: solver test
-
 solver: $(SOLVER_SOURCE)
 	$(GPP) $(CFLAGS) $(SOLVER_SOURCE) $(MESSAGE_SOURCE) $(MODULECLIENT_SOURCE) $(SOCKETUTILS_SOURCE) $(PARSER_SOURCE) -o solver
 
