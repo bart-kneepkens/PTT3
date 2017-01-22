@@ -4,10 +4,10 @@ namespace maze_solver {
 
     class COORD {
     public:
-        unsigned int X;
-        unsigned int Y;
+        int X;
+        int Y;
 
-        COORD(int x = 0, int y = 0) { X = x, Y = y; }
+        COORD(int x = -1, int y = -1) { X = x, Y = y; }
 
         COORD(const COORD &coord) {
             X = coord.X;
@@ -24,7 +24,13 @@ namespace maze_solver {
             std::cerr << "Maze is NULL!" << std::endl;
             return 1;
         }
-        
+
+        // If the supplied maze has no scan, just return.
+        if ((**msg).Scan == 0) {
+            std::cerr << "Maze message contains no scanned mazes!" << std::endl;
+            return 1;
+        }
+
         this->Maze = (**msg).Scan;
         startingPoint = COORD(-1, -1);
         endingPoint = COORD(-1, -1);
@@ -32,7 +38,8 @@ namespace maze_solver {
 
         // If the maze is empty, just return.
         if (columnLength < 1) {
-            return 0;
+			std::cerr << "Maze message's scan is empty!" << std::endl;
+            return 1;
         }
 
         const unsigned int rowLength = (Maze->at(0))->size();
@@ -144,6 +151,7 @@ namespace maze_solver {
             return 1;
         }
 
+
         // Create empty solution field.
         Solution = emptyField(columnLength, rowLength);
 
@@ -157,7 +165,7 @@ namespace maze_solver {
         return 0;
     }
 
-    bool maze_solver::MazeSolver::solveForCoordinates(unsigned int X, unsigned int Y) {
+    bool maze_solver::MazeSolver::solveForCoordinates(int X, int Y) {
 
         // Set the current block to the right char.
         Solution->at(Y)->at(X) = maze_parser::PATH;

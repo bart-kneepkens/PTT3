@@ -1,8 +1,8 @@
 #include "MazeMessage.hpp"
 
 maze_parser::MazeMessage::MazeMessage(vector<vector<char> *> *scan, vector<vector<char> *> *solution) {
-    Scan = scan != 0 ? scan : new vector<vector<char> *>();
-    Solution = solution != 0 ? solution : new vector<vector<char> *>();
+    Scan = scan;
+    Solution = solution;
 }
 
 maze_parser::MazeMessage::~MazeMessage() {

@@ -42,6 +42,7 @@ Scanner/main
 
 Solver/Solver
 Solver/output.json
+Solver/MazeSolverTest
 
 Server/mock
 Server/server
