@@ -14,8 +14,8 @@ namespace maze_parser {
 
     class MazeMessage {
     public:
-        MazeMessage(vector<vector<char>*>* scan = new vector<vector<char>*>(),
-                    vector<vector<char>*>* solution = new vector<vector<char>*>());
+        MazeMessage(vector<vector<char>*>* scan = 0,
+                    vector<vector<char>*>* solution = 0);
 
         ~MazeMessage();
 

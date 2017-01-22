@@ -14,7 +14,7 @@ namespace maze_solver {
     private:
         vector<vector<char>*>* Maze;
         vector<vector<char>*>*Solution;
-        bool solveForCoordinates(unsigned int X, unsigned int Y);
+        bool solveForCoordinates(int X, int Y);
         /**
          * Generates an empty field (a 2d char vector) with the given number of columns and rows.
          *
