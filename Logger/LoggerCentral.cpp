@@ -3,7 +3,7 @@
 void LoggerCentral::run() {
     // Open LogFile text file
     std::ofstream logFile;
-    logFile.open("MazeSolverLogs", std::ofstream::out | std::ofstream::app);
+    logFile.open("Core_Logs", std::ofstream::out | std::ofstream::app);
 
     char dateFormatted[18]; // string to hold the formatted date.
     struct tm *tm;          // struct to hold the time.
