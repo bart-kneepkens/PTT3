@@ -17,9 +17,10 @@
 const uint16_t MAZE_MSG_BUFFER_SIZE = 2048;             // Buffer size for Maze Messages.
 const uint16_t ACK_BUFFER_SIZE = 4;                     // Buffer size for ACK messages.
 const char DELIMITER = '^';                             // Delimiter for incoming messages.
-const std::string SCANNER_STRING = "in:scanner";        // String that corresponds to MazeScanner (to be implemented).
+const std::string SCANNER_STRING = "in:scanner";        // String that corresponds to MazeScanner.
 const std::string SOLVER_STRING = "inout:solver";       // String that corresponds to MazeSolver.
 const std::string PLOTTER_STRING = "out:plotter";       // String that corresponds to MazePlotter (to be implemented).
+const std::string SIMPLEMAZEPRINTER_STRING = "out:simplemazeprinter"; // String that corresponds to SimpleMazePrinter.
 const char ACK_MSG[ACK_BUFFER_SIZE] = {'A', 'C', 'K'};  // Message that is sent as acknowledgement.
 
 /**
