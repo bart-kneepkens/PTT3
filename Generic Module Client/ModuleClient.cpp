@@ -8,6 +8,7 @@
 #include "../Solver/MazeSolver.hpp"
 #include "../SocketUtils/SocketUtils.hpp"
 #include "../Scanner/ScannerControl.h"
+#include "../SimpleMazePrinter/SimpleMazePrinter.hpp"
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
@@ -32,6 +33,9 @@ IModule* StringToModule(std::string theString) {
     }
     if (theString == PLOTTER_STRING) {
         return NULL;
+    }
+    if (theString == SIMPLEMAZEPRINTER_STRING) {
+       return new SimpleMazePrinter();
     }
     return NULL;
 }
