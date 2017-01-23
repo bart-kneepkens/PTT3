@@ -12,8 +12,9 @@ Dit is de grafische tool waarmee doolhoven getekend en opgeslagen naar JSON form
 
 ### Logger:
 Bevat de code van de Logger, een onderdeel van de Core module dat debug berichten logt in een aparte textfile. Tevens een MockCentral en MockModule die gebruikt kunnen worden om te testen, en gebouwd worden met make.
+
 ### maze_parser:
-Bevat MazeMessage klasse en code om deze objecten te (de)serializeren.
+Bevat MazeMessage klasse en code om deze objecten te (de)serializeren van en naar JSON.
 
 ### Modules Server:
 Bevat de broncode van de Core module. Hierop kunnen modules zich aanmelden en kunnen module sequenties worden gemaakt en uitgevoerd. Kan gebouwd worden met cmake.
