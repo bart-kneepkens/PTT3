@@ -44,7 +44,9 @@ namespace ModuleSubType {
         /** Main type: INOUT. Solves a maze. */
                 SOLVER,
         /** Main type: OUT. Prints a maze. */
-                PLOTTER
+                PLOTTER,
+	/** Main type: OUT. Prints a maze in the terminal. */
+		SIMPLEMAZEPRINTER
     };
 
     /**

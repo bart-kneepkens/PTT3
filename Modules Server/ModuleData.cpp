@@ -37,6 +37,9 @@ namespace ModuleSubType {
         if (str == "plotter") {
             return ModuleSubType::PLOTTER;
         }
+        if (str == "simplemazeprinter") {
+            return ModuleSubType::SIMPLEMAZEPRINTER;
+        }
         throw std::invalid_argument("Could not parse string '" + str + "' to enum 'ModuleSubType'!");
     }
 
@@ -48,6 +51,8 @@ namespace ModuleSubType {
                 return "scanner";
             case ModuleSubType::SOLVER:
                 return "solver";
+            case ModuleSubType::SIMPLEMAZEPRINTER:
+                return "simplemazeprinter";
         }
     }
 }
