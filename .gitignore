@@ -39,6 +39,7 @@ Module/ModuleClient
 Module/ModuleServer
 
 Scanner/main
+Scanner/Scanner
 
 Solver/Solver
 Solver/output.json
