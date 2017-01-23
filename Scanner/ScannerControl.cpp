@@ -2,6 +2,7 @@
 
 ScannerControl::ScannerControl()
 {
+std::cout << "Starting Constructor" << std::endl;
 	xSpeed = 500;
 	xPosition = 2300;
 	xSize = 23;
@@ -13,6 +14,7 @@ ScannerControl::ScannerControl()
 	scanSize = 100;
 	blackThreshold = 30; // callibratie 
 	whiteThreshold = 31; // callibratie
+std::cout << "Ending Constructor" << std::endl;
 }
 
 ScannerControl::~ScannerControl()
@@ -25,6 +27,15 @@ ScannerControl::~ScannerControl()
 
 int ScannerControl::Run(maze_parser::MazeMessage** msg)
 {
+std::cout << "Begin scanner" << std::endl;
+	if (msg == NULL)
+	{
+		std::cout << "msg == NULL" << std::endl;
+	}
+	if (*msg == NULL)
+	{
+		std::cout << "deref msg == NULL" << std::endl;
+	}
 	readConfigFile();
 	int indexX = 0;
 	int indexY = 0;
@@ -80,17 +91,20 @@ int ScannerControl::Run(maze_parser::MazeMessage** msg)
 		else lastValue = speed;
 	}
 	
-	std::cout << std::endl << std::endl;
-	for(int y = 0; y < ySize; y++)
+std::cout << "start parsing" << std::endl;
+	std::vector<std::vector<char>*>* values = new std::vector<std::vector<char>*>();
+	for (int y = 0; y < ySize; y++)
 	{
-		for(int x = 0; x < xSize; x++)
+		values->push_back(new std::vector<char>());
+		for (int x = 0; x < xSize; x++)
 		{
-			if (scanValues[y][x] < blackThreshold) std::cout << "#";
-			else if (scanValues[y][x] > whiteThreshold) std::cout << " ";
-			else std::cout << "*";
+			values->at(y)->push_back(scanValues[y][x]);
 		}
-		std::cout << std::endl;
 	}
+std::cout << "end parsing" << std::endl;
+	
+std::cout << "send message" << std::endl;
+	*msg = new maze_parser::MazeMessage(values);
 }
 
 void ScannerControl::setMotor(MotorDriver* motor, bool forward)
@@ -110,8 +124,8 @@ void ScannerControl::setMotor(MotorDriver* motor, bool forward)
 
 void ScannerControl::readConfigFile()
 {
-    motorX = new MotorDriver("/sys/class/tacho-motor/motor0/");
-	motorY = new MotorDriver("/sys/class/tacho-motor/motor1/");
+    motorX = new MotorDriver("/sys/class/tacho-motor/motor1/");
+	motorY = new MotorDriver("/sys/class/tacho-motor/motor0/");
 	motorZ = new MotorDriver("/sys/class/tacho-motor/motor2/");
 	scanner = new Scanner("/sys/class/lego-sensor/sensor0/");
 	
