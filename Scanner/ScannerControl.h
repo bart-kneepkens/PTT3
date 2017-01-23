@@ -7,8 +7,6 @@
 #include <string>
 #include <iostream>
 #include <vector>
-//#include "lib/libconfig.h++"
-#include <libconfig.h++>
 #include "../Generic Module Client/IModule.hpp"
 
 class ScannerControl : public IModule
